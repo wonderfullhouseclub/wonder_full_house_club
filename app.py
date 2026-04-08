@@ -108,20 +108,31 @@ st.sidebar.caption(f"Бюджет на маркетинг: {marketing_budget:,.0
 
 # ФОТ с детализацией в expander
 with st.sidebar.expander("👥 Фонд оплаты труда (настроить)", expanded=False):
-    col_a, col_b = st.columns(2)
-    with col_a:
-        num_dilers = st.number_input("Дилеров", min_value=1, value=6)
-        num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2)
-        num_senior = st.number_input("Старших менеджеров", min_value=0, value=1)
-    with col_b:
-        rate_diler = st.number_input("Ставка дилера/час", value=350)
-        rate_tour = st.number_input("Ставка турнирного менеджера/час", value=250)
-        rate_senior = st.number_input("Ставка старшего менеджера/час", value=400)
+    # Дилеры
+    c1, c2 = st.columns([2, 1])
+    with c1:
+        num_dilers = st.number_input("Дилеров", min_value=1, value=6, key="num_dilers")
+    with c2:
+        rate_diler = st.number_input("Ставка/час", value=350, key="rate_diler")
+    
+    # Турнирные менеджеры
+    c3, c4 = st.columns([2, 1])
+    with c3:
+        num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2, key="num_tour")
+    with c4:
+        rate_tour = st.number_input("Ставка/час", value=250, key="rate_tour")
+    
+    # Старшие менеджеры
+    c5, c6 = st.columns([2, 1])
+    with c5:
+        num_senior = st.number_input("Старших менеджеров", min_value=0, value=1, key="num_senior")
+    with c6:
+        rate_senior = st.number_input("Ставка/час", value=400, key="rate_senior")
+    
     hours = 165
     staff_total = (num_dilers * rate_diler * hours +
                    num_tour * rate_tour * hours +
                    num_senior * rate_senior * hours)
-st.sidebar.caption(f"Итого ФОТ: {staff_total:,.0f} ₽".replace(",", " "))
 
 # Налоги (выбор режима внутри постоянных расходов)
 tax_mode = st.sidebar.selectbox(
