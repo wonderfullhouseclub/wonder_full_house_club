@@ -50,8 +50,17 @@ st.image("logo.png", width=250)
 st.header("Финансовая модель")
 st.header("Вашего клуба спортивного покера")
 st.markdown("""
-<h2 style='margin-bottom:0;'>Финансовая модель</h2>
-<h2 style='margin-top:0;'>Вашего клуба спортивного покера</h2>
+<style>
+    /* ... ваши существующие стили ... */
+    
+    /* Сближаем два заголовка подряд */
+    h2 {
+        margin-bottom: 5px !important;
+    }
+    h2 + h2 {
+        margin-top: -10px !important;
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
