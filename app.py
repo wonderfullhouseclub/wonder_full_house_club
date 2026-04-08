@@ -42,6 +42,10 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+section[data-testid="stSidebar"] .stCaption {
+    color: #D4AF37 !important;
+    font-weight: 400;
+}
 
 # --- ЛОГОТИП ---
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
