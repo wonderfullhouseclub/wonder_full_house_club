@@ -47,8 +47,6 @@ st.markdown("""
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
 
-st.header("Финансовая модель")
-st.header("Вашего клуба спортивного покера")
 st.markdown("""
 <div style="line-height: 1.2;">
     <h1 style="margin: 0; padding: 0;">Финансовая модель</h1>
