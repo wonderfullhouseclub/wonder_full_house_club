@@ -120,8 +120,6 @@ tax_mode = st.sidebar.selectbox(
 
 # --- 5. ПЕРСОНАЛ (компактный двухколоночный) ---
 st.sidebar.subheader("👥 Персонал")
-with st.sidebar.expander("Настроить ФОТ", expanded=False):
-    c1, c2 = st.columns([2, 1])
     with c1:
         num_dilers = st.number_input("Дилеров", min_value=1, value=6)
         num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2)
