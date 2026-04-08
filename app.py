@@ -49,19 +49,7 @@ st.image("logo.png", width=250)
 
 st.header("Финансовая модель")
 st.header("Вашего клуба спортивного покера")
-st.markdown("""
-<style>
-    /* ... ваши существующие стили ... */
-    
-    /* Сближаем два заголовка подряд */
-    h2 {
-        margin-bottom: 5px !important;
-    }
-    h2 + h2 {
-        margin-top: -10px !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+st.markdown("--")
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
 st.sidebar.header("📍 Параметры Вашего")
