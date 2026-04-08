@@ -113,11 +113,10 @@ marketing_budget = st.sidebar.slider("📢 Маркетинговый бюдже
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
 
 # Налоговый режим с выбором ИП/ООО
-col_tax1, col_tax2 = st.sidebar.columns(2)
-with col_tax1:
-    biz_type = st.selectbox("Орг. форма", ["ИП", "ООО"])
-with col_tax2:
-    tax_mode = st.selectbox("Налоговый режим", ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)"])
+tax_mode = st.sidebar.selectbox(
+    "🧾 Налоговый режим",
+    ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% на прибыль, без НДС)"]
+)
 
 # --- 5. ПЕРСОНАЛ (компактный двухколоночный) ---
 st.sidebar.subheader("👥 Персонал")
