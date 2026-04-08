@@ -85,11 +85,6 @@ vkhody = st.sidebar.slider(
 )
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-# 2. Маркетинг (CAC)
-st.sidebar.subheader("📢 Маркетинг")
-cac = st.sidebar.slider("Стоимость привлечения 1 гостя (CAC), руб.", 0, 1500, 350, step=50)
-marketing_budget = vkhody * cac
-st.sidebar.caption(f"Бюджет на маркетинг: {marketing_budget:,.0f} ₽".replace(",", " "))
 
 # 3. Доп. услуги
 st.sidebar.subheader("🍷 Доп. услуги")
@@ -104,6 +99,12 @@ st.sidebar.subheader("🏠 Постоянные расходы")
 
 # Аренда
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
+
+# 2. Маркетинг (CAC)
+st.sidebar.subheader("📢 Маркетинг")
+cac = st.sidebar.slider("Стоимость привлечения 1 гостя (CAC), руб.", 0, 1500, 350, step=50)
+marketing_budget = vkhody * cac
+st.sidebar.caption(f"Бюджет на маркетинг: {marketing_budget:,.0f} ₽".replace(",", " "))
 
 # ФОТ с детализацией в expander
 with st.sidebar.expander("👥 Фонд оплаты труда (настроить)", expanded=False):
