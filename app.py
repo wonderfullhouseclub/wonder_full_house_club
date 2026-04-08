@@ -172,13 +172,13 @@ if tax_mode == "УСН 6% (Доходы)":
 elif tax_mode == "УСН 15% (Доходы - Расходы)":
     tax_base = total_revenue - (opex_before + royalty_sum)
     tax_amount = max(0, tax_base * 0.15)
-else:  # ОСНО (25% на прибыль, без учёта НДС)
+else:  # ОСНО (25% с прибыли, без НДС)
     profit_before_tax = total_revenue - opex_before - royalty_sum
     tax_amount = max(0, profit_before_tax * 0.25)
 
-# Итоговые расходы и прибыль
+# Итоги
 total_opex = opex_before + royalty_sum + tax_amount
-net_profit = total_revenue - total_opex   # ← эта строка должна быть ДО её использования
+net_profit = total_revenue - total_opex
 
 # ================== МЕТРИКИ ==================
 col1, col2, col3, col4 = st.columns(4)
