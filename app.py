@@ -171,10 +171,10 @@ st.sidebar.subheader("💰 Первичные инвестиции")
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
-                               min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
+                               min_value=0, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 
-total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing + inv_reserve
+total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
 
 # ================== РАСЧЁТ ==================
@@ -275,7 +275,7 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Прочие расходы: {other_opex:,.0f} ₽".replace(",", " "))
         st.write(f"Роялти: {royalty_sum:,.0f} ₽".replace(",", " "))
         st.write(f"Налог ({tax_mode}): {tax_amount:,.0f} ₽".replace(",", " "))
-    with col_d2:
+     with col_d2:
         st.write("**Первичные инвестиции**")
         st.write(f"Ремонт и оснащение: {inv_repair:,.0f} ₽".replace(",", " "))
         st.write(f"Оборудование и комплектующие: {inv_equip:,.0f} ₽".replace(",", " "))
