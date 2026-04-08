@@ -10,7 +10,7 @@ st.markdown("""
 <style>
     /* Основной фон */
     .stApp {
-        background-color: #ECF0ED;
+        background-color: #5F6367;
     }
     /* Боковая панель */
     section[data-testid="stSidebar"] {
@@ -20,6 +20,11 @@ st.markdown("""
     /* Заголовки */
     h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
         color: #FF4C24 !important;
+    }    
+        /* Цвет подписей к полям в боковой панели */
+    section[data-testid="stSidebar"] label {
+        color: #ECF0ED !important;
+        font-weight: 500;
     }
     /* Кнопки */
     .stButton > button {
