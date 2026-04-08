@@ -193,7 +193,7 @@ col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
 col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
-col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
+col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
