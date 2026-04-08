@@ -115,7 +115,7 @@ marketing_budget = st.sidebar.slider("📢 Маркетинговый бюдже
 # Налоговый режим с выбором ИП/ООО
 tax_mode = st.sidebar.selectbox(
     "🧾 Налоговый режим",
-    ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% на прибыль, без НДС)"]
+    ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
 # --- 5. ПЕРСОНАЛ (компактный двухколоночный) ---
@@ -152,37 +152,33 @@ st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f
 rev_vkhody = vkhody * vkhody_price
 rev_bar = (vkhody * bar_conv) * bar_check
 rev_hookah = (vkhody * hookah_conv) * hookah_check
-total_revenue = rev_vkhody + rev_bar + rev_hookah  # убрали рекламу
+total_revenue = rev_vkhody + rev_bar + rev_hookah
 
 # Операционные расходы до роялти и налогов
 opex_before = rent + other_opex + marketing_budget + staff_total
 
-# Роялти (без ручной корректировки)
+# Роялти
 if "Partner" in support_level:
     profit_before = total_revenue - opex_before
     royalty_sum = max(0, profit_before * 0.5)
-else:
-    if "Pro" in support_level:
-        royalty_rate = 0.10
-    else:  # VIP
-        royalty_rate = 0.15
-    royalty_sum = total_revenue * royalty_rate
+elif "Pro" in support_level:
+    royalty_sum = total_revenue * 0.10
+else:  # VIP
+    royalty_sum = total_revenue * 0.15
 
-# Налог (ИП или ООО — ставки одинаковые, просто для справки)
+# Налог
 if tax_mode == "УСН 6% (Доходы)":
     tax_amount = total_revenue * 0.06
 elif tax_mode == "УСН 15% (Доходы - Расходы)":
     tax_base = total_revenue - (opex_before + royalty_sum)
     tax_amount = max(0, tax_base * 0.15)
-else:  # ОСНО
+else:  # ОСНО (25% на прибыль, без учёта НДС)
     profit_before_tax = total_revenue - opex_before - royalty_sum
     tax_amount = max(0, profit_before_tax * 0.25)
 
-# Окупаемость
-if net_profit > 0:
-    payback_months = total_investments / net_profit
-else:
-    payback_months = float('inf')
+# Итоговые расходы и прибыль
+total_opex = opex_before + royalty_sum + tax_amount
+net_profit = total_revenue - total_opex   # ← эта строка должна быть ДО её использования
 
 # ================== МЕТРИКИ ==================
 col1, col2, col3, col4 = st.columns(4)
