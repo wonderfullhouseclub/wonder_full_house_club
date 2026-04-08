@@ -235,16 +235,14 @@ with c1:
     percentages = [v / total * 100 for v in values]
     
     # Столбчатая диаграмма
-    fig_bar = go.Figure()
     fig_bar.add_trace(go.Bar(
         x=labels,
         y=values,
         text=[f"{v:,.0f} ₽<br>({p:.1f}%)" for v, p in zip(values, percentages)],
         textposition='outside',
         textfont=dict(color='white', size=13),
-        marker=dict(color=['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'],  # синий, зелёный, янтарный, фиолетовый
+        marker=dict(color=['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'],
                     line=dict(width=0)),
-        hoverinfo='y+percent',
         hovertemplate='%{y:,.0f} ₽<extra></extra>'
     ))
     
