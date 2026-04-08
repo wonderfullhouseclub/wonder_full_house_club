@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # --- НАСТРОЙКА СТРАНИЦЫ ---
-st.set_page_config(page_title="Франшиза Покер | Калькулятор", layout="wide")
+st.set_page_config(page_title="Финансовая модель | Wonder Full House Club", layout="wide")
 
 # --- ФИРМЕННЫЙ CSS (ЧЁРНЫЙ + ОРАНЖЕВЫЙ) ---
 st.markdown("""
@@ -30,7 +30,7 @@ st.markdown("""
     }
     /* Метрики */
     div[data-testid="metric-container"] {
-        background-color: #1E222A;
+        background-color: #171717;
         border: 1px solid #D4AF37;
         border-radius: 10px;
         padding: 10px;
