@@ -49,7 +49,10 @@ st.image("logo.png", width=250)
 
 st.header("Финансовая модель")
 st.header("Вашего клуба спортивного покера")
-st.markdown("---")
+st.markdown("""
+<h2 style='margin-bottom:0;'>Финансовая модель</h2>
+<h2 style='margin-top:0;'>Вашего клуба спортивного покера</h2>
+""", unsafe_allow_html=True)
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
 st.sidebar.header("📍 Параметры Вашего")
