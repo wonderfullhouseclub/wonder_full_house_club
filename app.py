@@ -10,16 +10,16 @@ st.markdown("""
 <style>
     /* Основной фон */
     .stApp {
-        background-color: #171717;
+        background-color: #ECF0ED;
     }
     /* Боковая панель */
     section[data-testid="stSidebar"] {
-        background-color: #FF4C24;
-        border-right: 2px solid #D4AF37;
+        background-color: #171717;
+        border-right: 2px solid #FF4C24;
     }
     /* Заголовки */
     h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
-        color: #D4AF37 !important;
+        color: #FF4C24 !important;
     }
     /* Кнопки */
     .stButton > button {
