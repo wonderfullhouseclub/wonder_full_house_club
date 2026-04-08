@@ -105,7 +105,7 @@ st.sidebar.subheader("🏠 Постоянные расходы")
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
 
 # Операционные расходы
-other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
+other_opex = st.sidebar.slider("💡 Операционные расходы руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
 
 # Маркетинг (общий бюджет, без CAC)
