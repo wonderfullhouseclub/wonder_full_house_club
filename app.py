@@ -59,7 +59,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns(4)
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
-st.sidebar.header("📍 Конфигуратор клуба")
+st.sidebar.header("📍 Конфигуратор")
 
 # 1. Формат клуба и трафик
 st.sidebar.subheader("🎲 Формат клуба")
