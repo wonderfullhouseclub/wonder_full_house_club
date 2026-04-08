@@ -46,7 +46,6 @@ st.markdown("""
 # --- ЛОГОТИП ---
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
-
 st.title ("")
 st.markdown("""
 <div style="line-height: 1.2;">
