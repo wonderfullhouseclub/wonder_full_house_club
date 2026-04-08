@@ -47,7 +47,7 @@ st.markdown("""
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
 
-st.title("📊 Финансовая модель Wonder Full House Club")
+st.title("📊 Финансовая модель Вашего клуба спортивного покера")
 st.markdown("---")
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
@@ -210,8 +210,32 @@ with c1:
     st.subheader("🧩 Структура выручки")
     labels = ['Входы', 'Бар', 'Кальяны', 'Реклама']
     values = [rev_vkhody, rev_bar, rev_hookah, rev_ads]
-    fig_pie = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3,
-                                     marker=dict(colors=['#D4AF37', '#B8860B', '#CD7F32', '#8B6508']))])
+    
+    # 🎨 Фирменная палитра (золото, тёмное золото, бронза, песочный)
+    colors = ['#D4AF37', '#B8860B', '#CD7F32', '#C5A059']
+    
+    fig_pie = go.Figure(data=[go.Pie(
+        labels=labels,
+        values=values,
+        hole=.4,                       # размер «дырки» (пончик)
+        marker=dict(
+            colors=colors,
+            line=dict(color='#1A1C23', width=2)  # обводка под цвет фона панели
+        ),
+        textinfo='percent+label',       # показывать проценты и названия
+        textfont=dict(color='white', size=14),
+        hoverinfo='label+value+percent'
+    )])
+    
+    # 🌑 Тёмная тема для фона графика
+    fig_pie.update_layout(
+        paper_bgcolor='#0E1117',        # внешний фон
+        plot_bgcolor='#0E1117',         # внутренний фон
+        font=dict(color='white'),
+        showlegend=False,               # легенду можно убрать (подписи уже есть)
+        margin=dict(t=30, b=10, l=10, r=10)
+    )
+    
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with c2:
