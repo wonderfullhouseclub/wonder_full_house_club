@@ -39,13 +39,18 @@ st.markdown("""
         border: 1px solid #5F6367;
         border-radius: 10px;
         padding: 10px;
+    }   
+    /* Цвет подписей (caption) в боковой панели */
+    section[data-testid="stSidebar"] .stCaption {
+        color: #D4AF37 !important;
+        font-weight: 400;
+    }
+    /* Цвет выделенного жирного текста в боковой панели */
+    section[data-testid="stSidebar"] strong {
+        color: #D4AF37 !important;
     }
 </style>
 """, unsafe_allow_html=True)
-section[data-testid="stSidebar"] .stCaption {
-    color: #D4AF37 !important;
-    font-weight: 400;
-}
 
 # --- ЛОГОТИП ---
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
