@@ -223,107 +223,38 @@ col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 st.markdown("---")
 
 # ================== ГРАФИКИ (НОВЫЙ СТИЛЬ) ==================
-c1, c2 = st.columns(2)
+# ================== СТРУКТУРА ВЫРУЧКИ ==================
+st.subheader("🧩 Структура выручки")
 
-with c1:
-    st.subheader("🧩 Структура выручки")
-    
-    # Подготовка данных
-    labels = ['Входы', 'Бар', 'Кальяны', 'Реклама']
-    values = [rev_vkhody, rev_bar, rev_hookah, rev_ads]
-    total = sum(values)
-    percentages = [v / total * 100 for v in values]
-    
-    # Создаём фигуру
-    fig_bar = go.Figure()
-    
-    # Столбчатая диаграмма
-    fig_bar.add_trace(go.Bar(
-        x=labels,
-        y=values,
-        text=[f"{v:,.0f} ₽<br>({p:.1f}%)" for v, p in zip(values, percentages)],
-        textposition='outside',
-        textfont=dict(color='white', size=13),
-        marker=dict(color=['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'],
-                    line=dict(width=0)),
-        hovertemplate='%{y:,.0f} ₽<extra></extra>'
-    ))
-    
-    fig_bar.update_layout(
-        paper_bgcolor='#0E1117',
-        plot_bgcolor='#0E1117',
-        font=dict(color='white'),
-        xaxis=dict(title=None, tickfont=dict(size=14), gridcolor='#2A2E38'),
-        yaxis=dict(title='Сумма, ₽', gridcolor='#2A2E38', zerolinecolor='#2A2E38'),
-        margin=dict(t=30, b=10, l=10, r=10),
-        showlegend=False,
-        height=400
-    )
-    st.plotly_chart(fig_bar, use_container_width=True)
+labels = ['Вход в игру', 'Кальян', 'Бар']
+values = [rev_vkhody, rev_hookah, rev_bar]
 
-with c2:
-    st.subheader("📉 Прогноз движения денег")
-    
-    months = list(range(13))
-    cash_flow = [-total_investments + (net_profit * m) for m in months]
-    
-    # Находим месяц окупаемости
-    payback_month = None
-    for i, cf in enumerate(cash_flow):
-        if cf >= 0 and cash_flow[i-1] < 0:
-            payback_month = i
-            break
-    
-    fig_line = go.Figure()
-    
-    # Основная линия
-    fig_line.add_trace(go.Scatter(
-        x=months,
-        y=cash_flow,
-        mode='lines+markers',
-        name='Накопленный денежный поток',
-        line=dict(color='#3B82F6', width=4),
-        marker=dict(color='white', size=8, line=dict(color='#3B82F6', width=2)),
-        fill='tozeroy',
-        fillcolor='rgba(59, 130, 246, 0.1)',
-        hovertemplate='Месяц %{x}: %{y:,.0f} ₽<extra></extra>'
-    ))
-    
-    # Горизонтальная линия окупаемости
-    fig_line.add_hline(y=0, line_dash="dash", line_color="#EF4444", line_width=2,
-                       annotation_text="Точка безубыточности",
-                       annotation_position="bottom right",
-                       annotation_font_size=12,
-                       annotation_font_color="#EF4444")
-    
-    # Добавляем вертикальную аннотацию, если окупаемость достигнута
-    if payback_month is not None:
-        fig_line.add_vline(x=payback_month, line_width=1, line_dash="dot", line_color="gray")
-        fig_line.add_annotation(
-            x=payback_month, y=cash_flow[payback_month],
-            text=f"{payback_month} мес.",
-            showarrow=True,
-            arrowhead=1,
-            ax=20,
-            ay=-30,
-            font=dict(color="white", size=12),
-            bgcolor="#1E222A",
-            bordercolor="#3B82F6"
-        )
-    
-    fig_line.update_layout(
-        xaxis_title="Месяц",
-        yaxis_title="Накопленная прибыль, ₽",
-        paper_bgcolor='#0E1117',
-        plot_bgcolor='#0E1117',
-        font=dict(color='white'),
-        hovermode='x unified',
-        xaxis=dict(tickmode='linear', dtick=1, gridcolor='#2A2E38'),
-        yaxis=dict(gridcolor='#2A2E38', zerolinecolor='#2A2E38'),
-        margin=dict(t=30, b=40, l=60, r=20),
-        height=400
-    )
-    st.plotly_chart(fig_line, use_container_width=True)
+# Оттенки на основе #FF4C24
+colors = ['#FF4C24',  # базовый
+          '#FF7A5C',  # светлее
+          '#CC3A1A']  # темнее
+
+fig_pie = go.Figure(data=[go.Pie(
+    labels=labels,
+    values=values,
+    hole=0.4,
+    marker=dict(colors=colors, line=dict(color='#1A1C23', width=2)),
+    textinfo='percent+label',
+    textfont=dict(color='white', size=15),
+    hoverinfo='label+value+percent',
+    hovertemplate='%{label}: %{value:,.0f} ₽ (%{percent})<extra></extra>'
+)])
+
+fig_pie.update_layout(
+    paper_bgcolor='#0E1117',
+    plot_bgcolor='#0E1117',
+    font=dict(color='white'),
+    showlegend=False,
+    margin=dict(t=30, b=10, l=10, r=10),
+    height=450
+)
+
+st.plotly_chart(fig_pie, use_container_width=True)
 
 # --- ДЕТАЛИЗАЦИЯ РАСХОДОВ (сворачиваемый блок) ---
 with st.expander("📋 Детализация расходов и инвестиций"):
