@@ -275,7 +275,7 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Прочие расходы: {other_opex:,.0f} ₽".replace(",", " "))
         st.write(f"Роялти: {royalty_sum:,.0f} ₽".replace(",", " "))
         st.write(f"Налог ({tax_mode}): {tax_amount:,.0f} ₽".replace(",", " "))
-     with col_d2:
+    with col_d2:
         st.write("**Первичные инвестиции**")
         st.write(f"Ремонт и оснащение: {inv_repair:,.0f} ₽".replace(",", " "))
         st.write(f"Оборудование и комплектующие: {inv_equip:,.0f} ₽".replace(",", " "))
