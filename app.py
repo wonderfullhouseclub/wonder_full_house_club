@@ -159,7 +159,7 @@ st.sidebar.subheader("💰 Первичные инвестиции")
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
-                               min_value=500_000, max_value=3_000_000, value=1_000_000, step=50_000)
+                               min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 inv_reserve = st.sidebar.number_input("💼 Резервный фонд на первые 3 месяца, руб.", value=500_000, step=50_000)
 
