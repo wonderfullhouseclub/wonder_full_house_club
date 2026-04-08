@@ -52,7 +52,8 @@ st.header("Вашего клуба спортивного покера")
 st.markdown("---")
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
-st.sidebar.header("📍 Параметры вашей точки")
+st.sidebar.header("📍 Параметры Вашего")
+st.sidebar.header("Wonder Full House Club")
 
 # 1. Формат клуба и трафик
 st.sidebar.subheader("🎲 Формат клуба")
