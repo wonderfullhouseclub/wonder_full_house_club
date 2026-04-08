@@ -118,20 +118,22 @@ tax_mode = st.sidebar.selectbox(
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-# --- 5. ПЕРСОНАЛ (компактный двухколоночный) ---
+# --- 5. ПЕРСОНАЛ (без expander, прямо на панели) ---
 st.sidebar.subheader("👥 Персонал")
-    with c1:
-        num_dilers = st.number_input("Дилеров", min_value=1, value=6)
-        num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2)
-        num_senior = st.number_input("Старших менеджеров", min_value=0, value=1)
-    with c2:
-        rate_diler = st.number_input("Ставка / час", value=350, key="rate_diler")
-        rate_tour = st.number_input("Ставка / час", value=250, key="rate_tour")
-        rate_senior = st.number_input("Ставка / час", value=400, key="rate_senior")
-    hours = 165
-    staff_total = (num_dilers * rate_diler * hours +
-                   num_tour * rate_tour * hours +
-                   num_senior * rate_senior * hours)
+c1, c2 = st.sidebar.columns([2, 1])
+with c1:
+    num_dilers = st.number_input("Дилеров", min_value=1, value=6, key="num_dilers")
+    num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2, key="num_tour")
+    num_senior = st.number_input("Старших менеджеров", min_value=0, value=1, key="num_senior")
+with c2:
+    rate_diler = st.number_input("Ставка/час", value=350, key="rate_diler")
+    rate_tour = st.number_input("Ставка/час", value=250, key="rate_tour")
+    rate_senior = st.number_input("Ставка/час", value=400, key="rate_senior")
+
+hours = 165
+staff_total = (num_dilers * rate_diler * hours +
+               num_tour * rate_tour * hours +
+               num_senior * rate_senior * hours)
 st.sidebar.caption(f"Итого ФОТ: {staff_total:,.0f} ₽".replace(",", " "))
 
 # --- 6. ПЕРВИЧНЫЕ ИНВЕСТИЦИИ (без резервного фонда) ---
