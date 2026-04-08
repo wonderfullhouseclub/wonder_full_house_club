@@ -47,7 +47,8 @@ st.markdown("""
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
 
-st.title("📊 Финансовая модель | Wonder Full House Club")
+st.title("📊 Финансовая модель 
+Wonder Full House Club")
 st.markdown("---")
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
