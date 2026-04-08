@@ -171,12 +171,12 @@ else:
 # Налог (ИП или ООО — ставки одинаковые, просто для справки)
 if tax_mode == "УСН 6% (Доходы)":
     tax_amount = total_revenue * 0.06
-else:  # УСН 15%
+elif tax_mode == "УСН 15% (Доходы - Расходы)":
     tax_base = total_revenue - (opex_before + royalty_sum)
     tax_amount = max(0, tax_base * 0.15)
-
-total_opex = opex_before + royalty_sum + tax_amount
-net_profit = total_revenue - total_opex
+else:  # ОСНО
+    profit_before_tax = total_revenue - opex_before - royalty_sum
+    tax_amount = max(0, profit_before_tax * 0.25)
 
 # Окупаемость
 if net_profit > 0:
