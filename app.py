@@ -231,7 +231,7 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Маркетинг: {marketing_budget:,.0f} ₽".replace(",", " "))
         st.write(f"ФОТ: {staff_total:,.0f} ₽".replace(",", " "))
         st.write(f"Роялти: {royalty_sum:,.0f} ₽".replace(",", " "))
-        st.write(f"Налог ({biz_type}, {tax_mode}): {tax_amount:,.0f} ₽".replace(",", " "))
+        st.write(f"Налог ({tax_mode}): {tax_amount:,.0f} ₽".replace(",", " "))
         st.write("---")
         st.write(f"**Итого пост. расходы: {total_opex:,.0f} ₽**".replace(",", " "))
     with col_d2:
