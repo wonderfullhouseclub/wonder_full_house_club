@@ -59,8 +59,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col1, col2, col3, col4 = st.columns(4)
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
-st.sidebar.header("📍 Параметры Вашего")
-st.sidebar.header("Wonder Full House Club")
+st.sidebar.header("📍 Конфигуратор клуба")
 
 # 1. Формат клуба и трафик
 st.sidebar.subheader("🎲 Формат клуба")
