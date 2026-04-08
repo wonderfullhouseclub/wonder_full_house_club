@@ -180,6 +180,12 @@ else:  # ОСНО (25% с прибыли, без НДС)
 total_opex = opex_before + royalty_sum + tax_amount
 net_profit = total_revenue - total_opex
 
+# Окупаемость
+if net_profit > 0:
+    payback_months = total_investments / net_profit
+else:
+    payback_months = float('inf')
+
 # ================== МЕТРИКИ ==================
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("💰 Выручка", f"{total_revenue:,.0f} ₽".replace(",", " "))
