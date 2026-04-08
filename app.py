@@ -47,7 +47,7 @@ st.markdown("""
     }
     /* Цвет выделенного жирного текста в боковой панели */
     section[data-testid="stSidebar"] strong {
-        color: #D4AF37 !important;
+        color: #FF4C24 !important;
     }
 </style>
 """, unsafe_allow_html=True)
