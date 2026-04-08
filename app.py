@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Франшиза Покер | Калькулятор", layout="wide")
 
 # --- ЛОГОТИП (Замените URL на ссылку вашего логотипа) ---
-st.image("https://i.ibb.co/0jQr3LQ/placeholder-logo.png", width=200) 
+st.image("logo.png", width=200) 
 # Если картинка лежит локально в папке с app.py, напишите: st.image("logo.png", width=200)
 
 st.title("📊 Калькулятор прибыльности франшизы «Спортивный Покер»")
