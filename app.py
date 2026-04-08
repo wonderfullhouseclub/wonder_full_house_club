@@ -46,13 +46,17 @@ st.markdown("""
 # --- ЛОГОТИП ---
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
-st.title ("")
 st.markdown("""
 <div style="line-height: 1.2;">
     <h1 style="margin: 0; padding: 0;">Финансовая модель</h1>
     <h1 style="margin: 0; padding: 0;">Вашего клуба спортивного покера</h1>
 </div>
 """, unsafe_allow_html=True)
+
+# Добавьте небольшой отступ перед метриками
+st.markdown("<br>", unsafe_allow_html=True)
+
+col1, col2, col3, col4 = st.columns(4)
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
 st.sidebar.header("📍 Параметры Вашего")
