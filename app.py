@@ -80,7 +80,7 @@ elif club_format.startswith("FULL HOUSE"):
 else:
     min_v, max_v, def_v = 4000, 8000, 6000
 
-vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
+vkhody = st.sidebar.slider("🚪 Количество входов в игру в месяц", min_v, max_v, def_v, step=50)
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
 # --- 2. УРОВЕНЬ ПОДДЕРЖКИ (перенесён выше) ---
