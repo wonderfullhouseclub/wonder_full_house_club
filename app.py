@@ -234,6 +234,9 @@ with c1:
     total = sum(values)
     percentages = [v / total * 100 for v in values]
     
+    # Создаём фигуру
+    fig_bar = go.Figure()
+    
     # Столбчатая диаграмма
     fig_bar.add_trace(go.Bar(
         x=labels,
@@ -282,7 +285,7 @@ with c2:
         line=dict(color='#3B82F6', width=4),
         marker=dict(color='white', size=8, line=dict(color='#3B82F6', width=2)),
         fill='tozeroy',
-        fillcolor='rgba(59, 130, 246, 0.1)',  # лёгкая голубая заливка
+        fillcolor='rgba(59, 130, 246, 0.1)',
         hovertemplate='Месяц %{x}: %{y:,.0f} ₽<extra></extra>'
     ))
     
