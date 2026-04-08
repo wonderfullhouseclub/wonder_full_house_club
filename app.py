@@ -10,7 +10,7 @@ st.markdown("""
 <style>
     /* Основной фон */
     .stApp {
-        background-color: #5F6367;
+        background-color: #ECF0ED;
     }
     /* Боковая панель */
     section[data-testid="stSidebar"] {
@@ -35,8 +35,8 @@ st.markdown("""
     }
     /* Метрики */
     div[data-testid="metric-container"] {
-        background-color: #171717;
-        border: 1px solid #D4AF37;
+        background-color: #5F6367;
+        border: 1px solid #5F6367;
         border-radius: 10px;
         padding: 10px;
     }
@@ -47,7 +47,7 @@ st.markdown("""
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
 st.image("logo.png", width=250)
 
-st.title("📊 Калькулятор прибыльности франшизы «Спортивный Покер»")
+st.title("📊 Финансовая модель | Wonder Full House Club")
 st.markdown("---")
 
 # --- БОКОВАЯ ПАНЕЛЬ ---
