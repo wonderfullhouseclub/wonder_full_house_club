@@ -6,50 +6,47 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. Общие настройки фона */
+    /* 1. ФОН ПРИЛОЖЕНИЯ */
     .stApp { background-color: #ECF0ED; }
 
-    /* 2. Настройки ТОЛЬКО для боковой панели */
+    /* 2. БОКОВАЯ ПАНЕЛЬ */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
-        border-right: 2px solid #FF4C24;
     }
 
-    /* Цвет текста заголовков в сайдбаре */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
-        color: #FFFFFF !important;
+    /* Красим ВООБЩЕ ВЕСЬ текст в сайдбаре в белый (заголовки, мин/макс, метки) */
+    section[data-testid="stSidebar"] * {
+        color: white !important;
     }
 
-    /* Цвета Мин/Макс под слайдерами */
-    section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
-    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
+    /* Выделяем оранжевым только конкретные заголовки h2 и h3 в сайдбаре */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {
+        color: #FF4C24 !important;
     }
 
-    /* Скрываем бегающую цифру над слайдером */
+    /* Скрываем бегающую цифру над ползунком */
     section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
         display: none !important;
     }
 
-    /* 3. Настройки для основной области (чтобы текст был черным/темным) */
-    .main .stMarkdown, .main p {
+    /* 3. ОСНОВНАЯ ОБЛАСТЬ (Центр экрана) */
+    /* Весь текст в центре делаем черным, чтобы он не был белым на светлом фоне */
+    .main p, .main span, .main label {
         color: #1A1C23 !important;
     }
 
-    /* Заголовки в основной части (оставляем оранжевыми) */
-    .main h1, .main h2, .main h3 {
+    /* Заголовки в центре — оранжевые */
+    .main h1, .main h2 {
         color: #FF4C24 !important;
     }
 
-    /* Карточки метрик (белые с темным текстом) */
+    /* МЕТРИКИ (белые блоки с темным текстом) */
     div[data-testid="metric-container"] {
-        background-color: #FFFFFF;
-        border: 1px solid #CCCCCC;
-        border-radius: 10px;
-        padding: 10px;
+        background-color: #FFFFFF !important;
+        border: 1px solid #CCCCCC !important;
     }
-    div[data-testid="metric-container"] label p, 
-    div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
     }
 </style>
