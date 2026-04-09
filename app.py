@@ -7,66 +7,64 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 st.markdown("""
 <style>
     /* 1. ОСНОВНОЙ ФОН И САЙДБАР */
-    .stApp { 
-        background-color: #ECF0ED !important; 
-    }
+    .stApp { background-color: #ECF0ED !important; }
     
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
-        /* Возвращаем оранжевую линию-разделитель справа */
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. МИН / МАКС — ВОЗВРАЩАЕМ БЕЛЫЙ ЦВЕТ */
-    /* Используем самый простой и надежный путь, который работал */
+    /* 2. ЦИФРА НАД ПОЛЗУНКОМ (Оранжевая и Жирная) */
+    /* Используем экстремальную специфичность, чтобы пробить белый цвет */
+    div[data-testid="stThumbValue"] > div,
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.35rem !important;
+        display: block !important;
+    }
+
+    /* 3. МИН / МАКС (Белые, маленькие) */
     div[data-testid="stTickBarMin"], 
     div[data-testid="stTickBarMax"] {
         color: #FFFFFF !important;
-        opacity: 1 !important;
-        font-size: 0.8rem !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 0.7 !important;
+        font-size: 0.75rem !important;
     }
 
-    /* 3. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Над слайдером) */
-    /* Оранжевый, максимально жирный */
-    div[data-testid="stThumbValue"] {
-        color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
-    }
-
-    /* 4. ЗАГОЛОВКИ И ПОДПИСИ (Белые) */
+    /* 4. ТЕКСТ ПОДПИСЕЙ */
+    /* Красим в белый только те параграфы, которые НЕ являются значением слайдера */
     section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] p {
+    section[data-testid="stSidebar"] p:not([data-testid="stThumbValue"]) {
         color: #FFFFFF !important;
     }
     
-    /* Заголовки разделов (Оранжевые) */
+    /* Заголовки разделов */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (Чиним "белое на белом") */
-    /* Оставляем инпуты и выпадающие списки читаемыми */
+    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Черный на белом) */
     section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] select,
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
         color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
     }
     section[data-testid="stSidebar"] div[data-baseweb="input"],
     section[data-testid="stSidebar"] div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ТЕКСТ В ОСНОВНОМ ПОЛЕ (Черный на #ECF0ED) */
+    /* 6. ТЕКСТ В ОСНОВНОМ ПОЛЕ */
     .main p, .main span, .main label, .main h2, .main h3 {
         color: #1A1C23 !important;
     }
-    .main h1 {
-        color: #FF4C24 !important;
-    }
+    .main h1 { color: #FF4C24 !important; }
 
-    /* МЕТРИКИ (Белые карточки) */
+    /* МЕТРИКИ */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
         border: 1px solid #CCCCCC !important;
