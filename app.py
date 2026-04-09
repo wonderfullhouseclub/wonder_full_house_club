@@ -236,6 +236,21 @@ fig_pie.update_layout(
 )
 st.plotly_chart(fig_pie, use_container_width=True)
 
+st.components.v1.html("""
+<script>
+(function() {
+    const observer = new MutationObserver(() => {
+        document.querySelectorAll('div[data-testid="stThumbValue"]').forEach(el => {
+            el.style.color = '#FF4C24';
+            el.style.fontWeight = 'bold';
+            el.querySelectorAll('*').forEach(child => child.style.color = '#FF4C24');
+        });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+""", height=0, width=0)
+
 # --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
