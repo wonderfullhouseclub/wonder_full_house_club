@@ -6,23 +6,26 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ГЛОБАЛЬНО */
+    /* 1. ОБЩИЙ ВИД */
     .stApp { background-color: #ECF0ED !important; }
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ВЕРНУТЬ ЖИРНОСТЬ И БЕЛЫЙ ЦВЕТ ЗАГОЛОВКАМ */
+    /* 2. ЗАГОЛОВКИ (Делаем жирными и оранжевыми) */
+    /* Добавляем .stMarkdown h2/h3 для максимального приоритета */
     section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
+    section[data-testid="stSidebar"] h3,
+    section[data-testid="stSidebar"] .stMarkdown h2, 
+    section[data-testid="stSidebar"] .stMarkdown h3 {
         color: #FF4C24 !important;
-        font-weight: 700 !important; /* Возвращаем жирность */
         -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 800 !important; /* Экстра-жирный */
+        font-family: inherit;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД СЛАЙДЕРОМ (THUMB) */
-    /* Используем максимально специфичный путь через атрибуты */
+    /* 3. ЦИФРА НАД СЛАЙДЕРОМ (Уже работает, закрепляем) */
     div[data-testid="stSlider"] div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
@@ -30,16 +33,26 @@ st.markdown("""
         font-size: 1.4rem !important;
     }
 
-    /* 4. МИН / МАКС И ПОДПИСИ (СТРОГО БЕЛЫЕ) */
+    /* 4. МИН / МАКС — ВОЗВРАЩАЕМ ИЗ СЕРОГО В БЕЛЫЙ */
+    /* Бьем по внутренним контейнерам, которые Streamlit делает прозрачными */
     [data-testid="stTickBarMin"], 
     [data-testid="stTickBarMax"],
-    [data-testid="stWidgetLabel"] p {
+    [data-testid="stTickBarMin"] > div,
+    [data-testid="stTickBarMax"] > div {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important; /* Убираем прозрачность, которая дает серый цвет */
+        font-weight: 600 !important;
+    }
+
+    /* 5. ПОДПИСИ К ВИДЖЕТАМ */
+    section[data-testid="stSidebar"] .stWidgetLabel label p {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
     }
 
-    /* 5. ЧИНИМ ВЫПАДАЮЩИЕ СПИСКИ (ЧЕРНЫЙ ТЕКСТ) */
+    /* 6. ВЫПАДАЮЩИЕ СПИСКИ (Черный на белом) */
     section[data-testid="stSidebar"] [data-baseweb="select"] span,
     section[data-testid="stSidebar"] [data-baseweb="select"] div,
     section[data-testid="stSidebar"] input {
@@ -52,14 +65,13 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ОСНОВНОЕ ПОЛЕ */
+    /* 7. ОСНОВНОЕ ПОЛЕ */
     .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
     }
     .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
-
 st.image("logo.png", width=250)
 
 st.markdown("""
