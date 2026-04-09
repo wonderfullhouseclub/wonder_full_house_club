@@ -6,29 +6,36 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ВОЗВРАЩАЕМ ОРАНЖЕВУЮ ЦИФРУ (Thumb Value) */
-    /* Используем цепочку, чтобы точно попасть в текстовый узел */
-    div[data-testid="stThumbValue"] > div,
-    div[data-testid="stThumbValue"] span,
-    .st-ae div[data-testid="stThumbValue"] {
+    /* 1. ВОЗВРАЩАЕМ ОСНОВНОЙ ФОН */
+    .stApp { 
+        background-color: #ECF0ED !important; 
+    }
+
+    /* 2. ВОЗВРАЩАЕМ ЦВЕТ БОКОВОЙ ПАНЕЛИ И ОРАНЖЕВУЮ ЛИНИЮ */
+    section[data-testid="stSidebar"] {
+        background-color: #1A1C23 !important;
+        border-right: 3px solid #FF4C24 !important; /* Та самая линия */
+    }
+
+    /* 3. ЧИНИМ ТЕКСТ В ОСНОВНОМ ПОЛЕ (Черный на светлом фоне) */
+    .main p, .main span, .main label, .main h1, .main h2, .main h3 {
+        color: #1A1C23 !important;
+    }
+    
+    /* Оставляем главный заголовок оранжевым для стиля */
+    .main h1 {
         color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
-        opacity: 1 !important;
     }
 
-    /* 2. ПОДСТРАХОВКА: ЦВЕТ ЛИНИИ ПОЛЗУНКA (Active Track) */
-    /* Чтобы ползунок до цифры тоже был оранжевым */
-    div[data-testid="stSlider"] [data-baseweb="slider"] > div > div {
-        background-color: #FF4C24 !important;
+    /* 4. КАРТОЧКИ МЕТРИК (Если есть) */
+    div[data-testid="metric-container"] {
+        background-color: #FFFFFF !important;
+        border: 1px solid #CCCCCC !important;
+        border-radius: 8px;
+        padding: 10px;
     }
-
-    /* 3. ФИКСАЦИЯ БЕЛОГО ЦВЕТА ДЛЯ ВЕРХНИХ ПОДПИСЕЙ */
-    /* Чтобы названия слайдеров оставались белыми на темном фоне */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+    div[data-testid="metric-container"] * {
+        color: #1A1C23 !important;
     }
 </style>
 """, unsafe_allow_html=True)
