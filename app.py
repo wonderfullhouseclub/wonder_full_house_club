@@ -9,44 +9,44 @@ st.markdown("""
     /* 1. Общий фон */
     .stApp { background-color: #ECF0ED; }
 
-    /* 2. Сайдбар */
+    /* 2. Сайдбар - принудительный фон */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* Текст заголовков (label) и подписи Мин/Макс у слайдеров — в БЕЛЫЙ */
-    section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] [data-testid="stTickBarMin"],
-    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+    /* 3. ПРОБИВАЕМ СЕРЫЙ ЦВЕТ. 
+       Красим все мелкие подписи, включая Min/Max и названия слайдеров в БЕЛЫЙ */
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] span, 
+    section[data-testid="stSidebar"] div[data-testid="stTickBarMin"], 
+    section[data-testid="stSidebar"] div[data-testid="stTickBarMax"] {
         color: #FFFFFF !important;
     }
 
-    /* Скрываем бегающую цифру над слайдером */
-    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
-        display: none !important;
-    }
-
-    /* Цвета заголовков h2 и h3 в сайдбаре — в ОРАНЖЕВЫЙ */
+    /* 4. ЗАГОЛОВКИ (🎲 Формат, 🤝 Уровень и т.д.) - в ОРАНЖЕВЫЙ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 3. ПОЛЯ ВВОДА (Number Input) — возвращаем читаемость */
-    /* Делаем текст внутри инпутов черным, а фон светлым */
+    /* 5. ПОЛЯ ВВОДА - возвращаем им черный текст и белый фон */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
+        -webkit-text-fill-color: #1A1C23 !important; /* Важно для мобильных Safari/Chrome */
     }
 
-    /* 4. ОСНОВНАЯ ОБЛАСТЬ (Центр) */
-    /* Чтобы на мобилках текст не был белым на светлом фоне */
-    .main p, .main span, .main label {
-        color: #1A1C23 !important;
+    /* 6. СКРЫВАЕМ бегающую цифру над ползунком */
+    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
+        display: none !important;
     }
-    .main h1, .main h2 {
-        color: #FF4C24 !important;
+
+    /* 7. МОБИЛЬНАЯ ВЕРСИЯ - исправляем белый текст на светлом фоне в центре */
+    .main p, .main span, .main label, .main h1, .main h2 {
+        color: #1A1C23 !important; /* Весь центр — темный */
     }
+    /* Но заголовки в центре всё же пусть будут оранжевыми */
+    .main h1 { color: #FF4C24 !important; }
 
     /* Метрики */
     div[data-testid="metric-container"] {
