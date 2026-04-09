@@ -6,44 +6,55 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* БАЗА */
+    /* 1. ОБЩИЙ ВИД И ЛИНИЯ */
     .stApp { background-color: #ECF0ED !important; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* ВЕСЬ ТЕКСТ В БОКОВОЙ ПАНЕЛИ — БЕЛЫЙ */
-    section[data-testid="stSidebar"] p, 
-    section[data-testid="stSidebar"] span, 
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 400;
+    /* 2. ВОТ ОНО: ОРАНЖЕВОЕ ЗНАЧЕНИЕ (ТОТ САМЫЙ ХАК) */
+    /* Мы бьем по классу .st-ae и контейнеру значения одновременно */
+    div[data-testid="stThumbValue"] > div, 
+    .st-ae div[data-testid="stThumbValue"],
+    div[role="slider"] + div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.35rem !important;
     }
 
-    /* ЗАГОЛОВКИ — ОРАНЖЕВЫЕ (если заданы через subheader/header) */
+    /* 3. БЕЛЫЕ МИН / МАКС (ВОЗВРАЩАЕМ ИЗ СЕРОГО) */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 0.8 !important;
+    }
+
+    /* 4. БЕЛЫЕ ПОДПИСИ */
+    section[data-testid="stSidebar"] .stWidgetLabel label p {
+        color: #FFFFFF !important;
+    }
+
+    /* 5. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* ЦИФРА НАД СЛАЙДЕРОМ — БЕЛАЯ ЖИРНАЯ (можно заменить на #FF4C24) */
-    section[data-testid="stSidebar"] div[data-testid="stThumbValue"],
-    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] * {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        font-weight: 700 !important;
-    }
-
-    /* ПОЛЯ ВВОДА И ВЫПАДАЮЩИЕ СПИСКИ — ЧЁРНЫЙ ТЕКСТ НА БЕЛОМ ФОНЕ */
-    section[data-testid="stSidebar"] [data-baseweb="select"] *,
-    section[data-testid="stSidebar"] input {
+    /* 6. ИСПРАВЛЕНИЕ ИНПУТОВ (ЧЕРНЫЙ ТЕКСТ) */
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] [data-baseweb="select"] * {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
+    }
+    section[data-testid="stSidebar"] [data-baseweb="input"],
+    section[data-testid="stSidebar"] [data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* ОСНОВНАЯ ОБЛАСТЬ — ЧЁРНЫЙ ТЕКСТ */
+    /* 7. ОСНОВНОЙ ТЕКСТ */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
