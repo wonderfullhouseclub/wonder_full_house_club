@@ -73,6 +73,10 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 700 !important;
     }
+        section[data-testid="stSidebar"] div[data-testid="stThumbValue"] * {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
