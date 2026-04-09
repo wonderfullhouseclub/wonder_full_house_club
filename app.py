@@ -12,35 +12,36 @@ st.markdown("""
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ДЕЛАЕМ МАКСИМАЛЬНО ЖИРНОЙ */
+    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) — СУПЕР-ЖИРНАЯ */
     [data-testid="stThumbValue"], 
     [data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
-        /* Используем числовое значение 900 и ключевое слово для надежности */
-        font-weight: 900 !important; 
-        font-family: sans-serif !important;
-        font-size: 1.3rem !important;
+        font-weight: 900 !important;
+        font-size: 1.4rem !important; /* Увеличил размер для визуальной жирности */
+        text-shadow: 0px 0px 1px #FF4C24; /* Хак для имитации еще большей жирности */
     }
 
-    /* 3. МИН / МАКС — ВЫВОДИМ ИЗ СЕРОГО В БЕЛЫЙ */
-    /* Используем комбинацию селекторов, чтобы Safari не "затирал" их */
+    /* 3. МИН / МАКС — ТАКТИКА "ВЫСВЕТЛЕНИЯ" */
     [data-testid="stTickBarMin"], 
     [data-testid="stTickBarMax"] {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 0.5 !important; /* Приглушаем до приятного светло-серого */
-        font-size: 0.75rem !important;
+        filter: brightness(200%) grayscale(100%) !important; /* Выкручиваем яркость серого в белый */
+        opacity: 0.7 !important;
+        font-size: 0.8rem !important;
     }
 
-    /* 4. ТЕКСТ ПОДПИСЕЙ (Белый) */
-    section[data-testid="stSidebar"] label p, 
-    section[data-testid="stSidebar"] .stMarkdown p {
+    /* 4. ПОДЗАГОЛОВКИ (БЕЛЫЙ) */
+    /* Добавил более глубокий селектор для Safari */
+    section[data-testid="stSidebar"] .stMarkdown p,
+    section[data-testid="stSidebar"] label p,
+    section[data-testid="stSidebar"] span {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Черный текст на белом) */
+    /* 5. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
     section[data-testid="stSidebar"] input,
     section[data-testid="stSidebar"] select,
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
@@ -52,26 +53,15 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЗАГОЛОВКИ (Оранжевые) */
+    /* 6. ЗАГОЛОВКИ (ОРАНЖЕВЫЙ) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 7. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Для мобилок и Safari) */
+    /* 7. ОСНОВНАЯ ОБЛАСТЬ */
     .main p, .main span, .main label, .main h1, .main h2 {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-    }
-    .main h1 { color: #FF4C24 !important; }
-
-    /* 8. МЕТРИКИ */
-    div[data-testid="metric-container"] {
-        background-color: #FFFFFF !important;
-        border: 1px solid #CCCCCC !important;
-    }
-    div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
