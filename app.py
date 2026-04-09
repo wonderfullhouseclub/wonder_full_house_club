@@ -6,50 +6,49 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. Общий фон и Сайдбар */
+    /* 1. ФОН */
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (над слайдером) */
-    /* Делаем оранжевым, жирным и чуть крупнее */
-    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
+    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Оранжевое, жирное) */
+    /* Используем поиск по части имени класса, чтобы Streamlit не "соскочил" */
+    div[data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         font-weight: 800 !important;
         font-size: 1.1rem !important;
-        display: block !important; /* Убеждаемся, что оно отображается */
     }
 
-    /* 3. МИН / МАКС (под слайдером) */
-    /* Белые, но поменьше размером */
-    section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
-    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+    /* 3. МИН / МАКС (Белые, маленькие) */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
         color: #FFFFFF !important;
-        font-size: 0.8rem !important;
-        opacity: 0.9;
+        font-size: 0.75rem !important;
+        font-weight: 400 !important;
     }
 
-    /* 4. ЗАГОЛОВКИ И ПОДПИСИ */
-    /* Названия самих слайдеров и полей — белые */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
+    /* 4. ПОДЗАГОЛОВКИ И LABEL (Белые) */
+    /* Принудительно красим ВСЕ параграфы и лейблы в сайдбаре в белый */
+    section[data-testid="stSidebar"] .stWidgetLabel label p,
+    section[data-testid="stSidebar"] p {
         color: #FFFFFF !important;
     }
-    /* Заголовки разделов — оранжевые */
+
+    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ (Оранжевые) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (Number Input) */
-    /* Возвращаем черный текст на белом фоне */
+    /* 6. ИНПУТЫ (Черный текст на белом фоне) */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 6. ИСПРАВЛЕНИЕ ДЛЯ МОБИЛОК (Центральная часть) */
+    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр экрана) */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
@@ -58,7 +57,6 @@ st.markdown("""
     /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
-        border: 1px solid #CCCCCC !important;
     }
     div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
