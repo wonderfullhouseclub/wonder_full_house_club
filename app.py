@@ -6,26 +6,14 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ВИД */
+    /* 1. БАЗА */
     .stApp { background-color: #ECF0ED !important; }
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ЗАГОЛОВКИ (Делаем жирными и оранжевыми) */
-    /* Добавляем .stMarkdown h2/h3 для максимального приоритета */
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] .stMarkdown h2, 
-    section[data-testid="stSidebar"] .stMarkdown h3 {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 800 !important; /* Экстра-жирный */
-        font-family: inherit;
-    }
-
-    /* 3. ЦИФРА НАД СЛАЙДЕРОМ (Уже работает, закрепляем) */
+    /* 2. ОРАНЖЕВАЯ ЦИФРА (Работает — не трогаем путь) */
     div[data-testid="stSlider"] div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
@@ -33,32 +21,43 @@ st.markdown("""
         font-size: 1.4rem !important;
     }
 
-    /* 4. МИН / МАКС — ВОЗВРАЩАЕМ ИЗ СЕРОГО В БЕЛЫЙ */
-    /* Бьем по внутренним контейнерам, которые Streamlit делает прозрачными */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    [data-testid="stTickBarMin"] > div,
-    [data-testid="stTickBarMax"] > div {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 1 !important; /* Убираем прозрачность, которая дает серый цвет */
-        font-weight: 600 !important;
+    /* 3. ОРАНЖЕВЫЕ ЖИРНЫЕ ЗАГОЛОВКИ (Усиление) */
+    /* Добавляем универсальный поиск по классам, которые начинаются на 'st-' */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3,
+    section[data-testid="stSidebar"] [class*="st-"] h2,
+    section[data-testid="stSidebar"] [class*="st-"] h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 800 !important;
+        opacity: 1 !important;
     }
 
-    /* 5. ПОДПИСИ К ВИДЖЕТАМ */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
+    /* 4. БЕЛЫЙ МИН / МАКС (Усиление) */
+    /* Используем поиск по всем вложенным div внутри шкалы */
+    [data-testid="stTickBarMin"] div, 
+    [data-testid="stTickBarMax"] div,
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important; /* Убиваем серый */
+        visibility: visible !important;
+    }
+
+    /* 5. БЕЛЫЕ ПОДПИСИ К СЛАЙДЕРАМ */
+    section[data-testid="stSidebar"] label p,
+    section[data-testid="stSidebar"] .stMarkdown p {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
     }
 
-    /* 6. ВЫПАДАЮЩИЕ СПИСКИ (Черный на белом) */
-    section[data-testid="stSidebar"] [data-baseweb="select"] span,
-    section[data-testid="stSidebar"] [data-baseweb="select"] div,
+    /* 6. ЧИНИМ ВЫПАДАЮЩИЕ СПИСКИ (Черный текст) */
+    section[data-testid="stSidebar"] [data-baseweb="select"] *,
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
-        font-size: 1rem !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"],
     section[data-testid="stSidebar"] [data-baseweb="input"] {
@@ -66,12 +65,11 @@ st.markdown("""
     }
 
     /* 7. ОСНОВНОЕ ПОЛЕ */
-    .main p, .main span, .main label, .main h1, .main h2 {
-        color: #1A1C23 !important;
-    }
+    .main * { color: #1A1C23; }
     .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
+
 st.image("logo.png", width=250)
 
 st.markdown("""
