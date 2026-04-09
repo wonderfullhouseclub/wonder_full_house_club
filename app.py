@@ -13,16 +13,19 @@ st.markdown("""
         background-color: #ECF0ED;
     }
 
-    /* Боковая панель — тёмная, белый текст, оранжевый акцент */
+    /* Боковая панель */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stCaption,
-    section[data-testid="stSidebar"] .stMarkdown,
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 500;
+    }
+    section[data-testid="stSidebar"] .stCaption {
+        color: #FFFFFF !important;
+        font-weight: 400;
+    }
     section[data-testid="stSidebar"] strong {
         color: #FFFFFF !important;
     }
@@ -33,23 +36,23 @@ st.markdown("""
         border-radius: 8px;
     }
 
-    /* Основная область — светлый фон, чёрный текст (по умолчанию) */
+    /* Основная область – светлый фон, чёрный текст (в т.ч. на мобильных) */
     div[data-testid="stAppViewContainer"] {
         background-color: #ECF0ED !important;
     }
-    /* Для мобильных фиксируем чёрный текст */
     @media (max-width: 768px) {
         div[data-testid="stAppViewContainer"] {
             background-color: #ECF0ED !important;
         }
+        /* Только для мобильных делаем текст чёрным */
         div[data-testid="stAppViewContainer"] p,
         div[data-testid="stAppViewContainer"] span,
-        div[data-testid="stAppViewContainer"] div {
+        div[data-testid="stAppViewContainer"] div:not([class*="metric"]):not([class*="plotly"]) {
             color: #000000 !important;
         }
     }
 
-    /* Метрики (карточки) */
+    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
         border: 1px solid #CCCCCC !important;
@@ -61,7 +64,7 @@ st.markdown("""
         color: #000000 !important;
     }
 
-    /* Графики — сохраняем их внутренние цвета */
+    /* Графики – оставляем их внутренние цвета */
     .js-plotly-plot .plotly .main-svg text {
         fill: #FFFFFF !important;
     }
