@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
+# --- МИНИМАЛЬНЫЙ CSS ---
 st.markdown("""
 <style>
     .stApp { background-color: #ECF0ED; }
@@ -16,22 +16,23 @@ st.markdown("""
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
-        /* Цвет текущего значения над ползунком */
-    div[data-testid="stThumbValue"] {
-        color: #FFFFFF !important;
     }
-
-    /* Цвет минимального и максимального значений под слайдером */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
     
-    }
-    .stImage + div { margin-top: 10px; }
-    /* Белые подписи для всех label (уже работало) */
+    /* Белые подписи для всех label */
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
         font-weight: 400;
+    }
+
+    /* ИСПРАВЛЕНИЕ ДЛЯ СЛАЙДЕРОВ: */
+    /* 1. Значение над ползунком */
+    div[data-testid="stThumbValue"] {
+        color: #FFFFFF !important;
+    }
+    /* 2. Подписи Min/Max под слайдером */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
