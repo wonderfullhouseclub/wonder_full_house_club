@@ -71,15 +71,13 @@ st.markdown("""
 
 st.image("logo.png", width=250)
 
-st.markdown(
-    """
-    <h1 style='color: #FF4C24 !important; font-weight: 800 !important; text-align: left !important;'>
-        Финансовая модель<br>
-        Вашего клуба спортивного покера
-    </h1>
-    """, 
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div style="line-height: 1.2;">
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ ==================
