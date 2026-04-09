@@ -8,8 +8,6 @@ st.set_page_config(page_title="Финансовая модель | Wonder Full H
 # --- ФИРМЕННЫЙ CSS (ЧЁРНЫЙ + ОРАНЖЕВЫЙ) ---
 st.markdown("""
 <style>
-st.markdown("""
-<style>
     /* Общий фон */
     .stApp {
         background-color: #ECF0ED;
