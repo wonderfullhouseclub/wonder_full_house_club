@@ -8,70 +8,77 @@ st.set_page_config(page_title="Финансовая модель | Wonder Full H
 # --- ФИРМЕННЫЙ CSS (ЧЁРНЫЙ + ОРАНЖЕВЫЙ) ---
 st.markdown("""
 <style>
-    /* Основной фон */
+      /* ========== ОБЩИЙ ФОН И БОКОВАЯ ПАНЕЛЬ ========== */
     .stApp {
         background-color: #ECF0ED;
     }
-    /* Боковая панель */
     section[data-testid="stSidebar"] {
-        background-color: #171717;
+        background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    /* Заголовки */
-    h1, h2, h3, .stMarkdown h1, .stMarkdown h2 {
-        color: #FF4C24 !important;
-    }    
-        /* Цвет подписей к полям в боковой панели */
-    section[data-testid="stSidebar"] label {
-        color: #ECF0ED !important;
-        font-weight: 500;
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stCaption,
+    section[data-testid="stSidebar"] strong {
+        color: #FFFFFF !important;
     }
-    /* Кнопки */
-    .stButton > button {
-        background-color: #D4AF37;
-        color: black;
+    section[data-testid="stSidebar"] .stButton > button {
+        background-color: #FF4C24;
+        color: white;
         font-weight: bold;
         border-radius: 8px;
     }
-    /* Метрики */
-    div[data-testid="metric-container"] {
-        background-color: #5F6367;
-        border: 1px solid #5F6367;
-        border-radius: 10px;
-        padding: 10px;
-    }   
-    /* Цвет подписей (caption) в боковой панели */
-    section[data-testid="stSidebar"] .stCaption {
-        color: #D4AF37 !important;
-        font-weight: 400;
+
+    /* ========== ОСНОВНАЯ ОБЛАСТЬ: ФОН #ECF0ED, ЧЁРНЫЙ ТЕКСТ ========== */
+    div[data-testid="stAppViewContainer"] {
+        background-color: #ECF0ED !important;
+        color: #000000 !important;
     }
-    /* Цвет выделенного жирного текста в боковой панели */
-    section[data-testid="stSidebar"] strong {
+    div[data-testid="stAppViewContainer"] p,
+    div[data-testid="stAppViewContainer"] span,
+    div[data-testid="stAppViewContainer"] div:not([class*="metric"]):not([class*="plotly"]) {
+        color: #000000 !important;
+    }
+
+    /* ========== ЗАГОЛОВКИ ОСТАЮТСЯ ОРАНЖЕВЫМИ ========== */
+    h1, h2, h3, h4, h5, h6,
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
         color: #FF4C24 !important;
     }
-      /* === ГАРАНТИРОВАННЫЙ ЧЁРНЫЙ ТЕКСТ В ОСНОВНОЙ ОБЛАСТИ (ДЕСКТОП + МОБИЛЬНЫЕ) === */
-    div[data-testid="stAppViewContainer"] {
-        color: #000000 !important;
-        background-color: #FFFFFF !important;
+
+    /* ========== МЕТРИКИ (КАРТОЧКИ С ЦИФРАМИ) ========== */
+    div[data-testid="metric-container"] {
+        background-color: #FFFFFF !important;  /* белые карточки на светлом фоне */
+        border: 1px solid #CCCCCC !important;
+        border-radius: 10px;
+        padding: 10px;
     }
-    div[data-testid="stAppViewContainer"] * {
+    div[data-testid="metric-container"] label,
+    div[data-testid="metric-container"] div {
         color: #000000 !important;
     }
-    /* Исключение для графиков Plotly (чтобы в них текст оставался белым) */
-    div[data-testid="stAppViewContainer"] .js-plotly-plot .plotly .main-svg text,
-    div[data-testid="stAppViewContainer"] .plotly .legend text,
-    div[data-testid="stAppViewContainer"] .plotly .g-gtitle text {
-        color: #FFFFFF !important;
+
+    /* ========== ГРАФИКИ PLOTLY: ОСТАВЛЯЕМ ИХ СОБСТВЕННЫЕ ЦВЕТА ========== */
+    .js-plotly-plot .plotly .main-svg text,
+    .js-plotly-plot .plotly .legend text,
+    .js-plotly-plot .plotly .g-gtitle text {
         fill: #FFFFFF !important;
     }
-    /* Метрики — сохраняем читаемость */
-    div[data-testid="stAppViewContainer"] div[data-testid="metric-container"] {
-        background-color: #F0F2F6 !important;
-        border-color: #E0E0E0 !important;
+
+    /* ========== ЛОГОТИП И ЗАГОЛОВОК В ДВЕ СТРОКИ ========== */
+    .stImage + div {
+        margin-top: 10px !important;
     }
-    div[data-testid="stAppViewContainer"] div[data-testid="metric-container"] * {
-        color: #000000 !important;
-    }
+
+    /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
+    @media (max-width: 768px) {
+        div[data-testid="stAppViewContainer"] {
+            background-color: #ECF0ED !important;
+        }
+        div[data-testid="stAppViewContainer"] p,
+        div[data-testid="stAppViewContainer"] span,
+        div[data-testid="stAppViewContainer"] div:not([class*="metric"]):not([class*="plotly"]) {
+            color: #000000 !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
