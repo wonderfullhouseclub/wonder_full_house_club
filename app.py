@@ -5,51 +5,55 @@ import plotly.graph_objects as go
 # --- НАСТРОЙКА СТРАНИЦЫ ---
 st.set_page_config(page_title="Финансовая модель | Wonder Full House Club", layout="wide")
 
-# --- ФИРМЕННЫЙ CSS (ЧЁРНЫЙ + ОРАНЖЕВЫЙ) ---
+# --- ФИРМЕННЫЙ CSS (без мобильных правок) ---
 st.markdown("""
 <style>
-    /* Общий фон */
-    .stApp {
-        background-color: #ECF0ED;
-    }
-
-    /* Боковая панель - только тёмный фон и оранжевая рамка */
+    .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-
-    /* Метрики */
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 500;
+    }
+    .stButton > button {
+        background-color: #FF4C24;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+    }
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
-    div[data-testid="metric-container"] label,
-    div[data-testid="metric-container"] div {
-        color: #000000;
-    }
-
-    /* Отступ после логотипа */
     .stImage + div {
-        margin-top: 10px;
+        margin-top: 10px !important;
     }
-
-    /* Мобильная версия: чёрный текст ТОЛЬКО в главной области */
-    @media (max-width: 768px) {
-        /* Основной контейнер главной области */
-        div[data-testid="stAppViewContainer"] section.main div.block-container {
-            color: #000000 !important;
-        }
-        div[data-testid="stAppViewContainer"] section.main p,
-        div[data-testid="stAppViewContainer"] section.main span,
-        div[data-testid="stAppViewContainer"] section.main div:not([class*="plotly"]):not([class*="metric"]) {
-            color: #000000 !important;
-        }
+    section[data-testid="stSidebar"] .stCaption {
+        color: #FFFFFF !important;
+        font-weight: 400;
+    }
+    section[data-testid="stSidebar"] strong {
+        color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
+# --- ЛОГОТИП ---
+st.image("logo.png", width=250)
+
+# --- ЗАГОЛОВОК (две строки) ---
+st.markdown("""
+<div style="line-height: 1.2;">
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
 
 # --- ЛОГОТИП ---
 # Убедитесь, что файл logo.png лежит в репозитории рядом с app.py
