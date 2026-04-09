@@ -71,12 +71,15 @@ st.markdown("""
 
 st.image("logo.png", width=250)
 
-st.markdown("""
-<div style="line-height: 1.2;">
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='font-size: 2.5rem; font-weight: 800; line-height: 1.2;'>
+        <span style='color: #FF4C24 !important;'>Финансовая модель</span><br>
+        <span style='color: #FF4C24 !important;'>Вашего клуба спортивного покера</span>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
 
 st.markdown("---")
 
