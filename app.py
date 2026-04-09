@@ -3,19 +3,27 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
+# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    .stApp { background-color: #ECF0ED; }
+    /* Основной фон страницы */
+    .stApp {
+        background-color: #ECF0ED;
+    }
+    /* Боковая панель: только тёмный фон и оранжевая рамка.
+       Все цвета текста внутри будут управляться темой Streamlit */
     section[data-testid="stSidebar"] {
-        background-color: #171717;
+        background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
+    /* Метрики (карточки) в основной области */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
-        border: 1px solid #FF4C24;
+        border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
+    /* Отступ после логотипа */
     .stImage + div {
         margin-top: 10px;
     }
@@ -33,7 +41,7 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ ==================
+# ================== БОКОВАЯ ПАНЕЛЬ (все виджеты без CSS-обёрток) ==================
 st.sidebar.header("📍 Параметры расчёта")
 
 st.sidebar.subheader("🎲 Формат клуба")
