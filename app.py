@@ -6,15 +6,15 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА */
+    /* 1. ОБЩИЙ ВИД */
     .stApp { background-color: #ECF0ED !important; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) - Работает */
-    div[data-testid="stThumbValue"] > div, 
+    /* 2. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ */
+    div[data-testid="stThumbValue"] > div,
     .st-ae div[data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
@@ -22,50 +22,50 @@ st.markdown("""
         font-size: 1.35rem !important;
     }
 
-    /* 3. МИН / МАКС (БЕЛЫЕ) */
-    /* Используем комбинацию, которая "пробивает" системный серый */
-    div[data-testid="stTickBarMin"] > div, 
-    div[data-testid="stTickBarMax"] > div,
+    /* 3. МИН / МАКС — ЖЕСТКАЯ ПОКРАСКА В БЕЛЫЙ */
+    /* Используем [class*="st-"] чтобы зацепить внутренние динамические классы Streamlit */
     [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"] {
+    [data-testid="stTickBarMax"],
+    [data-testid="stTickBarMin"] div,
+    [data-testid="stTickBarMax"] div {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
         font-size: 0.85rem !important;
-        font-weight: 400 !important;
+        visibility: visible !important;
     }
 
-    /* 4. ПОДПИСИ И ТЕКСТ В САЙДБАРЕ */
+    /* 4. ПОДЗАГОЛОВКИ И ПОДПИСИ (Белые и Оранжевые) */
+    /* Сначала всё в белый */
     section[data-testid="stSidebar"] .stWidgetLabel label p,
     section[data-testid="stSidebar"] .stMarkdown p {
         color: #FFFFFF !important;
         opacity: 1 !important;
     }
-
-    /* 5. ИСПРАВЛЕНИЕ ВЫПАДАЮЩИХ СПИСКОВ (Размер и прозрачность) */
-    /* Возвращаем нормальный вид тексту внутри полей выбора */
-    section[data-testid="stSidebar"] [data-baseweb="select"] span,
-    section[data-testid="stSidebar"] [data-baseweb="select"] div {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-        opacity: 1 !important;
-        font-size: 1rem !important; /* Нормальный размер */
-    }
-
-    /* 6. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
+    /* Затем заголовки в оранжевый */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 7. ИСПРАВЛЕНИЕ ИНПУТОВ (ФОН) */
+    /* 5. ВЫПАДАЮЩИЕ СПИСКИ И ПОЛЯ ВВОДА (Черный на белом) */
+    /* Ограничиваем область действия, чтобы не ломать Min/Max */
+    section[data-testid="stSidebar"] [data-baseweb="select"] span,
+    section[data-testid="stSidebar"] [data-baseweb="select"] div,
+    section[data-testid="stSidebar"] input {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+        font-size: 1rem !important;
+        opacity: 1 !important;
+    }
+    
     section[data-testid="stSidebar"] [data-baseweb="input"],
     section[data-testid="stSidebar"] [data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 8. ОСНОВНОЕ ПОЛЕ */
+    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
