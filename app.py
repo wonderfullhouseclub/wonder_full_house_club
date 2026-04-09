@@ -90,11 +90,9 @@ rent = st.sidebar.number_input("Аренда + коммунальные плат
 
 other_opex = st.sidebar.slider("💡 Операционные расходы, руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
-st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{other_opex:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 marketing_budget = st.sidebar.slider("📢 Маркетинг, руб.",
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
-st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{marketing_budget:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 tax_mode = st.sidebar.selectbox(
     "🧾 Налоговый режим",
