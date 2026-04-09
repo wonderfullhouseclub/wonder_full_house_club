@@ -49,6 +49,31 @@ st.markdown("""
     section[data-testid="stSidebar"] strong {
         color: #FF4C24 !important;
     }
+    /* === ИСПРАВЛЕНИЕ: ЧЁРНЫЙ ТЕКСТ НА СВЕТЛОМ ФОНЕ В ОСНОВНОЙ ОБЛАСТИ === */
+    .main .block-container,
+    .main .block-container * {
+        color: #000000 !important;
+    }
+    /* Чтобы метрики оставались контрастными */
+    .main div[data-testid="metric-container"] {
+        color: #000000 !important;
+        background-color: #F0F2F6 !important;
+        border: 1px solid #E0E0E0 !important;
+    }
+    .main div[data-testid="metric-container"] * {
+        color: #000000 !important;
+    }
+    /* Графики не трогаем — оставляем их кастомные цвета */
+    .main .js-plotly-plot .plotly .main-svg text {
+        fill: #FFFFFF !important; /* для тёмных графиков остаётся белый */
+    }
+    /* Принудительно для мобильных */
+    @media (max-width: 768px) {
+        .main .block-container,
+        .main .block-container * {
+            color: #000000 !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
