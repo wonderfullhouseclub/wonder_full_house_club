@@ -1,19 +1,59 @@
 import streamlit as st
 import plotly.graph_objects as go
 
+# Настройка страницы
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
+
+# --- ФИРМЕННЫЙ CSS (как было вчера) ---
+st.markdown("""
+<style>
+    .stApp { background-color: #ECF0ED; }
+    section[data-testid="stSidebar"] {
+        background-color: #1A1C23;
+        border-right: 2px solid #FF4C24;
+    }
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 500;
+    }
+    .stButton > button {
+        background-color: #FF4C24;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+    }
+    div[data-testid="metric-container"] {
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .stImage + div { margin-top: 10px !important; }
+    section[data-testid="stSidebar"] .stCaption {
+        color: #FFFFFF !important;
+        font-weight: 400;
+    }
+    section[data-testid="stSidebar"] strong {
+        color: #FFFFFF !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 st.image("logo.png", width=250)
 
-st.title("Финансовая модель")
-st.header("Вашего клуба спортивного покера")
+st.markdown("""
+<div style="line-height: 1.2;">
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ ==================
-st.sidebar.header("Параметры расчёта")
+st.sidebar.header("📍 Параметры расчёта")
 
-st.sidebar.subheader("Формат клуба")
+st.sidebar.subheader("🎲 Формат клуба")
 club_format = st.sidebar.selectbox(
     "Выберите формат",
     ["STRAIGHT (5–10 столов)", "FULL HOUSE (11–24 стола)", "ROYAL FLASH (25+ столов)"]
@@ -25,54 +65,54 @@ elif club_format.startswith("FULL HOUSE"):
 else:
     min_v, max_v, def_v = 4000, 8000, 6000
 
-vkhody = st.sidebar.slider("Количество входов в месяц", min_v, max_v, def_v, step=50)
-vkhody_price = st.sidebar.number_input("Средний чек (вход), руб.", value=1000, step=100)
+vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
+vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-st.sidebar.subheader("Уровень поддержки")
+st.sidebar.subheader("🤝 Уровень поддержки")
 support_level = st.sidebar.selectbox(
     "Выберите пакет",
     ["Pro (роялти 10%)", "VIP (роялти 15%)", "Partner (50% от прибыли)"]
 )
 
-st.sidebar.subheader("Доп. услуги")
+st.sidebar.subheader("🍷 Доп. услуги")
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
-st.sidebar.subheader("Постоянные расходы")
+st.sidebar.subheader("🏠 Постоянные расходы")
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
-other_opex = st.sidebar.slider("Операционные расходы (уборка, охрана, материалы), руб.",
+other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
-marketing_budget = st.sidebar.slider("Маркетинговый бюджет, руб.",
+marketing_budget = st.sidebar.slider("📢 Маркетинговый бюджет, руб.",
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
 tax_mode = st.sidebar.selectbox(
-    "Налоговый режим",
+    "🧾 Налоговый режим",
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-st.sidebar.subheader("Персонал")
+st.sidebar.subheader("👥 Персонал")
 c1, c2 = st.sidebar.columns([2, 1])
 with c1:
-    num_dilers = st.number_input("Дилеров", min_value=1, value=6)
-    num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2)
-    num_senior = st.number_input("Старших менеджеров", min_value=0, value=1)
+    num_dilers = st.number_input("Дилеров", min_value=1, value=6, key="num_dilers")
+    num_tour = st.number_input("Турнирных менеджеров", min_value=1, value=2, key="num_tour")
+    num_senior = st.number_input("Старших менеджеров", min_value=0, value=1, key="num_senior")
 with c2:
-    rate_diler = st.number_input("Ставка/час", value=350)
-    rate_tour = st.number_input("Ставка/час", value=250)
-    rate_senior = st.number_input("Ставка/час", value=400)
+    rate_diler = st.number_input("Ставка/час", value=350, key="rate_diler")
+    rate_tour = st.number_input("Ставка/час", value=250, key="rate_tour")
+    rate_senior = st.number_input("Ставка/час", value=400, key="rate_senior")
 hours = 165
 staff_total = (num_dilers * rate_diler * hours +
                num_tour * rate_tour * hours +
                num_senior * rate_senior * hours)
 st.sidebar.markdown(f"**Итого ФОТ: {staff_total:,.0f} ₽**".replace(",", " "))
 
-st.sidebar.subheader("Первичные инвестиции")
-inv_repair = st.sidebar.number_input("Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
-inv_equip = st.sidebar.number_input("Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
-inv_deposit = st.sidebar.slider("Обеспечительный платёж, руб.",
+st.sidebar.subheader("💰 Первичные инвестиции")
+inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
+inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
+inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
-inv_marketing = st.sidebar.number_input("Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
+inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
 
@@ -111,17 +151,17 @@ else:
 
 # ================== МЕТРИКИ ==================
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Выручка", f"{total_revenue:,.0f} ₽".replace(",", " "))
-col2.metric("Чистая прибыль", f"{net_profit:,.0f} ₽".replace(",", " "),
+col1.metric("💰 Выручка", f"{total_revenue:,.0f} ₽".replace(",", " "))
+col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace(",", " "),
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
-col3.metric("Окупаемость",
+col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
-col4.metric("Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
+col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
 # ================== ГРАФИК ==================
-st.subheader("Структура выручки")
+st.markdown("<h3 style='color: #FF4C24;'>🧩 Структура выручки</h3>", unsafe_allow_html=True)
 labels = ['Вход в игру', 'Кальян', 'Бар']
 values = [rev_vkhody, rev_hookah, rev_bar]
 colors = ['#FF4C24', '#FF7A5C', '#CC3A1A']
@@ -147,7 +187,7 @@ fig_pie.update_layout(
 st.plotly_chart(fig_pie, use_container_width=True)
 
 # --- ДЕТАЛИЗАЦИЯ ---
-with st.expander("Детализация расходов и инвестиций"):
+with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
     with col_d1:
         st.write("**Постоянные расходы (в месяц)**")
