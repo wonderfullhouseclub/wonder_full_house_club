@@ -23,14 +23,6 @@ st.markdown("""
         color: #FFFFFF !important;
         font-weight: 400;
     }
-
-    /* ИСПРАВЛЕНИЕ ДЛЯ СЛАЙДЕРОВ: */
-    }
-    /* 2. Подписи Min/Max под слайдером */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
