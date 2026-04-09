@@ -3,47 +3,27 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- АБСОЛЮТНО МИНИМАЛЬНЫЙ CSS (НЕ ТРОГАЕТ ТЕКСТ В САЙДБАРЕ) ---
 st.markdown("""
 <style>
-    /* Основной фон */
-    .stApp {
-        background-color: #ECF0ED;
-    }
-    /* Только фон и рамка боковой панели. ВСЕ ОСТАЛЬНЫЕ ЦВЕТА — СТАНДАРТНЫЕ STREAMLIT */
+    .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
-    /* Отступ после логотипа */
     .stImage + div {
         margin-top: 10px;
-    }
-    /* Мобильная читаемость основного текста (НЕ ЗАТРАГИВАЕТ САЙДБАР) */
-    @media (max-width: 768px) {
-        div[data-testid="stAppViewContainer"] section.main div.block-container {
-            color: #000000 !important;
-        }
-        div[data-testid="stAppViewContainer"] section.main p,
-        div[data-testid="stAppViewContainer"] section.main span,
-        div[data-testid="stAppViewContainer"] section.main div:not([class*="plotly"]):not([class*="metric"]) {
-            color: #000000 !important;
-        }
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- ЛОГОТИП ---
 st.image("logo.png", width=250)
 
-# --- ЗАГОЛОВОК (оранжевый через инлайн) ---
 st.markdown("""
 <div style="line-height: 1.2;">
     <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
@@ -53,10 +33,9 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ (ВСЁ СТАНДАРТНО) ==================
+# ================== БОКОВАЯ ПАНЕЛЬ ==================
 st.sidebar.header("📍 Параметры расчёта")
 
-# --- ФОРМАТ КЛУБА ---
 st.sidebar.subheader("🎲 Формат клуба")
 club_format = st.sidebar.selectbox(
     "Выберите формат",
@@ -72,21 +51,18 @@ else:
 vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-# --- УРОВЕНЬ ПОДДЕРЖКИ ---
 st.sidebar.subheader("🤝 Уровень поддержки")
 support_level = st.sidebar.selectbox(
     "Выберите пакет",
     ["Pro (роялти 10%)", "VIP (роялти 15%)", "Partner (50% от прибыли)"]
 )
 
-# --- ДОП. УСЛУГИ ---
 st.sidebar.subheader("🍷 Доп. услуги")
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
-# --- ПОСТОЯННЫЕ РАСХОДЫ ---
 st.sidebar.subheader("🏠 Постоянные расходы")
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
 other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
@@ -98,7 +74,6 @@ tax_mode = st.sidebar.selectbox(
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-# --- ПЕРСОНАЛ ---
 st.sidebar.subheader("👥 Персонал")
 c1, c2 = st.sidebar.columns([2, 1])
 with c1:
@@ -115,7 +90,6 @@ staff_total = (num_dilers * rate_diler * hours +
                num_senior * rate_senior * hours)
 st.sidebar.markdown(f"**Итого ФОТ: {staff_total:,.0f} ₽**".replace(",", " "))
 
-# --- ПЕРВИЧНЫЕ ИНВЕСТИЦИИ ---
 st.sidebar.subheader("💰 Первичные инвестиции")
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
@@ -195,7 +169,7 @@ fig_pie.update_layout(
 )
 st.plotly_chart(fig_pie, use_container_width=True)
 
-# --- ДЕТАЛИЗАЦИЯ РАСХОДОВ (сворачиваемый блок) ---
+# --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
     with col_d1:
