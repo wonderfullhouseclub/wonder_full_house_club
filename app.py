@@ -25,9 +25,6 @@ st.markdown("""
     }
 
     /* ИСПРАВЛЕНИЕ ДЛЯ СЛАЙДЕРОВ: */
-    /* 1. Значение над ползунком */
-    div[data-testid="stThumbValue"] {
-        color: #FFFFFF !important;
     }
     /* 2. Подписи Min/Max под слайдером */
     div[data-testid="stTickBarMin"], 
