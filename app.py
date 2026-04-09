@@ -6,40 +6,41 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ФОН */
+    /* 1. ФОН И САЙДБАР */
     .stApp { background-color: #ECF0ED; }
-    section[data-testid="stSidebar"] { background-color: #1A1C23 !important; }
-
-    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Жирный оранжевый) */
-    /* Мы бьем по самому глубокому элементу, который держит цифру */
-    [data-testid="stThumbValue"] {
-        color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
-        -webkit-text-fill-color: #FF4C24 !important;
+    section[data-testid="stSidebar"] {
+        background-color: #1A1C23 !important;
     }
 
-    /* 3. МИН / МАКС (Приглушенные, мелкие) */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"] {
-        color: rgba(255, 255, 255, 0.4) !important; /* Белый на 40% прозрачности */
-        font-size: 0.7rem !important;
-        font-weight: 400 !important;
-    }
-
-    /* 4. ЗАГОЛОВКИ СЛАЙДЕРОВ И ТЕКСТ (Чисто белый) */
-    section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] p {
+    /* 2. ТЕКСТ В САЙДБАРЕ (Белый, кроме оранжевой цифры) */
+    /* Мы говорим: покрась в белый всё, КРОМЕ элемента stThumbValue */
+    section[data-testid="stSidebar"] p:not([data-testid="stThumbValue"]),
+    section[data-testid="stSidebar"] label p {
         color: #FFFFFF !important;
     }
 
-    /* 5. ЗАГОЛОВКИ ГРУПП (Оранжевый) */
+    /* 3. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Оранжевый, очень жирный) */
+    [data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.3rem !important;
+    }
+
+    /* 4. МИН / МАКС (Приглушенные) */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"] {
+        color: rgba(255, 255, 255, 0.4) !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* 5. ЗАГОЛОВКИ (Оранжевые) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 6. ПОЛЯ ВВОДА (Черный на белом) */
+    /* 6. ИНПУТЫ (Черный текст на белом фоне) */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
@@ -55,6 +56,7 @@ st.markdown("""
     /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
+        border: 1px solid #CCCCCC !important;
     }
     div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
