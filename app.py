@@ -6,56 +6,28 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
 <style>
-    /* ФОН ПРИЛОЖЕНИЯ */
     .stApp { background-color: #ECF0ED !important; }
-
-    /* САЙДБАР: ЦВЕТ И ЛИНИЯ */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
-
-    /* ОСНОВНАЯ ОБЛАСТЬ: ЧЕРНЫЙ ТЕКСТ (Для мобилок и десктопа) */
-    /* Мы красим всё в черный, но НЕ ТРОГАЕМ теги <span>, чтобы заголовок остался оранжевым */
-    [data-testid="stMain"] *:not(span), 
-    .main *:not(span) {
+    /* Черный текст для всех, кроме оранжевых span */
+    [data-testid="stMain"] *:not(span), .main *:not(span) {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-
-    /* САЙДБАР: БЕЛЫЙ ТЕКСТ (Подписи и шкала) */
+    /* Белый текст в сайдбаре */
     section[data-testid="stSidebar"] label p, 
     section[data-testid="stSidebar"] span,
     section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
     }
-
-    /* САЙДБАР: ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 800 !important;
-    }
-
-    /* ЦИФРА НАД ПОЛЗУНКОМ (Оранжевая) */
+    /* Оранжевые заголовки и цифра в сайдбаре */
+    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3,
     div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
-        font-size: 1.4rem !important;
-    }
-
-    /* ИНПУТЫ В САЙДБАРЕ (Черный текст на белом) */
-    section[data-testid="stSidebar"] [data-baseweb="select"] *,
-    section[data-testid="stSidebar"] [data-baseweb="input"] input {
-        color: #1A1C23 !important;
-    }
-    section[data-testid="stSidebar"] [data-baseweb="select"],
-    section[data-testid="stSidebar"] [data-baseweb="input"] {
-        background-color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -74,13 +46,6 @@ st.markdown(
     """, 
     unsafe_allow_html=True
 )
-
-# 3. ПРИМЕР ОСТАЛЬНОГО КОНТЕНТА (Текст под заголовком будет черным)
-st.write("Здесь теперь будет ваш основной расчет, и текст будет черным даже на мобильных устройствах.")
-
-# Пример слайдера в сайдбаре для проверки
-st.sidebar.markdown("### Настройки")
-st.sidebar.slider("Выберите значение", 0, 100, 50)
 
 st.image("logo.png", width=250)
 
