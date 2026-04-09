@@ -56,11 +56,11 @@ st.image("logo.png", width=250)
 # 2. ЛОКАЛЬНЫЙ ОРАНЖЕВЫЙ ЗАГОЛОВОК (В основном поле)
 st.markdown(
     """
-    <div style="text-align: left; margin-bottom: 20px;">
-        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block; line-height: 1.2;">
+    <div style="line-height: 1.2;">
+        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block;">
             Финансовая модель
         </span>
-        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block; line-height: 1.2;">
+        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block;">
             Вашего клуба спортивного покера
         </span>
     </div>
