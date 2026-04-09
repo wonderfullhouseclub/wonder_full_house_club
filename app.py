@@ -3,14 +3,14 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ БЕЗОПАСНЫЙ CSS (НЕ ТРОГАЕТ ТЕКСТ В САЙДБАРЕ) ---
+# --- МИНИМАЛЬНЫЙ CSS (только фон и рамка) ---
 st.markdown("""
 <style>
     /* Основной фон */
     .stApp {
         background-color: #ECF0ED;
     }
-    /* Боковая панель: только тёмный фон и оранжевая рамка */
+    /* Боковая панель: тёмный фон, оранжевая рамка */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
@@ -40,10 +40,11 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ ==================
+# ================== БОКОВАЯ ПАНЕЛЬ (с точечными HTML-стилями) ==================
 st.sidebar.header("📍 Параметры расчёта")
 
-st.sidebar.subheader("🎲 Формат клуба")
+# Заменяем subheader на HTML
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🎲 Формат клуба</h3>", unsafe_allow_html=True)
 club_format = st.sidebar.selectbox(
     "Выберите формат",
     ["STRAIGHT (5–10 столов)", "FULL HOUSE (11–24 стола)", "ROYAL FLASH (25+ столов)"]
@@ -58,19 +59,19 @@ else:
 vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-st.sidebar.subheader("🤝 Уровень поддержки")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🤝 Уровень поддержки</h3>", unsafe_allow_html=True)
 support_level = st.sidebar.selectbox(
     "Выберите пакет",
     ["Pro (роялти 10%)", "VIP (роялти 15%)", "Partner (50% от прибыли)"]
 )
 
-st.sidebar.subheader("🍷 Доп. услуги")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🍷 Доп. услуги</h3>", unsafe_allow_html=True)
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
-st.sidebar.subheader("🏠 Постоянные расходы")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🏠 Постоянные расходы</h3>", unsafe_allow_html=True)
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
 other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
@@ -81,7 +82,7 @@ tax_mode = st.sidebar.selectbox(
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-st.sidebar.subheader("👥 Персонал")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>👥 Персонал</h3>", unsafe_allow_html=True)
 c1, c2 = st.sidebar.columns([2, 1])
 with c1:
     num_dilers = st.number_input("Дилеров", min_value=1, value=6, key="num_dilers")
@@ -97,14 +98,14 @@ staff_total = (num_dilers * rate_diler * hours +
                num_senior * rate_senior * hours)
 st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого ФОТ: {staff_total:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-st.sidebar.subheader("💰 Первичные инвестиции")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>💰 Первичные инвестиции</h3>", unsafe_allow_html=True)
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
-st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
+st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 # ================== РАСЧЁТ ==================
 rev_vkhody = vkhody * vkhody_price
