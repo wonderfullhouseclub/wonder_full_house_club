@@ -39,9 +39,14 @@ st.markdown("""
         color: #000000 !important;
     }
 
-    /* ========== ЗАГОЛОВКИ ОСТАЮТСЯ ОРАНЖЕВЫМИ ========== */
+    /* ========== ЗАГОЛОВКИ — ГАРАНТИРОВАННО ОРАНЖЕВЫЕ ========== */
     h1, h2, h3, h4, h5, h6,
-    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+    div[data-testid="stAppViewContainer"] h1,
+    div[data-testid="stAppViewContainer"] h2,
+    div[data-testid="stAppViewContainer"] h3,
+    div[data-testid="stAppViewContainer"] .stMarkdown h1,
+    div[data-testid="stAppViewContainer"] .stMarkdown h2 {
         color: #FF4C24 !important;
     }
 
