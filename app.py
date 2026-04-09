@@ -6,59 +6,61 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА И САЙДБАР */
+    /* 1. БАЗА - ПРИНУДИТЕЛЬНЫЙ СБРОС */
     .stApp { background-color: #ECF0ED !important; }
-    
+
+    /* 2. САЙДБАР - ВЫЖИГАЕМ СЕРЫЙ */
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВЫЕ АКЦЕНТЫ (Цифра и Подзаголовки) */
-    /* Используем двойной селектор для веса */
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3,
-    div[data-testid="stThumbValue"] > div {
+    /* МИН / МАКС - бьем по псевдоэлементам, которые создают серый налет */
+    [data-testid="stTickBarMin"], [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+    }
+    [data-testid="stTickBarMin"] > div, [data-testid="stTickBarMax"] > div {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 3. ОРАНЖЕВЫЕ АКЦЕНТЫ - ПРИОРИТЕТ ВЫШЕ ВСЕГО */
+    /* Используем ID виджета, чтобы победить белый цвет */
+    div[data-testid="stThumbValue"] > div,
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         opacity: 1 !important;
     }
 
-    /* 3. МИН / МАКС (БЕЛЫЙ) — УСИЛЕННЫЙ ВАРИАНТ */
-    /* Добавляем яркость, чтобы пробить системную серость */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    [data-testid="stTickBarMin"] > div,
-    [data-testid="stTickBarMax"] > div {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 1 !important;
-        filter: brightness(100%) contrast(100%) !important;
-        font-weight: 600 !important;
+    /* 4. МОБИЛЬНАЯ ВЕРСИЯ - ИСПРАВЛЕНИЕ БЕЛОГО ТЕКСТА */
+    /* Мы запрещаем любому тексту в основном блоке быть белым */
+    [data-testid="stAppViewContainer"] section.main * {
+        color: #1A1C23; /* Убираем !important, чтобы дать системе дышать, но задаем базу */
     }
 
-    /* 4. ПОДПИСИ (БЕЛЫЙ) */
-    [data-testid="stWidgetLabel"] p, 
-    section[data-testid="stSidebar"] .stMarkdown p {
-        color: #FFFFFF !important;
-        opacity: 1 !important;
-    }
-
-    /* 5. ИСПРАВЛЕНИЕ МОБИЛЬНОЙ ВЕРСИИ И ОСНОВНОЙ ОБЛАСТИ */
-    /* Этот блок гарантирует, что в основной области текст ВСЕГДА темный */
-    .main .stMarkdown p, 
-    .main .stMarkdown span, 
-    .main label, 
-    .main h1, 
-    .main h2, 
-    .main h3,
-    .main [data-testid="stMarkdownContainer"] p {
+    /* Жесткая блокировка белого в центре */
+    [data-testid="stAppViewContainer"] section.main p, 
+    [data-testid="stAppViewContainer"] section.main span, 
+    [data-testid="stAppViewContainer"] section.main label,
+    [data-testid="stAppViewContainer"] section.main h1,
+    [data-testid="stAppViewContainer"] section.main h2 {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 6. ВЫПАДАЮЩИЕ СПИСКИ В САЙДБАРЕ */
+    /* 5. САЙДБАР - ПОДПИСИ (БЕЛЫЕ) */
+    [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
+    [data-testid="stSidebar"] .stMarkdown p {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 6. ИНПУТЫ И СПИСКИ (ЧЕРНЫЙ ТЕКСТ) */
     [data-testid="stSidebar"] [data-baseweb="select"] *,
     [data-testid="stSidebar"] input {
         color: #1A1C23 !important;
@@ -67,13 +69,6 @@ st.markdown("""
     [data-testid="stSidebar"] [data-baseweb="select"],
     [data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
-    }
-
-    /* Дополнительный хак для мобилок: сброс цвета */
-    @media (max-width: 640px) {
-        .main * {
-            color: #1A1C23;
-        }
     }
 </style>
 """, unsafe_allow_html=True)
