@@ -6,38 +6,51 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. Общий фон и боковая панель */
+    /* 1. Общие настройки фона */
     .stApp { background-color: #ECF0ED; }
+
+    /* 2. Настройки ТОЛЬКО для боковой панели */
     section[data-testid="stSidebar"] {
-        background-color: #1A1C23;
+        background-color: #1A1C23 !important;
         border-right: 2px solid #FF4C24;
     }
 
-    /* 2. ПЕРЕКРАШИВАЕМ МИН/МАКС (самый агрессивный метод) */
-    /* Ищем любые элементы внутри тиков слайдера в сайдбаре */
-    section[data-testid="stSidebar"] [data-testid="stTickBar"] div,
-    section[data-testid="stSidebar"] [data-testid="stTickBarMin"],
-    section[data-testid="stSidebar"] [data-testid="stTickBarMax"],
-    section[data-testid="stSidebar"] [data-baseweb="typography"] {
+    /* Цвет текста заголовков в сайдбаре */
+    section[data-testid="stSidebar"] .stWidgetLabel label p {
         color: #FFFFFF !important;
     }
 
-    /* 3. СКРЫВАЕМ ЧИСЛО НАД ПОЛЗУНКОМ */
+    /* Цвета Мин/Макс под слайдерами */
+    section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
+    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+    }
+
+    /* Скрываем бегающую цифру над слайдером */
     section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
         display: none !important;
     }
 
-    /* 4. ЦВЕТ ЗАГОЛОВКОВ (label) */
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
+    /* 3. Настройки для основной области (чтобы текст был черным/темным) */
+    .main .stMarkdown, .main p {
+        color: #1A1C23 !important;
     }
 
-    /* Оформление карточек метрик */
+    /* Заголовки в основной части (оставляем оранжевыми) */
+    .main h1, .main h2, .main h3 {
+        color: #FF4C24 !important;
+    }
+
+    /* Карточки метрик (белые с темным текстом) */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
+    }
+    div[data-testid="metric-container"] label p, 
+    div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+        color: #1A1C23 !important;
     }
 </style>
 """, unsafe_allow_html=True)
