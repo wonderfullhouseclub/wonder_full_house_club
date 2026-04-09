@@ -6,36 +6,71 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ВОЗВРАЩАЕМ ОСНОВНОЙ ФОН */
+    /* 1. ОСНОВНОЙ ФОН И БОКОВАЯ ПАНЕЛЬ С ЛИНИЕЙ */
     .stApp { 
         background-color: #ECF0ED !important; 
     }
-
-    /* 2. ВОЗВРАЩАЕМ ЦВЕТ БОКОВОЙ ПАНЕЛИ И ОРАНЖЕВУЮ ЛИНИЮ */
+    
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
-        border-right: 3px solid #FF4C24 !important; /* Та самая линия */
+        border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 3. ЧИНИМ ТЕКСТ В ОСНОВНОМ ПОЛЕ (Черный на светлом фоне) */
+    /* 2. ПОДЗАГОЛОВКИ (H2, H3) В САЙДБАРЕ — СТРОГО ОРАНЖЕВЫЕ */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3,
+    section[data-testid="stSidebar"] .stMarkdown h2,
+    section[data-testid="stSidebar"] .stMarkdown h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        opacity: 1 !important;
+    }
+
+    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ (Thumb) */
+    div[data-testid="stThumbValue"] > div,
+    div[data-testid="stThumbValue"] span,
+    .st-ae div[data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.35rem !important;
+    }
+
+    /* 4. МИН / МАКС — СТРОГО БЕЛЫЕ */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"],
+    div[data-testid="stTickBarMin"] > div,
+    div[data-testid="stTickBarMax"] > div {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* 5. ПОДПИСИ К СЛАЙДЕРАМ (БЕЛЫЕ) */
+    section[data-testid="stSidebar"] .stWidgetLabel label p {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 6. ПОЛЯ ВВОДА И СПИСКИ (ЧЕРНЫЙ ТЕКСТ НА БЕЛОМ) */
+    section[data-testid="stSidebar"] [data-baseweb="select"] *,
+    section[data-testid="stSidebar"] input {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+    section[data-testid="stSidebar"] [data-baseweb="input"],
+    section[data-testid="stSidebar"] [data-baseweb="select"] {
+        background-color: #FFFFFF !important;
+    }
+
+    /* 7. ОСНОВНОЕ ПОЛЕ (ЧЕРНЫЙ ТЕКСТ НА #ECF0ED) */
     .main p, .main span, .main label, .main h1, .main h2, .main h3 {
         color: #1A1C23 !important;
     }
-    
-    /* Оставляем главный заголовок оранжевым для стиля */
     .main h1 {
         color: #FF4C24 !important;
-    }
-
-    /* 4. КАРТОЧКИ МЕТРИК (Если есть) */
-    div[data-testid="metric-container"] {
-        background-color: #FFFFFF !important;
-        border: 1px solid #CCCCCC !important;
-        border-radius: 8px;
-        padding: 10px;
-    }
-    div[data-testid="metric-container"] * {
-        color: #1A1C23 !important;
     }
 </style>
 """, unsafe_allow_html=True)
