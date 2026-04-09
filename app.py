@@ -6,59 +6,72 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ГЛОБАЛЬНЫЙ СБРОС ДЛЯ САЙДБАРА */
-    /* Заставляем все текстовые переменные внутри сайдбара стать белыми */
-    [data-testid="stSidebar"] {
-        --secondary-text-color: #FFFFFF;
-        --text-color: #FFFFFF;
-        background-color: #1A1C23 !important;
-    }
-
-    /* 2. МИН / МАКС (Белый через все возможные пути) */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    [data-testid="stTickBar"] div,
-    span[data-testid="stWidgetLabel"] div p {
-        color: #FFFFFF !important;
-        opacity: 0.8 !important;
-    }
-
-    /* 3. ОРАНЖЕВОЕ ЗНАЧЕНИЕ (Thumb) */
-    [data-testid="stThumbValue"] {
-        color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.4rem !important;
-        /* Добавляем небольшую обводку, если шрифт сам по себе не хочет быть жирным */
-        -webkit-text-stroke: 0.5px #FF4C24;
-    }
-
-    /* 4. ЗАГОЛОВКИ И ПОДПИСИ */
-    [data-testid="stSidebar"] h2, 
-    [data-testid="stSidebar"] h3 {
-        color: #FF4C24 !important;
+    /* 1. ОСНОВНОЙ ФОН И САЙДБАР */
+    .stApp { 
+        background-color: #ECF0ED !important; 
     }
     
-    /* Названия слайдеров */
-    [data-testid="stWidgetLabel"] p {
-        color: #FFFFFF !important;
+    section[data-testid="stSidebar"] {
+        background-color: #1A1C23 !important;
+        /* Возвращаем оранжевую линию-разделитель справа */
+        border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (Возвращаем черный текст) */
-    [data-testid="stSidebar"] input,
-    [data-testid="stSidebar"] div[data-baseweb="select"] * {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
+    /* 2. МИН / МАКС — ВОЗВРАЩАЕМ БЕЛЫЙ ЦВЕТ */
+    /* Используем самый простой и надежный путь, который работал */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+        font-size: 0.8rem !important;
     }
-    [data-testid="stSidebar"] div[data-baseweb="input"],
-    [data-testid="stSidebar"] div[data-baseweb="select"] {
+
+    /* 3. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Над слайдером) */
+    /* Оранжевый, максимально жирный */
+    div[data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.3rem !important;
+    }
+
+    /* 4. ЗАГОЛОВКИ И ПОДПИСИ (Белые) */
+    section[data-testid="stSidebar"] .stWidgetLabel label p,
+    section[data-testid="stSidebar"] p {
+        color: #FFFFFF !important;
+    }
+    
+    /* Заголовки разделов (Оранжевые) */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {
+        color: #FF4C24 !important;
+    }
+
+    /* 5. ПОЛЯ ВВОДА (Чиним "белое на белом") */
+    /* Оставляем инпуты и выпадающие списки читаемыми */
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] select,
+    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+        color: #1A1C23 !important;
+    }
+    section[data-testid="stSidebar"] div[data-baseweb="input"],
+    section[data-testid="stSidebar"] div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Чиним белый текст на светлом фоне) */
-    .main * {
-        --text-color: #1A1C23;
+    /* 6. ТЕКСТ В ОСНОВНОМ ПОЛЕ (Черный на #ECF0ED) */
+    .main p, .main span, .main label, .main h2, .main h3 {
+        color: #1A1C23 !important;
     }
-    .main p, .main span, .main label {
+    .main h1 {
+        color: #FF4C24 !important;
+    }
+
+    /* МЕТРИКИ (Белые карточки) */
+    div[data-testid="metric-container"] {
+        background-color: #FFFFFF !important;
+        border: 1px solid #CCCCCC !important;
+    }
+    div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
     }
 </style>
