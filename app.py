@@ -6,14 +6,14 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ВИД И ЛИНИЯ */
+    /* 1. БАЗА */
     .stApp { background-color: #ECF0ED !important; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВОЕ ЗНАЧЕНИЕ (Уже работает, закрепляем) */
+    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) - Работает */
     div[data-testid="stThumbValue"] > div, 
     .st-ae div[data-testid="stThumbValue"] {
         color: #FF4C24 !important;
@@ -22,50 +22,53 @@ st.markdown("""
         font-size: 1.35rem !important;
     }
 
-    /* 3. МИН / МАКС (ДЕЛАЕМ БЕЛЫМИ ЧЕРЕЗ СИСТЕМНЫЕ КЛАССЫ) */
-    /* Добавляем .st-ag и .st-ah — это внутренние контейнеры для подписей шкалы */
+    /* 3. МИН / МАКС (БЕЛЫЕ) */
+    /* Используем комбинацию, которая "пробивает" системный серый */
+    div[data-testid="stTickBarMin"] > div, 
+    div[data-testid="stTickBarMax"] > div,
     [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    .st-ag div, .st-ah div {
+    [data-testid="stTickBarMax"] {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 0.9 !important;
-        font-size: 0.8rem !important;
+        opacity: 1 !important;
+        font-size: 0.85rem !important;
+        font-weight: 400 !important;
     }
 
-    /* 4. БЕЛЫЕ ПОДПИСИ И ПОДЗАГОЛОВКИ */
-    /* Красим принудительно все текстовые элементы в сайдбаре, кроме оранжевых */
+    /* 4. ПОДПИСИ И ТЕКСТ В САЙДБАРЕ */
     section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] .stMarkdown p,
-    section[data-testid="stSidebar"] span {
+    section[data-testid="stSidebar"] .stMarkdown p {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
     }
 
-    /* 5. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ (H2, H3) */
-    /* Ставим их НИЖЕ белых правил, чтобы они перекрывали их */
+    /* 5. ИСПРАВЛЕНИЕ ВЫПАДАЮЩИХ СПИСКОВ (Размер и прозрачность) */
+    /* Возвращаем нормальный вид тексту внутри полей выбора */
+    section[data-testid="stSidebar"] [data-baseweb="select"] span,
+    section[data-testid="stSidebar"] [data-baseweb="select"] div {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+        opacity: 1 !important;
+        font-size: 1rem !important; /* Нормальный размер */
+    }
+
+    /* 6. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 6. ИСПРАВЛЕНИЕ ИНПУТОВ (ЧЕРНЫЙ ТЕКСТ) */
-    section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] [data-baseweb="select"] * {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-    }
+    /* 7. ИСПРАВЛЕНИЕ ИНПУТОВ (ФОН) */
     section[data-testid="stSidebar"] [data-baseweb="input"],
     section[data-testid="stSidebar"] [data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 7. ОСНОВНОЙ ТЕКСТ (Центр) */
+    /* 8. ОСНОВНОЕ ПОЛЕ */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
-    .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
 
