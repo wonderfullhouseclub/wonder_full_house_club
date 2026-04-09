@@ -1,59 +1,29 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-# --- ПРИНУДИТЕЛЬНАЯ СВЕТЛАЯ ТЕМА (чтобы Streamlit не менял цвета сам) ---
-st.set_page_config(
-    page_title="Финансовая модель клуба",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items=None
-)
+st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# Принудительно светлая тема через параметры браузера
-st.markdown("""
-<script>
-    var theme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (theme.matches) {
-        // Если браузер в тёмной теме, переключаем Streamlit на светлую
-        window.frameElement?.contentDocument?.documentElement?.setAttribute('data-theme', 'light');
-    }
-</script>
-""", unsafe_allow_html=True)
-
-# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, отступы) ---
+# Минимальный CSS
 st.markdown("""
 <style>
-    /* Фон основной области */
-    .stApp {
-        background-color: #ECF0ED;
-    }
-
-    /* Боковая панель: только тёмный фон и оранжевая рамка.
-       ВСЕ ЦВЕТА ТЕКСТА ОСТАВЛЯЕМ СТАНДАРТНЫМИ (Streamlit сам раскрасит) */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-
-    /* Метрики (карточки) */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
-
-    /* Отступ после логотипа */
     .stImage + div {
         margin-top: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- ЛОГОТИП ---
 st.image("logo.png", width=250)
 
-# --- ЗАГОЛОВОК (две строки) ---
 st.markdown("""
 <div style="line-height: 1.2;">
     <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
@@ -63,10 +33,9 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ ==================
+# Боковая панель (весь код без изменений, кроме удаления старых CSS-правил)
 st.sidebar.header("📍 Параметры расчёта")
 
-# --- 1. ФОРМАТ КЛУБА ---
 st.sidebar.subheader("🎲 Формат клуба")
 club_format = st.sidebar.selectbox(
     "Выберите формат",
@@ -82,34 +51,29 @@ else:
 vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-# --- 2. УРОВЕНЬ ПОДДЕРЖКИ ---
 st.sidebar.subheader("🤝 Уровень поддержки")
 support_level = st.sidebar.selectbox(
     "Выберите пакет",
     ["Pro (роялти 10%)", "VIP (роялти 15%)", "Partner (50% от прибыли)"]
 )
 
-# --- 3. ДОП. УСЛУГИ ---
 st.sidebar.subheader("🍷 Доп. услуги")
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
-# --- 4. ПОСТОЯННЫЕ РАСХОДЫ ---
 st.sidebar.subheader("🏠 Постоянные расходы")
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
 other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
 marketing_budget = st.sidebar.slider("📢 Маркетинговый бюджет, руб.",
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
-
 tax_mode = st.sidebar.selectbox(
     "🧾 Налоговый режим",
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-# --- 5. ПЕРСОНАЛ ---
 st.sidebar.subheader("👥 Персонал")
 c1, c2 = st.sidebar.columns([2, 1])
 with c1:
@@ -120,35 +84,30 @@ with c2:
     rate_diler = st.number_input("Ставка/час", value=350, key="rate_diler")
     rate_tour = st.number_input("Ставка/час", value=250, key="rate_tour")
     rate_senior = st.number_input("Ставка/час", value=400, key="rate_senior")
-
 hours = 165
 staff_total = (num_dilers * rate_diler * hours +
                num_tour * rate_tour * hours +
                num_senior * rate_senior * hours)
 st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого ФОТ: {staff_total:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-# --- 6. ПЕРВИЧНЫЕ ИНВЕСТИЦИИ ---
 st.sidebar.subheader("💰 Первичные инвестиции")
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
-
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
 
-# ================== РАСЧЁТ ==================
+# Расчёты (без изменений)
 rev_vkhody = vkhody * vkhody_price
 rev_bar = (vkhody * bar_conv) * bar_check
 rev_hookah = (vkhody * hookah_conv) * hookah_check
 total_revenue = rev_vkhody + rev_bar + rev_hookah
-
 opex_before = rent + other_opex + marketing_budget + staff_total
 
 if "Partner" in support_level:
-    profit_before = total_revenue - opex_before
-    royalty_sum = max(0, profit_before * 0.5)
+    royalty_sum = max(0, (total_revenue - opex_before) * 0.5)
 elif "Pro" in support_level:
     royalty_sum = total_revenue * 0.10
 else:
@@ -157,58 +116,44 @@ else:
 if tax_mode == "УСН 6% (Доходы)":
     tax_amount = total_revenue * 0.06
 elif tax_mode == "УСН 15% (Доходы - Расходы)":
-    tax_base = total_revenue - (opex_before + royalty_sum)
-    tax_amount = max(0, tax_base * 0.15)
+    tax_amount = max(0, (total_revenue - (opex_before + royalty_sum)) * 0.15)
 else:
-    profit_before_tax = total_revenue - opex_before - royalty_sum
-    tax_amount = max(0, profit_before_tax * 0.25)
+    tax_amount = max(0, (total_revenue - opex_before - royalty_sum) * 0.25)
 
 total_opex = opex_before + royalty_sum + tax_amount
 net_profit = total_revenue - total_opex
+payback_months = (total_investments / net_profit) if net_profit > 0 else float('inf')
 
-if net_profit > 0:
-    payback_months = total_investments / net_profit
-else:
-    payback_months = float('inf')
-
-# ================== МЕТРИКИ ==================
+# Метрики
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("💰 Выручка", f"{total_revenue:,.0f} ₽".replace(",", " "))
 col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace(",", " "),
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
-col3.metric("⏳ Окупаемость",
-            f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
+col3.metric("⏳ Окупаемость", f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
 col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
-# ================== ГРАФИК ==================
+# График
 st.markdown("<h3 style='color: #FF4C24;'>🧩 Структура выручки</h3>", unsafe_allow_html=True)
 labels = ['Вход в игру', 'Кальян', 'Бар']
 values = [rev_vkhody, rev_hookah, rev_bar]
 colors = ['#FF4C24', '#FF7A5C', '#CC3A1A']
-
 fig_pie = go.Figure(data=[go.Pie(
-    labels=labels,
-    values=values,
-    hole=0.4,
+    labels=labels, values=values, hole=0.4,
     marker=dict(colors=colors, line=dict(color='#1A1C23', width=2)),
-    textinfo='percent+label',
-    textfont=dict(color='white', size=15),
+    textinfo='percent+label', textfont=dict(color='white', size=15),
     hoverinfo='label+value+percent',
     hovertemplate='%{label}: %{value:,.0f} ₽ (%{percent})<extra></extra>'
 )])
 fig_pie.update_layout(
-    paper_bgcolor='#5F6367',
-    plot_bgcolor='#5F6367',
-    font=dict(color='white'),
-    showlegend=False,
-    margin=dict(t=30, b=10, l=10, r=10),
-    height=450
+    paper_bgcolor='#5F6367', plot_bgcolor='#5F6367',
+    font=dict(color='white'), showlegend=False,
+    margin=dict(t=30, b=10, l=10, r=10), height=450
 )
 st.plotly_chart(fig_pie, use_container_width=True)
 
-# --- ДЕТАЛИЗАЦИЯ РАСХОДОВ (сворачиваемый блок) ---
+# Детализация
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
     with col_d1:
