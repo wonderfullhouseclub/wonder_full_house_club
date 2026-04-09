@@ -6,72 +6,57 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОСНОВНОЙ ФОН И БОКОВАЯ ПАНЕЛЬ С ЛИНИЕЙ */
-    .stApp { 
-        background-color: #ECF0ED !important; 
-    }
-    
-    section[data-testid="stSidebar"] {
+    /* 1. БАЗА (Фон и Линия) */
+    .stApp { background-color: #ECF0ED !important; }
+    [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ПОДЗАГОЛОВКИ (H2, H3) В САЙДБАРЕ — СТРОГО ОРАНЖЕВЫЕ */
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] .stMarkdown h2,
-    section[data-testid="stSidebar"] .stMarkdown h3 {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
+    /* 2. ВЫЖИГАТЕЛЬ СЕРОГО (Универсальный удар) */
+    /* Ищем любые элементы в сайдбаре, у которых цвет похож на серый/прозрачный */
+    [data-testid="stSidebar"] * {
+        --text-color: #FFFFFF !important;
+        --secondary-text-color: #FFFFFF !important;
+    }
+
+    /* 3. ФИКСАЦИЯ БЕЛОГО (Мин/Макс и Заголовки) */
+    /* Бьем по всем типам заголовков и текстовых блоков */
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ (Thumb) */
+    /* 4. ВОЗВРАТ ОРАНЖЕВОГО (Приоритет выше белого) */
+    /* Специально для цифры над слайдером и главных заголовков */
+    [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
     div[data-testid="stThumbValue"] > div,
-    div[data-testid="stThumbValue"] span,
-    .st-ae div[data-testid="stThumbValue"] {
+    [data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         font-size: 1.35rem !important;
     }
 
-    /* 4. МИН / МАКС — СТРОГО БЕЛЫЕ */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"],
-    div[data-testid="stTickBarMin"] > div,
-    div[data-testid="stTickBarMax"] > div {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 1 !important;
-        font-size: 0.85rem !important;
-    }
-
-    /* 5. ПОДПИСИ К СЛАЙДЕРАМ (БЕЛЫЕ) */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 1 !important;
-    }
-
-    /* 6. ПОЛЯ ВВОДА И СПИСКИ (ЧЕРНЫЙ ТЕКСТ НА БЕЛОМ) */
-    section[data-testid="stSidebar"] [data-baseweb="select"] *,
-    section[data-testid="stSidebar"] input {
+    /* 5. ИЗОЛЯЦИЯ ПОЛЕЙ ВВОДА (Чтобы не были белыми внутри) */
+    /* Возвращаем черный цвет только для контента внутри рамок */
+    [data-testid="stSidebar"] [data-baseweb="input"] input,
+    [data-testid="stSidebar"] [data-baseweb="select"] * {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-    section[data-testid="stSidebar"] [data-baseweb="input"],
-    section[data-testid="stSidebar"] [data-baseweb="select"] {
+    [data-testid="stSidebar"] [data-baseweb="input"],
+    [data-testid="stSidebar"] [data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 7. ОСНОВНОЕ ПОЛЕ (ЧЕРНЫЙ ТЕКСТ НА #ECF0ED) */
-    .main p, .main span, .main label, .main h1, .main h2, .main h3 {
+    /* 6. ОСНОВНОЕ ПОЛЕ (Черный текст) */
+    .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
     }
-    .main h1 {
-        color: #FF4C24 !important;
-    }
+    .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
 
