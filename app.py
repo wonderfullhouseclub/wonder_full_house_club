@@ -16,6 +16,19 @@ st.markdown("""
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
+     /* ВОЗВРАЩАЕМ ОРАНЖЕВЫЙ ЗАГОЛОВКАМ В ОСНОВНОЙ ОБЛАСТИ */
+    [data-testid="stMain"] h1,
+    [data-testid="stMain"] h2,
+    [data-testid="stMain"] h3,
+    .main h1,
+    .main h2,
+    .main h3,
+    .stMarkdown h1,
+    .stMarkdown h2,
+    .stMarkdown h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
     /* Белый текст в сайдбаре */
     section[data-testid="stSidebar"] label p, 
     section[data-testid="stSidebar"] span,
