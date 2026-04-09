@@ -15,7 +15,26 @@ st.markdown("""
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    /* Метрики */
+    /* Заголовок "Параметры расчёта" */
+    section[data-testid="stSidebar"] .stHeader {
+        color: #FFFFFF !important;
+    }
+    /* Подписи (label) */
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 500;
+    }
+    /* Значения под слайдерами и в инпутах */
+    section[data-testid="stSidebar"] .stSlider div[data-testid="stThumbValue"],
+    section[data-testid="stSidebar"] .stNumberInput input,
+    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div {
+        color: #FFFFFF !important;
+    }
+    /* Текст в выпадающих списках */
+    section[data-testid="stSidebar"] div[data-baseweb="select"] span {
+        color: #FFFFFF !important;
+    }
+    /* Метрики в основной области */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
@@ -28,17 +47,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-st.image("logo.png", width=250)
-
-st.markdown("""
-<div style="line-height: 1.2;">
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ (с точечными HTML-стилями) ==================
 st.sidebar.header("📍 Параметры расчёта")
