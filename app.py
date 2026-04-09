@@ -6,48 +6,49 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА */
+    /* 1. БАЗА И РАЗДЕЛИТЕЛЬ */
     .stApp { background-color: #ECF0ED !important; }
-    
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (ОРАНЖЕВОЕ) */
-    /* Бьем по внутреннему спану — это самый глубокий уровень, который видит браузер */
-    div[data-testid="stThumbValue"] span, 
-    div[data-testid="stThumbValue"] {
+    /* 2. ПРИНУДИТЕЛЬНЫЙ БЕЛЫЙ ДЛЯ ВСЕГО В САЙДБАРЕ */
+    /* Это вернет подзаголовки и Min/Max из серого небытия */
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+    }
+
+    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — МАКСИМАЛЬНЫЙ ПРИОРИТЕТ */
+    /* Используем цепочку ID, чтобы это правило было "главнее" белого */
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"],
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] > div,
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] span {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         font-size: 1.4rem !important;
     }
 
-    /* 3. МИН / МАКС (БЕЛЫЕ) */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 0.8 !important;
-        font-size: 0.8rem !important;
-    }
-
-    /* 4. ПОДПИСИ И ЗАГОЛОВКИ */
-    /* Красим только названия виджетов и заголовки, чтобы не задеть оранжевый */
-    section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
-        color: #FFFFFF !important;
-    }
-    
-    /* Заголовки разделов делаем оранжевыми (перекрываем правило выше) */
+    /* 4. ОРАНЖЕВЫЕ ЗАГОЛОВКИ (H2, H3) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
+    /* 5. МИН / МАКС (Чуть приглушаем белый) */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        opacity: 0.6 !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* 6. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
+    /* Важно: возвращаем черный цвет для инпутов, перебивая белый */
     section[data-testid="stSidebar"] input,
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
         color: #1A1C23 !important;
@@ -58,8 +59,8 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
-    .main p, .main span, .main label, .main h1, .main h2 {
+    /* 7. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
+    .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
     .main h1 { color: #FF4C24 !important; }
