@@ -3,47 +3,36 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
+# 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
 <style>
-    /* 1. БАЗА - СВЕТЛЫЙ ФОН */
+    /* ФОН ПРИЛОЖЕНИЯ */
     .stApp { background-color: #ECF0ED !important; }
 
-    /* 2. ИСПРАВЛЕНИЕ МОБИЛЬНОЙ ВЕРСИИ (ГЛАВНЫЙ ПРИОРТЕТ) */
-    /* Мы явно указываем, что в контейнере main текст всегда темный */
-    [data-testid="stMain"] *, 
-    .main *, 
-    .stMarkdown div p {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-    }
-
-    /* 2.1 ВОЗВРАЩАЕМ ОРАНЖЕВЫЙ ЗАГОЛОВКАМ В ОСНОВНОЙ ОБЛАСТИ */
-    [data-testid="stMain"] h1, 
-    [data-testid="stMain"] h2, 
-    [data-testid="stMain"] h3,
-    .main h1,
-    .main h2,
-    .main h3 {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-    }
-
-    /* 3. САЙДБАР - ИЗОЛИРОВАННЫЕ СТИЛИ */
+    /* САЙДБАР: ЦВЕТ И ЛИНИЯ */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* Подписи и заголовки в сайдбаре - принудительно перекрашиваем обратно в белый/оранжевый */
-    section[data-testid="stSidebar"] p, 
-    section[data-testid="stSidebar"] label, 
-    section[data-testid="stSidebar"] span {
+    /* ОСНОВНАЯ ОБЛАСТЬ: ЧЕРНЫЙ ТЕКСТ (Для мобилок и десктопа) */
+    /* Мы красим всё в черный, но НЕ ТРОГАЕМ теги <span>, чтобы заголовок остался оранжевым */
+    [data-testid="stMain"] *:not(span), 
+    .main *:not(span) {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+
+    /* САЙДБАР: БЕЛЫЙ ТЕКСТ (Подписи и шкала) */
+    section[data-testid="stSidebar"] label p, 
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
     }
 
+    /* САЙДБАР: ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
@@ -51,32 +40,47 @@ st.markdown("""
         font-weight: 800 !important;
     }
 
-    /* 4. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ */
+    /* ЦИФРА НАД ПОЛЗУНКОМ (Оранжевая) */
     div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
+        font-size: 1.4rem !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА В САЙДБАРЕ */
+    /* ИНПУТЫ В САЙДБАРЕ (Черный текст на белом) */
     section[data-testid="stSidebar"] [data-baseweb="select"] *,
     section[data-testid="stSidebar"] [data-baseweb="input"] input {
         color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"],
     section[data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
     }
-
-    /* 6. МИН / МАКС - ПОСЛЕДНЯЯ ПОПЫТКА ПРОБИТЬ СЕРЫЙ */
-    [data-testid="stTickBarMin"] > div, 
-    [data-testid="stTickBarMax"] > div {
-        color: rgba(255, 255, 255, 1) !important;
-        -webkit-text-fill-color: white !important;
-    }
 </style>
 """, unsafe_allow_html=True)
+
+# 2. ЛОКАЛЬНЫЙ ОРАНЖЕВЫЙ ЗАГОЛОВОК (В основном поле)
+st.markdown(
+    """
+    <div style="text-align: left; margin-bottom: 20px;">
+        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block; line-height: 1.2;">
+            Финансовая модель
+        </span>
+        <span style="color: #FF4C24 !important; font-size: 2.5rem; font-weight: 800; display: block; line-height: 1.2;">
+            Вашего клуба спортивного покера
+        </span>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
+
+# 3. ПРИМЕР ОСТАЛЬНОГО КОНТЕНТА (Текст под заголовком будет черным)
+st.write("Здесь теперь будет ваш основной расчет, и текст будет черным даже на мобильных устройствах.")
+
+# Пример слайдера в сайдбаре для проверки
+st.sidebar.markdown("### Настройки")
+st.sidebar.slider("Выберите значение", 0, 100, 50)
 
 st.image("logo.png", width=250)
 
