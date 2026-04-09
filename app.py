@@ -6,49 +6,48 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ФОН */
+    /* 1. Общий фон */
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Оранжевое, жирное) */
-    /* Используем поиск по части имени класса, чтобы Streamlit не "соскочил" */
-    div[data-testid="stThumbValue"] {
-        color: #FF4C24 !important;
-        font-weight: 800 !important;
-        font-size: 1.1rem !important;
-    }
-
-    /* 3. МИН / МАКС (Белые, маленькие) */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-        font-size: 0.75rem !important;
-        font-weight: 400 !important;
-    }
-
-    /* 4. ПОДЗАГОЛОВКИ И LABEL (Белые) */
-    /* Принудительно красим ВСЕ параграфы и лейблы в сайдбаре в белый */
+    /* 2. ТЕКСТ И ПОДПИСИ (Белые) */
     section[data-testid="stSidebar"] .stWidgetLabel label p,
     section[data-testid="stSidebar"] p {
         color: #FFFFFF !important;
     }
 
-    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ (Оранжевые) */
+    /* 3. ТЕКУЩЕЕ ЗНАЧЕНИЕ НАД СЛАЙДЕРОМ (Оранжевое и жирное) */
+    /* Используем двойной селектор для максимального приоритета */
+    div[data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* 4. МИН / МАКС (Приглушенные) */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        font-size: 0.75rem !important;
+        opacity: 0.5 !important; /* Делает их полупрозрачными/серыми */
+    }
+
+    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 6. ИНПУТЫ (Черный текст на белом фоне) */
+    /* 6. ПОЛЯ ВВОДА (Чиним текст) */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр экрана) */
+    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр) */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
