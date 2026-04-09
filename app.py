@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ CSS (только фон и рамка, как было вчера) ---
+# --- МИНИМАЛЬНЫЙ CSS (только фон и рамка, без вмешательства в текст) ---
 st.markdown("""
 <style>
     .stApp { background-color: #ECF0ED; }
@@ -32,10 +32,10 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ (без HTML-заголовков, всё стандартно) ==================
-st.sidebar.header("📍 Конфигуратор")
+# ================== БОКОВАЯ ПАНЕЛЬ (HTML для заголовков, остальное стандартно) ==================
+st.sidebar.markdown("<h2 style='color: #FFFFFF;'>📍 Параметры расчёта</h2>", unsafe_allow_html=True)
 
-st.sidebar.subheader("🎲 Формат клуба")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🎲 Формат клуба</h3>", unsafe_allow_html=True)
 club_format = st.sidebar.selectbox(
     "Выберите формат",
     ["STRAIGHT (5–10 столов)", "FULL HOUSE (11–24 стола)", "ROYAL FLASH (25+ столов)"]
@@ -47,33 +47,33 @@ elif club_format.startswith("FULL HOUSE"):
 else:
     min_v, max_v, def_v = 4000, 8000, 6000
 
-vkhody = st.sidebar.slider("🚪 Количество входов в игру месяц", min_v, max_v, def_v, step=50)
+vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
-st.sidebar.subheader("🤝 Уровень поддержки")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🤝 Уровень поддержки</h3>", unsafe_allow_html=True)
 support_level = st.sidebar.selectbox(
     "Выберите пакет",
     ["Pro (роялти 10%)", "VIP (роялти 15%)", "Partner (50% от прибыли)"]
 )
 
-st.sidebar.subheader("🍷 Доп. услуги")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🍷 Доп. услуги</h3>", unsafe_allow_html=True)
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
-st.sidebar.subheader("🏠 Постоянные расходы")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>🏠 Постоянные расходы</h3>", unsafe_allow_html=True)
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
-other_opex = st.sidebar.slider("💡 Операционные расходы, руб.",
+other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
-marketing_budget = st.sidebar.slider("📢 Маркетинг, руб.",
+marketing_budget = st.sidebar.slider("📢 Маркетинговый бюджет, руб.",
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
 tax_mode = st.sidebar.selectbox(
     "🧾 Налоговый режим",
     ["УСН 6% (Доходы)", "УСН 15% (Доходы - Расходы)", "ОСНО (25% с прибыли, без НДС)"]
 )
 
-st.sidebar.subheader("👥 Персонал")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>👥 Персонал</h3>", unsafe_allow_html=True)
 c1, c2 = st.sidebar.columns([2, 1])
 with c1:
     num_dilers = st.number_input("Дилеров", min_value=1, value=6, key="num_dilers")
@@ -87,16 +87,16 @@ hours = 165
 staff_total = (num_dilers * rate_diler * hours +
                num_tour * rate_tour * hours +
                num_senior * rate_senior * hours)
-st.sidebar.markdown(f"**Итого ФОТ: {staff_total:,.0f} ₽**".replace(",", " "))
+st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого ФОТ: {staff_total:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-st.sidebar.subheader("💰 Первичные инвестиции")
+st.sidebar.markdown("<h3 style='color: #FF4C24;'>💰 Первичные инвестиции</h3>", unsafe_allow_html=True)
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
 inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
-st.sidebar.markdown(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
+st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 # ================== РАСЧЁТ ==================
 rev_vkhody = vkhody * vkhody_price
@@ -138,7 +138,7 @@ col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
 col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
-col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
+col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
