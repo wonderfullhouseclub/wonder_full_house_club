@@ -95,7 +95,7 @@ hours = 165
 staff_total = (num_dilers * rate_diler * hours +
                num_tour * rate_tour * hours +
                num_senior * rate_senior * hours)
-st.sidebar.markdown(f"**Итого ФОТ: {staff_total:,.0f} ₽**".replace(",", " "))
+st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого ФОТ: {staff_total:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 st.sidebar.subheader("💰 Первичные инвестиции")
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
