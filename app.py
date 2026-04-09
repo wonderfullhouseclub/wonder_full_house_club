@@ -6,65 +6,68 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗОВЫЕ НАСТРОЙКИ */
+    /* 1. ОБЩИЙ ФОН И САЙДБАР */
     .stApp { background-color: #ECF0ED; }
-    
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ЕДИНЫЙ ЦВЕТ ДЛЯ ТЕКСТА В САЙДБАРЕ (Windows + Mac) */
-    /* Используем * для того, чтобы пробить серые системные цвета везде */
-    section[data-testid="stSidebar"] * {
+    /* 2. ТЕКСТ ПОДПИСЕЙ И ЗАГОЛОВКОВ (Белый) */
+    /* Красим только метки и текст, не трогая внутренности полей */
+    section[data-testid="stSidebar"] label p, 
+    section[data-testid="stSidebar"] .stMarkdown p {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important; /* Для Safari */
+        -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* 3. ОРАНЖЕВЫЙ АКЦЕНТ: ЗАГОЛОВКИ */
+    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ (Thumb) */
+    /* Пробиваемся через все возможные слои Streamlit */
+    div[data-testid="stThumbValue"], 
+    div[data-testid="stThumbValue"] > div,
+    div[data-testid="slider-value-container"] {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* 4. МИН / МАКС (Приглушенные белые) */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        color: rgba(255, 255, 255, 0.4) !important;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.4) !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Number Input, Selectbox, Multiselect) */
+    /* Принудительно возвращаем ТЕМНЫЙ текст для всех типов ввода */
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] select,
+    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+    /* Фон для этих полей */
+    section[data-testid="stSidebar"] div[data-baseweb="select"],
+    section[data-testid="stSidebar"] div[data-baseweb="input"] {
+        background-color: #FFFFFF !important;
+    }
+
+    /* 6. ЗАГОЛОВКИ (Оранжевые) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 4. ОРАНЖЕВЫЙ АКЦЕНТ: ТЕКУЩЕЕ ЗНАЧЕНИЕ СЛАЙДЕРА */
-    /* Бьем точно по ID элемента, чтобы перекрасить цифру над ползунком */
-    div[data-testid="stThumbValue"], 
-    div[data-testid="stThumbValue"] > div {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 800 !important;
-        font-size: 1.2rem !important;
-    }
-
-    /* 5. МИН / МАКС (Прозрачность для всех браузеров) */
-    /* Вместо смены цвета используем opacity — это работает везде одинаково */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        opacity: 0.4 !important;
-        font-size: 0.75rem !important;
-    }
-
-    /* 6. ПОЛЯ ВВОДА (INPUT) — ВОЗВРАЩАЕМ ЧЕРНЫЙ ТЕКСТ */
-    /* Важно принудительно перекрасить внутренности инпутов обратно в темный */
-    section[data-testid="stSidebar"] input {
-        color: #1A1C23 !important;
-        background-color: #FFFFFF !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-    }
-
-    /* 7. ФИКС ДЛЯ ОСНОВНОГО ПОЛЯ (Центр экрана) */
-    /* Чтобы текст не стал белым на Windows и в Safari */
-    .main p, .main span, .main label, .main h2 {
+    /* 7. ОСНОВНАЯ ОБЛАСТЬ (Центр) */
+    .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-    .main h1 { 
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-    }
+    .main h1 { color: #FF4C24 !important; }
 
-    /* 8. МЕТРИКИ (Белые карточки) */
+    /* 8. МЕТРИКИ */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
         border: 1px solid #CCCCCC !important;
