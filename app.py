@@ -13,7 +13,7 @@ st.markdown("""
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВАЯ ЦИФРА (Работает — не трогаем путь) */
+    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) — РАБОТАЕТ */
     div[data-testid="stSlider"] div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
@@ -21,43 +21,40 @@ st.markdown("""
         font-size: 1.4rem !important;
     }
 
-    /* 3. ОРАНЖЕВЫЕ ЖИРНЫЕ ЗАГОЛОВКИ (Усиление) */
-    /* Добавляем универсальный поиск по классам, которые начинаются на 'st-' */
+    /* 3. ЖИРНЫЕ ОРАНЖЕВЫЕ ЗАГОЛОВКИ — РАБОТАЕТ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] [class*="st-"] h2,
-    section[data-testid="stSidebar"] [class*="st-"] h3 {
+    section[data-testid="stSidebar"] .stMarkdown h2,
+    section[data-testid="stSidebar"] .stMarkdown h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 800 !important;
         opacity: 1 !important;
     }
 
-    /* 4. БЕЛЫЙ МИН / МАКС (Усиление) */
-    /* Используем поиск по всем вложенным div внутри шкалы */
-    [data-testid="stTickBarMin"] div, 
-    [data-testid="stTickBarMax"] div,
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 1 !important; /* Убиваем серый */
-        visibility: visible !important;
-    }
-
-    /* 5. БЕЛЫЕ ПОДПИСИ К СЛАЙДЕРАМ */
-    section[data-testid="stSidebar"] label p,
-    section[data-testid="stSidebar"] .stMarkdown p {
+    /* 4. МИН / МАКС — ТОТ САМЫЙ "ВОСКРЕШАЮЩИЙ" ФИКС */
+    /* Мы бьем по всем возможным контейнерам цифр под ползунком */
+    div[data-testid="stSlider"] [data-testid="stTickBarMin"], 
+    div[data-testid="stSlider"] [data-testid="stTickBarMax"],
+    div[data-testid="stSlider"] [data-testid^="stTickBar"] div,
+    div[data-testid="stSlider"] span[data-baseweb="typography"] {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
+        font-weight: 600 !important;
+        visibility: visible !important;
     }
 
-    /* 6. ЧИНИМ ВЫПАДАЮЩИЕ СПИСКИ (Черный текст) */
+    /* 5. ПОДПИСИ (Label) */
+    section[data-testid="stSidebar"] label p {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 6. ВЫПАДАЮЩИЕ СПИСКИ (Черный текст) */
     section[data-testid="stSidebar"] [data-baseweb="select"] *,
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"],
     section[data-testid="stSidebar"] [data-baseweb="input"] {
@@ -65,7 +62,9 @@ st.markdown("""
     }
 
     /* 7. ОСНОВНОЕ ПОЛЕ */
-    .main * { color: #1A1C23; }
+    .main p, .main span, .main h1, .main h2 {
+        color: #1A1C23 !important;
+    }
     .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
