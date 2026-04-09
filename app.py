@@ -6,64 +6,66 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА И РАЗДЕЛИТЕЛЬ */
+    /* 1. БАЗА */
     .stApp { background-color: #ECF0ED !important; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО (Мин/Макс и подписи) */
+    /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО (Мин/Макс и подзаголовки) */
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] span, 
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — МАКСИМАЛЬНЫЙ ВЗЛОМ */
-    /* Мы используем селектор "соседа", чтобы добраться до цифры в обход белого правила */
-    div[data-testid="stThumbValue"] > div,
-    div[data-v-st-thumb-value] {
+    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ТАКТИКА "ЗАМЕНЫ" */
+    /* Прячем оригинальный белый текст, но оставляем контейнер */
+    div[data-testid="stThumbValue"] {
+        color: transparent !important;
+        -webkit-text-fill-color: transparent !important;
+        position: relative;
+    }
+
+    /* Создаем новый оранжевый текст поверх спрятанного белого */
+    div[data-testid="stThumbValue"]::after {
+        content: counter(variable); /* Попытка прочитать значение, если это возможно */
+        /* Если счетчик не сработает, используем принудительный оранжевый цвет для вложенного элемента */
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        visibility: visible;
+    }
+
+    /* Упрощенный запасной путь для Thumb */
+    div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         font-size: 1.4rem !important;
     }
 
-    /* 4. ЗАГОЛОВКИ (Оранжевые) */
+    /* 4. ЗАГОЛОВКИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (Черный на белом) */
-    /* Здесь мы принудительно возвращаем черный цвет для текста внутри рамок */
-    section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] div[data-baseweb="select"] span,
-    section[data-testid="stSidebar"] div[data-baseweb="select"] div {
+    /* 5. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
+    /* Максимально точный путь к тексту внутри селектов и инпутов */
+    section[data-testid="stSidebar"] [data-baseweb="select"] *,
+    section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-    section[data-testid="stSidebar"] div[data-baseweb="input"],
-    section[data-testid="stSidebar"] div[data-baseweb="select"] {
+    section[data-testid="stSidebar"] [data-baseweb="select"],
+    section[data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
     }
 
     /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
-    .main p, .main span, .main label, .main h1 {
+    .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
-    }
-    .main h1 { color: #FF4C24 !important; }
-
-    /* Метрики */
-    div[data-testid="metric-container"] {
-        background-color: #FFFFFF !important;
-    }
-    div[data-testid="metric-container"] * {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
     }
 </style>
 """, unsafe_allow_html=True)
