@@ -11,17 +11,30 @@ st.markdown("""
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
+
+    /* 1. Делаем подписи Min и Max белыми */
+    section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
+    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+        color: white !important;
+        opacity: 1 !important; /* Убираем прозрачность, если она есть */
+    }
+
+    /* 2. Скрываем всплывающее число (которое бегает над ползунком) */
+    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
+        display: none !important;
+    }
+
+    /* 3. Делаем основной текст (label) белым */
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+    }
+
+    /* Оформление карточек метрик */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
-    }
-    .stImage + div { margin-top: 10px; }
-    /* Белые подписи для всех label (уже работало) */
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 400;
     }
 </style>
 """, unsafe_allow_html=True)
