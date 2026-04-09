@@ -49,30 +49,29 @@ st.markdown("""
     section[data-testid="stSidebar"] strong {
         color: #FF4C24 !important;
     }
-    /* === ИСПРАВЛЕНИЕ: ЧЁРНЫЙ ТЕКСТ НА СВЕТЛОМ ФОНЕ В ОСНОВНОЙ ОБЛАСТИ === */
-    .main .block-container,
-    .main .block-container * {
+      /* === ГАРАНТИРОВАННЫЙ ЧЁРНЫЙ ТЕКСТ В ОСНОВНОЙ ОБЛАСТИ (ДЕСКТОП + МОБИЛЬНЫЕ) === */
+    div[data-testid="stAppViewContainer"] {
+        color: #000000 !important;
+        background-color: #FFFFFF !important;
+    }
+    div[data-testid="stAppViewContainer"] * {
         color: #000000 !important;
     }
-    /* Чтобы метрики оставались контрастными */
-    .main div[data-testid="metric-container"] {
-        color: #000000 !important;
+    /* Исключение для графиков Plotly (чтобы в них текст оставался белым) */
+    div[data-testid="stAppViewContainer"] .js-plotly-plot .plotly .main-svg text,
+    div[data-testid="stAppViewContainer"] .plotly .legend text,
+    div[data-testid="stAppViewContainer"] .plotly .g-gtitle text {
+        color: #FFFFFF !important;
+        fill: #FFFFFF !important;
+    }
+    /* Метрики — сохраняем читаемость */
+    div[data-testid="stAppViewContainer"] div[data-testid="metric-container"] {
         background-color: #F0F2F6 !important;
-        border: 1px solid #E0E0E0 !important;
+        border-color: #E0E0E0 !important;
     }
-    .main div[data-testid="metric-container"] * {
+    div[data-testid="stAppViewContainer"] div[data-testid="metric-container"] * {
         color: #000000 !important;
     }
-    /* Графики не трогаем — оставляем их кастомные цвета */
-    .main .js-plotly-plot .plotly .main-svg text {
-        fill: #FFFFFF !important; /* для тёмных графиков остаётся белый */
-    }
-    /* Принудительно для мобильных */
-    @media (max-width: 768px) {
-        .main .block-container,
-        .main .block-container * {
-            color: #000000 !important;
-        }
     }
 </style>
 """, unsafe_allow_html=True)
