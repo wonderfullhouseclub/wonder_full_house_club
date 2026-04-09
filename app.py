@@ -6,68 +6,53 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА - ПРИНУДИТЕЛЬНЫЙ СБРОС */
-    .stApp { background-color: #ECF0ED !important; }
+    /* 1. ГЛОБАЛЬНЫЙ СБРОС И ФОН */
+    .stApp { 
+        background-color: #ECF0ED !important; 
+    }
 
-    /* 2. САЙДБАР - ВЫЖИГАЕМ СЕРЫЙ */
-    [data-testid="stSidebar"] {
+    /* 2. ОСНОВНАЯ ОБЛАСТЬ (ЦЕНТР) - ЖЕСТКИЙ ЧЕРНЫЙ ТЕКСТ */
+    /* Бьем по классу main, чтобы на мобилках буквы не были белыми */
+    .main, .main * {
+        color: #1A1C23 !important;
+    }
+    .main h1 { color: #FF4C24 !important; }
+
+    /* 3. САЙДБАР - БАЗА */
+    section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* МИН / МАКС - бьем по псевдоэлементам, которые создают серый налет */
-    [data-testid="stTickBarMin"], [data-testid="stTickBarMax"] {
+    /* 4. САЙДБАР - БЕЛЫЙ ТЕКСТ (МИН/МАКС И ПОДПИСИ) */
+    /* Используем лаконичный список, чтобы не перекрасить лишнее */
+    section[data-testid="stSidebar"] label p, 
+    section[data-testid="stSidebar"] span, 
+    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
         color: #FFFFFF !important;
         opacity: 1 !important;
         -webkit-text-fill-color: #FFFFFF !important;
     }
-    [data-testid="stTickBarMin"] > div, [data-testid="stTickBarMax"] > div {
-        color: #FFFFFF !important;
-        opacity: 1 !important;
-    }
 
-    /* 3. ОРАНЖЕВЫЕ АКЦЕНТЫ - ПРИОРИТЕТ ВЫШЕ ВСЕГО */
-    /* Используем ID виджета, чтобы победить белый цвет */
-    div[data-testid="stThumbValue"] > div,
-    [data-testid="stSidebar"] h2, 
-    [data-testid="stSidebar"] h3 {
+    /* 5. САЙДБАР - ОРАНЖЕВЫЕ АКЦЕНТЫ (ЦИФРА И ЗАГОЛОВКИ) */
+    /* Даем им самый высокий приоритет в самом конце */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3, 
+    section[data-testid="stSidebar"] [data-testid="stThumbValue"] div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
+        font-weight: 800 !important;
         opacity: 1 !important;
     }
 
-    /* 4. МОБИЛЬНАЯ ВЕРСИЯ - ИСПРАВЛЕНИЕ БЕЛОГО ТЕКСТА */
-    /* Мы запрещаем любому тексту в основном блоке быть белым */
-    [data-testid="stAppViewContainer"] section.main * {
-        color: #1A1C23; /* Убираем !important, чтобы дать системе дышать, но задаем базу */
-    }
-
-    /* Жесткая блокировка белого в центре */
-    [data-testid="stAppViewContainer"] section.main p, 
-    [data-testid="stAppViewContainer"] section.main span, 
-    [data-testid="stAppViewContainer"] section.main label,
-    [data-testid="stAppViewContainer"] section.main h1,
-    [data-testid="stAppViewContainer"] section.main h2 {
+    /* 6. ИНПУТЫ (БЕЛЫЙ ФОН, ТЕМНЫЙ ТЕКСТ) */
+    section[data-testid="stSidebar"] [data-baseweb="select"] div,
+    section[data-testid="stSidebar"] [data-baseweb="input"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-
-    /* 5. САЙДБАР - ПОДПИСИ (БЕЛЫЕ) */
-    [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p,
-    [data-testid="stSidebar"] .stMarkdown p {
-        color: #FFFFFF !important;
-        opacity: 1 !important;
-    }
-
-    /* 6. ИНПУТЫ И СПИСКИ (ЧЕРНЫЙ ТЕКСТ) */
-    [data-testid="stSidebar"] [data-baseweb="select"] *,
-    [data-testid="stSidebar"] input {
-        color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
-    }
-    [data-testid="stSidebar"] [data-baseweb="select"],
-    [data-testid="stSidebar"] [data-baseweb="input"] {
+    section[data-testid="stSidebar"] [data-baseweb="select"],
+    section[data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
     }
 </style>
