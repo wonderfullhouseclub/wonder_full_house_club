@@ -6,53 +6,59 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ФОН */
-    .stApp { background-color: #ECF0ED; }
-    section[data-testid="stSidebar"] {
+    /* 1. ГЛОБАЛЬНЫЙ СБРОС ДЛЯ САЙДБАРА */
+    /* Заставляем все текстовые переменные внутри сайдбара стать белыми */
+    [data-testid="stSidebar"] {
+        --secondary-text-color: #FFFFFF;
+        --text-color: #FFFFFF;
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Оранжевое и жирное) */
-    /* Бьем по атрибуту, который Streamlit не меняет */
+    /* 2. МИН / МАКС (Белый через все возможные пути) */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"],
+    [data-testid="stTickBar"] div,
+    span[data-testid="stWidgetLabel"] div p {
+        color: #FFFFFF !important;
+        opacity: 0.8 !important;
+    }
+
+    /* 3. ОРАНЖЕВОЕ ЗНАЧЕНИЕ (Thumb) */
     [data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         font-weight: 900 !important;
-        font-size: 1.3rem !important;
+        font-size: 1.4rem !important;
+        /* Добавляем небольшую обводку, если шрифт сам по себе не хочет быть жирным */
+        -webkit-text-stroke: 0.5px #FF4C24;
     }
 
-    /* 3. МИН / МАКС (Белые и аккуратные) */
-    /* Ранее мы использовали эти селекторы, они самые надежные */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-        font-size: 0.8rem !important;
-        opacity: 0.7 !important; /* Приглушаем яркость, но оставляем белым */
-    }
-
-    /* 4. ЗАГОЛОВКИ И ПОДПИСИ В САЙДБАРЕ */
-    /* Красим заголовки разделов в оранжевый */
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
+    /* 4. ЗАГОЛОВКИ И ПОДПИСИ */
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
-    /* Красим названия самих слайдеров в белый */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
+    
+    /* Названия слайдеров */
+    [data-testid="stWidgetLabel"] p {
         color: #FFFFFF !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Черный текст на белом фоне) */
-    /* Это исправит "белое на белом" в селектбоксах */
-    section[data-testid="stSidebar"] div[data-baseweb="select"] *,
-    section[data-testid="stSidebar"] input {
+    /* 5. ПОЛЯ ВВОДА (Возвращаем черный текст) */
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] div[data-baseweb="select"] * {
         color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
     }
-    section[data-testid="stSidebar"] div[data-baseweb="select"],
-    section[data-testid="stSidebar"] div[data-baseweb="input"] {
+    [data-testid="stSidebar"] div[data-baseweb="input"],
+    [data-testid="stSidebar"] div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Темный текст) */
-    .main p, .main span, .main label, .main h1, .main h2 {
+    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Чиним белый текст на светлом фоне) */
+    .main * {
+        --text-color: #1A1C23;
+    }
+    .main p, .main span, .main label {
         color: #1A1C23 !important;
     }
 </style>
