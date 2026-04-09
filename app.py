@@ -88,7 +88,7 @@ st.markdown("""
 st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ ==================
-st.sidebar.markdown("<h2 style='color: #FFFFFF;'>📍 Параметры расчёта</h2>", unsafe_allow_html=True)
+st.sidebar.markdown("<h2 style='color: #FFFFFF;'>Параметры расчёта</h2>", unsafe_allow_html=True)
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🎲 Формат клуба</h3>", unsafe_allow_html=True)
 club_format = st.sidebar.selectbox(
