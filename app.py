@@ -6,17 +6,18 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА */
+    /* 1. БАЗА И САЙДБАР */
     .stApp { background-color: #ECF0ED !important; }
+    
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВЫЕ АКЦЕНТЫ (Цифра и Заголовки) */
-    /* Здесь мы максимально уточняем путь, чтобы он не стал белым */
-    [data-testid="stSidebar"] h2, 
-    [data-testid="stSidebar"] h3,
+    /* 2. ОРАНЖЕВЫЕ АКЦЕНТЫ (Цифра и Подзаголовки) */
+    /* Используем двойной селектор для веса */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3,
     div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
@@ -24,18 +25,40 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* 3. БЕЛЫЙ ЦВЕТ — ТОЛЬКО ДЛЯ ТЕХ, КТО БЫЛ СЕРЫМ */
-    /* Красим Мин/Макс и подписи отдельно, не трогая цифру ThumbValue */
+    /* 3. МИН / МАКС (БЕЛЫЙ) — УСИЛЕННЫЙ ВАРИАНТ */
+    /* Добавляем яркость, чтобы пробить системную серость */
     [data-testid="stTickBarMin"], 
     [data-testid="stTickBarMax"],
-    [data-testid="stWidgetLabel"] p,
-    [data-testid="stSidebar"] .stMarkdown p {
+    [data-testid="stTickBarMin"] > div,
+    [data-testid="stTickBarMax"] > div {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
+        filter: brightness(100%) contrast(100%) !important;
+        font-weight: 600 !important;
     }
 
-    /* 4. ВЫПАДАЮЩИЕ СПИСКИ (Черный текст на белом фоне) */
+    /* 4. ПОДПИСИ (БЕЛЫЙ) */
+    [data-testid="stWidgetLabel"] p, 
+    section[data-testid="stSidebar"] .stMarkdown p {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 5. ИСПРАВЛЕНИЕ МОБИЛЬНОЙ ВЕРСИИ И ОСНОВНОЙ ОБЛАСТИ */
+    /* Этот блок гарантирует, что в основной области текст ВСЕГДА темный */
+    .main .stMarkdown p, 
+    .main .stMarkdown span, 
+    .main label, 
+    .main h1, 
+    .main h2, 
+    .main h3,
+    .main [data-testid="stMarkdownContainer"] p {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+
+    /* 6. ВЫПАДАЮЩИЕ СПИСКИ В САЙДБАРЕ */
     [data-testid="stSidebar"] [data-baseweb="select"] *,
     [data-testid="stSidebar"] input {
         color: #1A1C23 !important;
@@ -46,11 +69,12 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 5. ОСНОВНОЕ ПОЛЕ */
-    .main p, .main span, .main label, .main h1, .main h2 {
-        color: #1A1C23 !important;
+    /* Дополнительный хак для мобилок: сброс цвета */
+    @media (max-width: 640px) {
+        .main * {
+            color: #1A1C23;
+        }
     }
-    .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
 
