@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ CSS ---
+# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
     .stApp { background-color: #ECF0ED; }
@@ -17,8 +17,8 @@ st.markdown("""
         border-radius: 10px;
         padding: 10px;
     }
-    
-    /* Белые подписи для всех label */
+    .stImage + div { margin-top: 10px; }
+    /* Белые подписи для всех label (уже работало) */
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
         font-weight: 400;
