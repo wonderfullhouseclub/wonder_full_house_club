@@ -6,42 +6,49 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ФОН ПРИЛОЖЕНИЯ */
+    /* 1. Общий фон */
     .stApp { background-color: #ECF0ED; }
 
-    /* 2. БОКОВАЯ ПАНЕЛЬ */
+    /* 2. Сайдбар */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* Красим ВООБЩЕ ВЕСЬ текст в сайдбаре в белый (заголовки, мин/макс, метки) */
-    section[data-testid="stSidebar"] * {
-        color: white !important;
+    /* Текст заголовков (label) и подписи Мин/Макс у слайдеров — в БЕЛЫЙ */
+    section[data-testid="stSidebar"] .stWidgetLabel label p,
+    section[data-testid="stSidebar"] [data-testid="stTickBarMin"],
+    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
     }
 
-    /* Выделяем оранжевым только конкретные заголовки h2 и h3 в сайдбаре */
+    /* Скрываем бегающую цифру над слайдером */
+    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
+        display: none !important;
+    }
+
+    /* Цвета заголовков h2 и h3 в сайдбаре — в ОРАНЖЕВЫЙ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* Скрываем бегающую цифру над ползунком */
-    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
-        display: none !important;
+    /* 3. ПОЛЯ ВВОДА (Number Input) — возвращаем читаемость */
+    /* Делаем текст внутри инпутов черным, а фон светлым */
+    section[data-testid="stSidebar"] input {
+        color: #1A1C23 !important;
+        background-color: #FFFFFF !important;
     }
 
-    /* 3. ОСНОВНАЯ ОБЛАСТЬ (Центр экрана) */
-    /* Весь текст в центре делаем черным, чтобы он не был белым на светлом фоне */
+    /* 4. ОСНОВНАЯ ОБЛАСТЬ (Центр) */
+    /* Чтобы на мобилках текст не был белым на светлом фоне */
     .main p, .main span, .main label {
         color: #1A1C23 !important;
     }
-
-    /* Заголовки в центре — оранжевые */
     .main h1, .main h2 {
         color: #FF4C24 !important;
     }
 
-    /* МЕТРИКИ (белые блоки с темным текстом) */
+    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
         border: 1px solid #CCCCCC !important;
