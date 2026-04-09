@@ -6,27 +6,18 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- ИСПРАВЛЕННЫЙ CSS (точечная покраска) ---
 st.markdown("""
 <style>
-    /* Основной фон */
-    .stApp {
-        background-color: #ECF0ED;
-    }
-    /* Боковая панель: тёмный фон, оранжевая рамка */
+    .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
-    /* Отступ после логотипа */
-    .stImage + div {
-        margin-top: 10px;
-    }
-    /* Только подписи и значения слайдеров — белые */
+    .stImage + div { margin-top: 10px; }
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
         font-weight: 400;
@@ -35,11 +26,17 @@ st.markdown("""
         color: #FFFFFF !important;
         font-weight: 500;
     }
-    section[data-testid="stSidebar"] .stSlider div[class*="Tick"] {
+    /* Всплывающая подсказка с диапазоном (min - max) */
+    section[data-testid="stSidebar"] .stSlider div[role="tooltip"] {
+        color: #FFFFFF !important;
+        background-color: #2D2F36 !important;
+    }
+    section[data-testid="stSidebar"] .stSlider span[data-testid="stThumbValue"] {
         color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
+    }
 
 st.image("logo.png", width=250)
 
