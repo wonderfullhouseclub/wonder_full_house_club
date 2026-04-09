@@ -8,49 +8,18 @@ st.set_page_config(page_title="Финансовая модель | Wonder Full H
 # --- ФИРМЕННЫЙ CSS (ЧЁРНЫЙ + ОРАНЖЕВЫЙ) ---
 st.markdown("""
 <style>
-    /* Общий фон страницы */
+    /* Общий фон */
     .stApp {
         background-color: #ECF0ED;
     }
 
-    /* Боковая панель — возвращаем стандартное оформление Streamlit,
-       только добавляем оранжевую рамку и тёмный фон, как было */
+    /* Боковая панель - только тёмный фон и оранжевая рамка */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
 
-    /* Восстанавливаем белый цвет подписей в боковой панели (без !important, 
-       чтобы не ломать наведение) */
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stCaption {
-        color: #FFFFFF;
-    }
-
-    /* Кнопки в боковой панели */
-    section[data-testid="stSidebar"] .stButton > button {
-        background-color: #FF4C24;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
-    }
-
-    /* ОСНОВНАЯ ОБЛАСТЬ — только для мобильных делаем текст чёрным */
-    @media (max-width: 768px) {
-        /* Селектор максимально точный, чтобы затронуть только основной контент */
-        div[data-testid="stAppViewContainer"] section.main div.block-container {
-            color: #000000 !important;
-        }
-        /* Дополнительно для параграфов и спанов */
-        div[data-testid="stAppViewContainer"] section.main p,
-        div[data-testid="stAppViewContainer"] section.main span,
-        div[data-testid="stAppViewContainer"] section.main div {
-            color: #000000 !important;
-        }
-        /* Но метрики оставляем как есть (они уже с чёрным текстом) */
-    }
-
-    /* Метрики (карточки) — мягкий стиль */
+    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
@@ -65,6 +34,19 @@ st.markdown("""
     /* Отступ после логотипа */
     .stImage + div {
         margin-top: 10px;
+    }
+
+    /* Мобильная версия: чёрный текст ТОЛЬКО в главной области */
+    @media (max-width: 768px) {
+        /* Основной контейнер главной области */
+        div[data-testid="stAppViewContainer"] section.main div.block-container {
+            color: #000000 !important;
+        }
+        div[data-testid="stAppViewContainer"] section.main p,
+        div[data-testid="stAppViewContainer"] section.main span,
+        div[data-testid="stAppViewContainer"] section.main div:not([class*="plotly"]):not([class*="metric"]) {
+            color: #000000 !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
