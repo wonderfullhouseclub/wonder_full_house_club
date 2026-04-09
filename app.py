@@ -7,7 +7,7 @@ st.markdown("""
 <style>
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
-        background-color: #FF4C24;
+        background-color: #171717;
         border-right: 2px solid #171717;
     }
     div[data-testid="metric-container"] {
