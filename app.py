@@ -6,75 +6,46 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. БАЗА */
+    /* БАЗА */
     .stApp { background-color: #ECF0ED !important; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО (Мин/Макс и подзаголовки) */
+    /* ВЕСЬ ТЕКСТ В БОКОВОЙ ПАНЕЛИ — БЕЛЫЙ */
     section[data-testid="stSidebar"] p, 
     section[data-testid="stSidebar"] span, 
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
+        font-weight: 400;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ТАКТИКА "ЗАМЕНЫ" */
-    /* Прячем оригинальный белый текст, но оставляем контейнер */
-    div[data-testid="stThumbValue"] {
-        color: transparent !important;
-        -webkit-text-fill-color: transparent !important;
-        position: relative;
-    }
-
-    /* Создаем новый оранжевый текст поверх спрятанного белого */
-    div[data-testid="stThumbValue"]::after {
-        content: counter(variable); /* Попытка прочитать значение, если это возможно */
-        /* Если счетчик не сработает, используем принудительный оранжевый цвет для вложенного элемента */
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        visibility: visible;
-    }
-
-    /* Упрощенный запасной путь для Thumb */
-    div[data-testid="stThumbValue"] > div {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.4rem !important;
-    }
-
-    /* 4. ЗАГОЛОВКИ */
+    /* ЗАГОЛОВКИ — ОРАНЖЕВЫЕ (если заданы через subheader/header) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 5. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
-    /* Максимально точный путь к тексту внутри селектов и инпутов */
+    /* ЦИФРА НАД СЛАЙДЕРОМ — БЕЛАЯ ЖИРНАЯ (можно заменить на #FF4C24) */
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"],
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] * {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        font-weight: 700 !important;
+    }
+
+    /* ПОЛЯ ВВОДА И ВЫПАДАЮЩИЕ СПИСКИ — ЧЁРНЫЙ ТЕКСТ НА БЕЛОМ ФОНЕ */
     section[data-testid="stSidebar"] [data-baseweb="select"] *,
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
-    }
-    section[data-testid="stSidebar"] [data-baseweb="select"],
-    section[data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
+    /* ОСНОВНАЯ ОБЛАСТЬ — ЧЁРНЫЙ ТЕКСТ */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
-    }
-            /* ЦИФРА НАД СЛАЙДЕРОМ (THUMB VALUE) — ОРАНЖЕВАЯ */
-    section[data-testid="stSidebar"] div[data-testid="stThumbValue"],
-    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] *,
-    section[data-testid="stSidebar"] [data-testid="stThumbValue"] span,
-    section[data-testid="stSidebar"] [role="slider"] + div {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 700 !important;
     }
 </style>
 """, unsafe_allow_html=True)
