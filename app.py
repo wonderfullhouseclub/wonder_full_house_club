@@ -6,25 +6,28 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
+    /* 1. Общий фон и боковая панель */
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
 
-    /* 1. Делаем подписи Min и Max белыми */
-    section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
-    section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
+    /* 2. ПЕРЕКРАШИВАЕМ МИН/МАКС (самый агрессивный метод) */
+    /* Ищем любые элементы внутри тиков слайдера в сайдбаре */
+    section[data-testid="stSidebar"] [data-testid="stTickBar"] div,
+    section[data-testid="stSidebar"] [data-testid="stTickBarMin"],
+    section[data-testid="stSidebar"] [data-testid="stTickBarMax"],
+    section[data-testid="stSidebar"] [data-baseweb="typography"] {
         color: #FFFFFF !important;
-        opacity: 1 !important; /* Убираем прозрачность, если она есть */
     }
 
-    /* 2. Скрываем всплывающее число (которое бегает над ползунком) */
+    /* 3. СКРЫВАЕМ ЧИСЛО НАД ПОЛЗУНКОМ */
     section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
         display: none !important;
     }
 
-    /* 3. Делаем основной текст (label) белым */
+    /* 4. ЦВЕТ ЗАГОЛОВКОВ (label) */
     section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
     }
