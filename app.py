@@ -6,43 +6,59 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
 <style>
+    /* БАЗА */
     .stApp { background-color: #ECF0ED !important; }
+
+    /* БОКОВАЯ ПАНЕЛЬ */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
-    /* Черный текст для всех, кроме оранжевых span */
-    [data-testid="stMain"] *:not(span), .main *:not(span) {
+
+    /* ОСНОВНАЯ ОБЛАСТЬ: ОБЫЧНЫЙ ТЕКСТ — ЧЁРНЫЙ */
+    [data-testid="stMain"] p, 
+    [data-testid="stMain"] span:not([style*="color"]), 
+    [data-testid="stMain"] label,
+    .main p, 
+    .main span:not([style*="color"]), 
+    .main label {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-     /* ВОЗВРАЩАЕМ ОРАНЖЕВЫЙ ЗАГОЛОВКАМ В ОСНОВНОЙ ОБЛАСТИ */
+
+    /* ЗАГОЛОВКИ В ОСНОВНОЙ ОБЛАСТИ — ОРАНЖЕВЫЕ (если не заданы инлайн) */
     [data-testid="stMain"] h1,
     [data-testid="stMain"] h2,
     [data-testid="stMain"] h3,
     .main h1,
     .main h2,
-    .main h3,
-    .stMarkdown h1,
-    .stMarkdown h2,
-    .stMarkdown h3 {
+    .main h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
-    /* Белый текст в сайдбаре */
-    section[data-testid="stSidebar"] label p, 
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
+
+    /* ТЕКСТ В САЙДБАРЕ — БЕЛЫЙ */
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] span, 
+    section[data-testid="stSidebar"] label {
         color: #FFFFFF !important;
         opacity: 1 !important;
     }
-    /* Оранжевые заголовки и цифра в сайдбаре */
-    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3,
+
+    /* ЗАГОЛОВКИ В САЙДБАРЕ — ОРАНЖЕВЫЕ */
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {
+        color: #FF4C24 !important;
+        font-weight: 800 !important;
+    }
+
+    /* ЦИФРА НАД СЛАЙДЕРОМ — ОРАНЖЕВАЯ */
     div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         font-weight: 900 !important;
     }
-        /* ОРАНЖЕВЫЙ ЦВЕТ ДЛЯ ИТОГОВ В САЙДБАРЕ */
+
+    /* ИТОГИ В САЙДБАРЕ */
     #total-investments-sidebar {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
