@@ -6,47 +6,50 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ГЛОБАЛЬНЫЙ СБРОС И ФОН */
-    .stApp { 
-        background-color: #ECF0ED !important; 
-    }
+    /* 1. БАЗА - СВЕТЛЫЙ ФОН */
+    .stApp { background-color: #ECF0ED !important; }
 
-    /* 2. ОСНОВНАЯ ОБЛАСТЬ (ЦЕНТР) - ЖЕСТКИЙ ЧЕРНЫЙ ТЕКСТ */
-    /* Бьем по классу main, чтобы на мобилках буквы не были белыми */
-    .main, .main * {
+    /* 2. ИСПРАВЛЕНИЕ МОБИЛЬНОЙ ВЕРСИИ (ГЛАВНЫЙ ПРИОРТЕТ) */
+    /* Мы явно указываем, что в контейнере main текст всегда темный */
+    [data-testid="stMain"] *, 
+    .main *, 
+    .stMarkdown div p {
         color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
     }
-    .main h1 { color: #FF4C24 !important; }
 
-    /* 3. САЙДБАР - БАЗА */
+    /* 3. САЙДБАР - ИЗОЛИРОВАННЫЕ СТИЛИ */
+    /* Используем очень специфичный путь, чтобы стили не "вытекали" на основной экран */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 4. САЙДБАР - БЕЛЫЙ ТЕКСТ (МИН/МАКС И ПОДПИСИ) */
-    /* Используем лаконичный список, чтобы не перекрасить лишнее */
-    section[data-testid="stSidebar"] label p, 
-    section[data-testid="stSidebar"] span, 
-    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
+    /* Подписи и заголовки в сайдбаре - принудительно перекрашиваем обратно в белый/оранжевый */
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] label, 
+    section[data-testid="stSidebar"] span {
         color: #FFFFFF !important;
-        opacity: 1 !important;
         -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
     }
 
-    /* 5. САЙДБАР - ОРАНЖЕВЫЕ АКЦЕНТЫ (ЦИФРА И ЗАГОЛОВКИ) */
-    /* Даем им самый высокий приоритет в самом конце */
     section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3, 
-    section[data-testid="stSidebar"] [data-testid="stThumbValue"] div {
+    section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 800 !important;
-        opacity: 1 !important;
     }
 
-    /* 6. ИНПУТЫ (БЕЛЫЙ ФОН, ТЕМНЫЙ ТЕКСТ) */
-    section[data-testid="stSidebar"] [data-baseweb="select"] div,
+    /* 4. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ */
+    div[data-testid="stThumbValue"] > div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+    }
+
+    /* 5. ПОЛЯ ВВОДА В САЙДБАРЕ */
+    section[data-testid="stSidebar"] [data-baseweb="select"] *,
     section[data-testid="stSidebar"] [data-baseweb="input"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
@@ -54,6 +57,14 @@ st.markdown("""
     section[data-testid="stSidebar"] [data-baseweb="select"],
     section[data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
+    }
+
+    /* 6. МИН / МАКС - ПОСЛЕДНЯЯ ПОПЫТКА ПРОБИТЬ СЕРЫЙ */
+    /* Если это не сработает, значит они защищены Shadow DOM */
+    [data-testid="stTickBarMin"] > div, 
+    [data-testid="stTickBarMax"] > div {
+        color: rgba(255, 255, 255, 1) !important;
+        -webkit-text-fill-color: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
