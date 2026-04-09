@@ -108,6 +108,7 @@ else:
 
 # Слайдер с кастомной подписью
 vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
+st.sidebar.markdown(f"<span style='color: #FF4C24; font-weight: bold;'>{vkhody} входов</span>", unsafe_allow_html=True)
 
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
