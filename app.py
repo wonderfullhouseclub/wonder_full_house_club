@@ -15,7 +15,7 @@ st.markdown("""
     /* 1. Делаем подписи Min и Max белыми */
     section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
     section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
-        color: white !important;
+        color: #FFFFFF;
         opacity: 1 !important; /* Убираем прозрачность, если она есть */
     }
 
