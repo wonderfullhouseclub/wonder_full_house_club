@@ -245,8 +245,8 @@ fig_pie = go.Figure(data=[go.Pie(
     hovertemplate='%{label}: %{value:,.0f} ₽ (%{percent})<extra></extra>'
 )])
 fig_pie.update_layout(
-    paper_bgcolor='#0E1117',
-    plot_bgcolor='#0E1117',
+    paper_bgcolor='#5F6367',   # мягкий серый вместо чёрного
+    plot_bgcolor='#5F6367',
     font=dict(color='white'),
     showlegend=False,
     margin=dict(t=30, b=10, l=10, r=10),
