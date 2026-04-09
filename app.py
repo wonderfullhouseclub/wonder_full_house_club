@@ -6,48 +6,47 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ФОН И САЙДБАР */
+    /* 1. БАЗА */
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ТЕКСТ ПОДПИСЕЙ И ЗАГОЛОВКОВ (Белый) */
-    /* Красим только метки и текст, не трогая внутренности полей */
+    /* 2. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ДЕЛАЕМ МАКСИМАЛЬНО ЖИРНОЙ */
+    [data-testid="stThumbValue"], 
+    [data-testid="stThumbValue"] > div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        /* Используем числовое значение 900 и ключевое слово для надежности */
+        font-weight: 900 !important; 
+        font-family: sans-serif !important;
+        font-size: 1.3rem !important;
+    }
+
+    /* 3. МИН / МАКС — ВЫВОДИМ ИЗ СЕРОГО В БЕЛЫЙ */
+    /* Используем комбинацию селекторов, чтобы Safari не "затирал" их */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 0.5 !important; /* Приглушаем до приятного светло-серого */
+        font-size: 0.75rem !important;
+    }
+
+    /* 4. ТЕКСТ ПОДПИСЕЙ (Белый) */
     section[data-testid="stSidebar"] label p, 
     section[data-testid="stSidebar"] .stMarkdown p {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ (Thumb) */
-    /* Пробиваемся через все возможные слои Streamlit */
-    div[data-testid="stThumbValue"], 
-    div[data-testid="stThumbValue"] > div,
-    div[data-testid="slider-value-container"] {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.2rem !important;
-    }
-
-    /* 4. МИН / МАКС (Приглушенные белые) */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: rgba(255, 255, 255, 0.4) !important;
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.4) !important;
-        font-size: 0.75rem !important;
-    }
-
-    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Number Input, Selectbox, Multiselect) */
-    /* Принудительно возвращаем ТЕМНЫЙ текст для всех типов ввода */
+    /* 5. ПОЛЯ ВВОДА И ВЫБОРА (Черный текст на белом) */
     section[data-testid="stSidebar"] input,
     section[data-testid="stSidebar"] select,
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
-    /* Фон для этих полей */
     section[data-testid="stSidebar"] div[data-baseweb="select"],
     section[data-testid="stSidebar"] div[data-baseweb="input"] {
         background-color: #FFFFFF !important;
@@ -60,7 +59,7 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 7. ОСНОВНАЯ ОБЛАСТЬ (Центр) */
+    /* 7. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Для мобилок и Safari) */
     .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
