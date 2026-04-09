@@ -11,17 +11,11 @@ st.markdown("""
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
-    }
-
-    /* 2. ВЫЖИГАТЕЛЬ СЕРОГО (Универсальный удар) */
-    /* Ищем любые элементы в сайдбаре, у которых цвет похож на серый/прозрачный */
-    [data-testid="stSidebar"] * {
         --text-color: #FFFFFF !important;
         --secondary-text-color: #FFFFFF !important;
     }
 
-    /* 3. ФИКСАЦИЯ БЕЛОГО (Мин/Макс и Заголовки) */
-    /* Бьем по всем типам заголовков и текстовых блоков */
+    /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО (Подзаголовки, Мин/Макс) */
     [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
     [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {
         color: #FFFFFF !important;
@@ -29,30 +23,31 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* 4. ВОЗВРАТ ОРАНЖЕВОГО (Приоритет выше белого) */
-    /* Специально для цифры над слайдером и главных заголовков */
+    /* 3. ОРАНЖЕВЫЙ ЦВЕТ — ТОЛЬКО ДЛЯ ЗАГОЛОВКОВ И ЦИФРЫ */
+    /* Усиливаем селектор цифры, добавляя путь через контейнер виджета */
     [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
-    div[data-testid="stThumbValue"] > div,
-    [data-testid="stThumbValue"] {
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] > div,
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] span,
+    section[data-testid="stSidebar"] [data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
-        font-size: 1.35rem !important;
+        font-size: 1.4rem !important;
     }
 
-    /* 5. ИЗОЛЯЦИЯ ПОЛЕЙ ВВОДА (Чтобы не были белыми внутри) */
-    /* Возвращаем черный цвет только для контента внутри рамок */
+    /* 4. ИЗОЛЯЦИЯ ПОЛЕЙ ВВОДА (Черный на белом) */
     [data-testid="stSidebar"] [data-baseweb="input"] input,
     [data-testid="stSidebar"] [data-baseweb="select"] * {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
+        font-size: 1rem !important;
     }
     [data-testid="stSidebar"] [data-baseweb="input"],
     [data-testid="stSidebar"] [data-baseweb="select"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ОСНОВНОЕ ПОЛЕ (Черный текст) */
+    /* 5. ЦЕНТРАЛЬНОЕ ПОЛЕ */
     .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
     }
