@@ -3,38 +3,19 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- МИНИМАЛЬНЫЙ CSS (только фон и рамка) ---
+# --- МИНИМАЛЬНЫЙ CSS (НЕ ТРОГАЕТ ТЕКСТ В САЙДБАРЕ) ---
 st.markdown("""
 <style>
     /* Основной фон */
     .stApp {
         background-color: #ECF0ED;
     }
-    /* Боковая панель: тёмный фон, оранжевая рамка */
+    /* Боковая панель: только тёмный фон и оранжевая рамка */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    /* Заголовок "Параметры расчёта" */
-    section[data-testid="stSidebar"] .stHeader {
-        color: #FFFFFF !important;
-    }
-    /* Подписи (label) */
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 500;
-    }
-    /* Значения под слайдерами и в инпутах */
-    section[data-testid="stSidebar"] .stSlider div[data-testid="stThumbValue"],
-    section[data-testid="stSidebar"] .stNumberInput input,
-    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div {
-        color: #FFFFFF !important;
-    }
-    /* Текст в выпадающих списках */
-    section[data-testid="stSidebar"] div[data-baseweb="select"] span {
-        color: #FFFFFF !important;
-    }
-    /* Метрики в основной области */
+    /* Метрики */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
@@ -48,10 +29,22 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ================== БОКОВАЯ ПАНЕЛЬ (с точечными HTML-стилями) ==================
-st.sidebar.header("📍 Параметры расчёта")
+st.image("logo.png", width=250)
 
-# Заменяем subheader на HTML
+st.markdown("""
+<div style="line-height: 1.2;">
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
+    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ================== БОКОВАЯ ПАНЕЛЬ (точечный HTML для заголовков) ==================
+# Заголовок верхнего уровня — белый через HTML
+st.sidebar.markdown("<h2 style='color: #FFFFFF;'>📍 Параметры расчёта</h2>", unsafe_allow_html=True)
+
+# Подзаголовки — оранжевые через HTML
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🎲 Формат клуба</h3>", unsafe_allow_html=True)
 club_format = st.sidebar.selectbox(
     "Выберите формат",
@@ -104,6 +97,7 @@ hours = 165
 staff_total = (num_dilers * rate_diler * hours +
                num_tour * rate_tour * hours +
                num_senior * rate_senior * hours)
+# Итог ФОТ — белый жирный (как вы сделали)
 st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого ФОТ: {staff_total:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>💰 Первичные инвестиции</h3>", unsafe_allow_html=True)
@@ -113,6 +107,7 @@ inv_deposit = st.sidebar.slider("🔐 Обеспечительный платё�
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
+# Итог инвестиций — белый жирный
 st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
 # ================== РАСЧЁТ ==================
@@ -155,7 +150,7 @@ col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
 col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
-col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
+col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
