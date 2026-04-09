@@ -6,42 +6,36 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ГЛОБАЛЬНЫЙ ФОН И БОКОВАЯ ПАНЕЛЬ */
+    /* 1. БАЗА */
     .stApp { background-color: #ECF0ED !important; }
-    
     [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
-        /* ВОТ ОНО: заставляем систему использовать наши цвета как основные */
-        --primary-color: #FF4C24 !important;
-        --text-color: #FFFFFF !important;
-        --secondary-text-color: #FFFFFF !important;
     }
 
-    /* 2. ОРАНЖЕВАЯ ЦИФРА НАД СЛАЙДЕРОМ */
-    /* Самый короткий и точный путь */
+    /* 2. ОРАНЖЕВЫЕ АКЦЕНТЫ (Цифра и Заголовки) */
+    /* Здесь мы максимально уточняем путь, чтобы он не стал белым */
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3,
     div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
-        font-size: 1.4rem !important;
-    }
-
-    /* 3. ЖИРНЫЕ ОРАНЖЕВЫЕ ЗАГОЛОВКИ */
-    [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-        color: #FF4C24 !important;
-        font-weight: 800 !important;
-    }
-
-    /* 4. ВСЁ ОСТАЛЬНОЕ В САЙДБАРЕ — СТРОГО БЕЛОЕ (Мин/Макс, подписи) */
-    [data-testid="stSidebar"] p, 
-    [data-testid="stSidebar"] label, 
-    [data-testid="stSidebar"] span {
-        color: #FFFFFF !important;
         opacity: 1 !important;
     }
 
-    /* 5. ИСПРАВЛЕНИЕ ПОЛЕЙ ВВОДА (Чтобы внутри был черный текст) */
+    /* 3. БЕЛЫЙ ЦВЕТ — ТОЛЬКО ДЛЯ ТЕХ, КТО БЫЛ СЕРЫМ */
+    /* Красим Мин/Макс и подписи отдельно, не трогая цифру ThumbValue */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"],
+    [data-testid="stWidgetLabel"] p,
+    [data-testid="stSidebar"] .stMarkdown p {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 4. ВЫПАДАЮЩИЕ СПИСКИ (Черный текст на белом фоне) */
     [data-testid="stSidebar"] [data-baseweb="select"] *,
     [data-testid="stSidebar"] input {
         color: #1A1C23 !important;
@@ -52,8 +46,10 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ТЕКСТ В ОСНОВНОМ ПОЛЕ */
-    .main * { color: #1A1C23; }
+    /* 5. ОСНОВНОЕ ПОЛЕ */
+    .main p, .main span, .main label, .main h1, .main h2 {
+        color: #1A1C23 !important;
+    }
     .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
