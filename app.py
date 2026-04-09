@@ -6,57 +6,49 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ФОН */
+    /* 1. ФОН */
     .stApp { background-color: #ECF0ED; }
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ВСЕ ПОДПИСИ (Label) И ТЕКСТ (P) — ЧИСТО БЕЛЫЙ */
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stMarkdown p {
+    /* 2. ТЕКСТ ПОДПИСЕЙ (Label) — БЕЛЫЙ */
+    section[data-testid="stSidebar"] .stWidgetLabel label p {
         color: #FFFFFF !important;
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ */
-    /* Мы убираем привязку к сайдбару, чтобы специфичность была максимальной */
-    div[data-testid="stThumbValue"] > div {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
-    }
-    
-    /* Для некоторых версий Streamlit цифра лежит прямо в контейнере */
-    div[data-testid="stThumbValue"] {
+    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ВЕРНУЛИ И ЗАКРЕПИЛИ */
+    [data-testid="stThumbValue"], [data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         font-size: 1.3rem !important;
     }
 
-    /* 4. МИН / МАКС (ПРИГЛУШЕННЫЕ) */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: rgba(255, 255, 255, 0.4) !important;
+    /* 4. МИН / МАКС — ТЕПЕРЬ ТОЧНО БЕЛЫЕ И ВИДИМЫЕ */
+    /* Используем максимально широкий охват для этих цифр */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"],
+    [data-testid="stTickBar"] div {
+        color: rgba(255, 255, 255, 0.6) !important; /* Белый на 60%, чтобы было видно, но не ярко */
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.6) !important;
         font-size: 0.75rem !important;
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.4) !important;
     }
 
-    /* 5. ЗАГОЛОВКИ (ОРАНЖЕВЫЙ) */
+    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 6. ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
+    /* 6. ПОЛЯ ВВОДА (Input) */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 7. ЦЕНТРАЛЬНАЯ ЧАСТЬ (ТЕМНЫЙ ТЕКСТ ДЛЯ МОБИЛОК) */
+    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр) */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
