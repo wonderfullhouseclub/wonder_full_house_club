@@ -18,8 +18,18 @@ st.markdown("""
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
+    /* 2.1 ВОЗВРАЩАЕМ ОРАНЖЕВЫЙ ЗАГОЛОВКАМ В ОСНОВНОЙ ОБЛАСТИ */
+    [data-testid="stMain"] h1, 
+    [data-testid="stMain"] h2, 
+    [data-testid="stMain"] h3,
+    .main h1,
+    .main h2,
+    .main h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
+
     /* 3. САЙДБАР - ИЗОЛИРОВАННЫЕ СТИЛИ */
-    /* Используем очень специфичный путь, чтобы стили не "вытекали" на основной экран */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
@@ -60,7 +70,6 @@ st.markdown("""
     }
 
     /* 6. МИН / МАКС - ПОСЛЕДНЯЯ ПОПЫТКА ПРОБИТЬ СЕРЫЙ */
-    /* Если это не сработает, значит они защищены Shadow DOM */
     [data-testid="stTickBarMin"] > div, 
     [data-testid="stTickBarMax"] > div {
         color: rgba(255, 255, 255, 1) !important;
