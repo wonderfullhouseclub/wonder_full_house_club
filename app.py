@@ -6,61 +6,72 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ФОН */
+    /* 1. БАЗОВЫЕ НАСТРОЙКИ */
     .stApp { background-color: #ECF0ED; }
+    
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* 2. ТЕКСТ ПОДПИСЕЙ (Label) — БЕЛЫЙ */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
+    /* 2. ЕДИНЫЙ ЦВЕТ ДЛЯ ТЕКСТА В САЙДБАРЕ (Windows + Mac) */
+    /* Используем * для того, чтобы пробить серые системные цвета везде */
+    section[data-testid="stSidebar"] * {
         color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important; /* Для Safari */
     }
 
-    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — ВЕРНУЛИ И ЗАКРЕПИЛИ */
-    [data-testid="stThumbValue"], [data-testid="stThumbValue"] > div {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
-    }
-
-    /* 4. МИН / МАКС — ТЕПЕРЬ ТОЧНО БЕЛЫЕ И ВИДИМЫЕ */
-    /* Используем максимально широкий охват для этих цифр */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    [data-testid="stTickBar"] div {
-        color: rgba(255, 255, 255, 0.6) !important; /* Белый на 60%, чтобы было видно, но не ярко */
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.6) !important;
-        font-size: 0.75rem !important;
-    }
-
-    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ */
+    /* 3. ОРАНЖЕВЫЙ АКЦЕНТ: ЗАГОЛОВКИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 6. ПОЛЯ ВВОДА (Input) */
+    /* 4. ОРАНЖЕВЫЙ АКЦЕНТ: ТЕКУЩЕЕ ЗНАЧЕНИЕ СЛАЙДЕРА */
+    /* Бьем точно по ID элемента, чтобы перекрасить цифру над ползунком */
+    div[data-testid="stThumbValue"], 
+    div[data-testid="stThumbValue"] > div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 800 !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* 5. МИН / МАКС (Прозрачность для всех браузеров) */
+    /* Вместо смены цвета используем opacity — это работает везде одинаково */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        opacity: 0.4 !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* 6. ПОЛЯ ВВОДА (INPUT) — ВОЗВРАЩАЕМ ЧЕРНЫЙ ТЕКСТ */
+    /* Важно принудительно перекрасить внутренности инпутов обратно в темный */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр) */
+    /* 7. ФИКС ДЛЯ ОСНОВНОГО ПОЛЯ (Центр экрана) */
+    /* Чтобы текст не стал белым на Windows и в Safari */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
     }
-    .main h1 { color: #FF4C24 !important; }
+    .main h1 { 
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
 
-    /* МЕТРИКИ */
+    /* 8. МЕТРИКИ (Белые карточки) */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF !important;
         border: 1px solid #CCCCCC !important;
     }
     div[data-testid="metric-container"] * {
         color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
     }
 </style>
 """, unsafe_allow_html=True)
