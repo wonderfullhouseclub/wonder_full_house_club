@@ -29,6 +29,12 @@ st.markdown("""
         color: #FF4C24 !important;
         font-weight: 900 !important;
     }
+        /* ОРАНЖЕВЫЙ ЦВЕТ ДЛЯ ИТОГОВ В САЙДБАРЕ */
+    #total-investments-sidebar {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 600 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
