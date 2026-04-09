@@ -1,42 +1,51 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-# --- НАСТРОЙКА СТРАНИЦЫ ---
-st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
+# --- ПРИНУДИТЕЛЬНАЯ СВЕТЛАЯ ТЕМА (чтобы Streamlit не менял цвета сам) ---
+st.set_page_config(
+    page_title="Финансовая модель клуба",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items=None
+)
 
-# --- ФИРМЕННЫЙ CSS (без мобильных правок) ---
+# Принудительно светлая тема через параметры браузера
+st.markdown("""
+<script>
+    var theme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (theme.matches) {
+        // Если браузер в тёмной теме, переключаем Streamlit на светлую
+        window.frameElement?.contentDocument?.documentElement?.setAttribute('data-theme', 'light');
+    }
+</script>
+""", unsafe_allow_html=True)
+
+# --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, отступы) ---
 st.markdown("""
 <style>
-    .stApp { background-color: #ECF0ED; }
+    /* Фон основной области */
+    .stApp {
+        background-color: #ECF0ED;
+    }
+
+    /* Боковая панель: только тёмный фон и оранжевая рамка.
+       ВСЕ ЦВЕТА ТЕКСТА ОСТАВЛЯЕМ СТАНДАРТНЫМИ (Streamlit сам раскрасит) */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
     }
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 500;
-    }
-    .stButton > button {
-        background-color: #FF4C24;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
-    }
+
+    /* Метрики (карточки) */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
+
+    /* Отступ после логотипа */
     .stImage + div {
-        margin-top: 10px !important;
-    }
-    section[data-testid="stSidebar"] .stCaption {
-        color: #FFFFFF !important;
-        font-weight: 400;
-    }
-    section[data-testid="stSidebar"] strong {
-        color: #FFFFFF !important;
+        margin-top: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
