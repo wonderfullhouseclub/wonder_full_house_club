@@ -16,6 +16,16 @@ st.markdown("""
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
+        /* Цвет текущего значения над ползунком */
+    div[data-testid="stThumbValue"] {
+        color: #FFFFFF !important;
+    }
+
+    /* Цвет минимального и максимального значений под слайдером */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"] {
+        color: #FFFFFF !important;
+    
     }
     .stImage + div { margin-top: 10px; }
     /* Белые подписи для всех label (уже работало) */
