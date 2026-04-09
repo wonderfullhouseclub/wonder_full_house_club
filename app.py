@@ -4,8 +4,64 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
-st.markdown(""" <style> /* 1. БАЗА (Фон и Линия) */ .stApp { background-color: #ECF0ED !important; } [data-testid="stSidebar"] { background-color: #1A1C23 !important; border-right: 3px solid #FF4C24 !important; --text-color: #FFFFFF !important; --secondary-text-color: #FFFFFF !important; } /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО (Подзаголовки, Мин/Макс) */ [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; opacity: 1 !important; } /* 3. ОРАНЖЕВЫЙ ЦВЕТ — ТОЛЬКО ДЛЯ ЗАГОЛОВКОВ И ЦИФРЫ */ /* Усиливаем селектор цифры, добавляя путь через контейнер виджета */ [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, section[data-testid="stSidebar"] div[data-testid="stThumbValue"] > div, section[data-testid="stSidebar"] div[data-testid="stThumbValue"] span, section[data-testid="stSidebar"] [data-testid="stThumbValue"] { color: #FF4C24 !important; -webkit-text-fill-color: #FF4C24 !important; font-weight: 900 !important; font-size: 1.4rem !important; } /* 4. ИЗОЛЯЦИЯ ПОЛЕЙ ВВОДА (Черный на белом) */ [data-testid="stSidebar"] [data-baseweb="input"] input, [data-testid="stSidebar"] [data-baseweb="select"] * { color: #1A1C23 !important; -webkit-text-fill-color: #1A1C23 !important; font-size: 1rem !important; } [data-testid="stSidebar"] [data-baseweb="input"], [data-testid="stSidebar"] [data-baseweb="select"] { background-color: #FFFFFF !important; } /* 5. ЦЕНТРАЛЬНОЕ ПОЛЕ */ .main p, .main span, .main label, .main h1, .main h2 { color: #1A1C23 !important; } .main h1 { color: #FF4C24 !important; } </style> """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+    /* 1. БАЗА И РАЗДЕЛИТЕЛЬ */
+    .stApp { background-color: #ECF0ED !important; }
+    [data-testid="stSidebar"] {
+        background-color: #1A1C23 !important;
+        border-right: 3px solid #FF4C24 !important;
+    }
 
+    /* 2. БЕЛЫЙ ЦВЕТ ДЛЯ ВСЕГО В САЙДБАРЕ */
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+
+    /* 3. ОРАНЖЕВАЯ ЦИФРА (Thumb) — МЕТОД "ПРОБОЯ" */
+    /* Мы используем селектор атрибута, который Streamlit вешает на активные значения */
+    div[data-testid="stThumbValue"] > div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.4rem !important;
+        /* Убираем любые тени, которые могут делать текст белесым */
+        text-shadow: none !important;
+    }
+
+    /* Специальный хак для перекрытия: красим даже если система сопротивляется */
+    section[data-testid="stSidebar"] div[role="slider"] + div {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
+
+    /* 4. ОРАНЖЕВЫЕ ЗАГОЛОВКИ */
+    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+    }
+
+    /* 5. ИЗОЛЯЦИЯ СПИСКОВ (ЧЕРНЫЙ ТЕКСТ) */
+    [data-testid="stSidebar"] [data-baseweb="select"] *,
+    [data-testid="stSidebar"] input {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+    [data-testid="stSidebar"] [data-baseweb="select"],
+    [data-testid="stSidebar"] [data-baseweb="input"] {
+        background-color: #FFFFFF !important;
+    }
+
+    /* 6. ЦЕНТРАЛЬНОЕ ПОЛЕ */
+    .main p, .main span, .main label, .main h1, .main h2 {
+        color: #1A1C23 !important;
+    }
+    .main h1 { color: #FF4C24 !important; }
+</style>
+""", unsafe_allow_html=True)
 st.image("logo.png", width=250)
 
 st.markdown("""
