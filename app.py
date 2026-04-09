@@ -6,69 +6,71 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. ОБЩИЙ ВИД */
-    .stApp { background-color: #ECF0ED !important; }
-    section[data-testid="stSidebar"] {
+    /* 1. ГЛОБАЛЬНЫЕ ЦВЕТА САЙДБАРA (Через переменные) */
+    [data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
         border-right: 3px solid #FF4C24 !important;
+        /* Заставляем все системные тексты и иконки быть белыми */
+        --text-color: #FFFFFF !important;
+        --secondary-text-color: #FFFFFF !important;
+        --primary-color: #FF4C24 !important;
     }
 
-    /* 2. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ */
-    div[data-testid="stThumbValue"] > div,
-    .st-ae div[data-testid="stThumbValue"] {
+    /* 2. ОРАНЖЕВАЯ ЦИФРА НАД ПОЛЗУНКОМ (Thumb) */
+    div[data-testid="stThumbValue"], 
+    div[data-testid="stThumbValue"] > div {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
-        font-size: 1.35rem !important;
+        font-size: 1.4rem !important;
+        opacity: 1 !important;
     }
 
-    /* 3. МИН / МАКС — ЖЕСТКАЯ ПОКРАСКА В БЕЛЫЙ */
-    /* Используем [class*="st-"] чтобы зацепить внутренние динамические классы Streamlit */
-    [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"],
-    [data-testid="stTickBarMin"] div,
-    [data-testid="stTickBarMax"] div {
+    /* 3. МИН / МАКС (Принудительно белый) */
+    /* Используем универсальный селектор для шкалы слайдера */
+    div[data-testid="stTickBarMin"], 
+    div[data-testid="stTickBarMax"],
+    div[data-testid="stTickBarMin"] > div,
+    div[data-testid="stTickBarMax"] > div {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         opacity: 1 !important;
         font-size: 0.85rem !important;
-        visibility: visible !important;
     }
 
-    /* 4. ПОДЗАГОЛОВКИ И ПОДПИСИ (Белые и Оранжевые) */
-    /* Сначала всё в белый */
-    section[data-testid="stSidebar"] .stWidgetLabel label p,
-    section[data-testid="stSidebar"] .stMarkdown p {
-        color: #FFFFFF !important;
-        opacity: 1 !important;
-    }
-    /* Затем заголовки в оранжевый */
+    /* 4. ЗАГОЛОВКИ И ПОДПИСИ */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
     }
+    section[data-testid="stSidebar"] .stWidgetLabel label p,
+    section[data-testid="stSidebar"] .stMarkdown p {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
 
-    /* 5. ВЫПАДАЮЩИЕ СПИСКИ И ПОЛЯ ВВОДА (Черный на белом) */
-    /* Ограничиваем область действия, чтобы не ломать Min/Max */
-    section[data-testid="stSidebar"] [data-baseweb="select"] span,
-    section[data-testid="stSidebar"] [data-baseweb="select"] div,
-    section[data-testid="stSidebar"] input {
+    /* 5. ВЫПАДАЮЩИЕ СПИСКИ И ПОЛЯ ВВОДА (ЧЕРНЫЙ ТЕКСТ) */
+    /* Здесь мы точечно возвращаем черный цвет, чтобы не было белого на белом */
+    [data-testid="stSidebar"] [data-baseweb="select"] *,
+    [data-testid="stSidebar"] [data-baseweb="input"] input {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
         font-size: 1rem !important;
         opacity: 1 !important;
     }
-    
-    section[data-testid="stSidebar"] [data-baseweb="input"],
-    section[data-testid="stSidebar"] [data-baseweb="select"] {
+    [data-testid="stSidebar"] [data-baseweb="select"],
+    [data-testid="stSidebar"] [data-baseweb="input"] {
         background-color: #FFFFFF !important;
     }
 
-    /* 6. ЦЕНТРАЛЬНАЯ ЧАСТЬ */
-    .main p, .main span, .main label, .main h2 {
+    /* 6. ЦЕНТРАЛЬНОЕ ПОЛЕ (Фон и Темный текст) */
+    .stApp { background-color: #ECF0ED !important; }
+    .main * { --text-color: #1A1C23 !important; }
+    .main p, .main span, .main label, .main h1, .main h2 {
         color: #1A1C23 !important;
     }
+    .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
 
