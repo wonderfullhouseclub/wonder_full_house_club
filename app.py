@@ -73,14 +73,13 @@ st.image("logo.png", width=250)
 
 st.markdown(
     """
-    <h1 style='color: #FF4C24; font-weight: 800; text-align: left;'>
+    <h1 style='color: #FF4C24 !important; font-weight: 800 !important; text-align: left !important;'>
         Финансовая модель<br>
         Вашего клуба спортивного покера
     </h1>
     """, 
     unsafe_allow_html=True
 )
-
 st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ ==================
