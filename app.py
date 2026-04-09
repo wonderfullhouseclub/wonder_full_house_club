@@ -10,10 +10,22 @@ st.markdown("""
     .stApp {
         background-color: #ECF0ED;
     }
-    /* Боковая панель: только тёмный фон и оранжевая рамка */
+    /* Боковая панель: тёмный фон, оранжевая рамка */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23;
         border-right: 2px solid #FF4C24;
+    }
+    /* Подписи (label) в боковой панели — белые */
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+    }
+    /* Значения под слайдерами — белые */
+    section[data-testid="stSidebar"] .stSlider div[data-testid="stThumbValue"] {
+        color: #FFFFFF !important;
+    }
+    /* Текст в выпадающих списках — белый */
+    section[data-testid="stSidebar"] div[data-baseweb="select"] span {
+        color: #FFFFFF !important;
     }
     /* Метрики */
     div[data-testid="metric-container"] {
@@ -28,17 +40,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-st.image("logo.png", width=250)
-
-st.markdown("""
-<div style="line-height: 1.2;">
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Финансовая модель</h1>
-    <h1 style="margin: 0; padding: 0; color: #FF4C24;">Вашего клуба спортивного покера</h1>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
 
 # ================== БОКОВАЯ ПАНЕЛЬ (точечный HTML для заголовков) ==================
 # Заголовок верхнего уровня — белый через HTML
