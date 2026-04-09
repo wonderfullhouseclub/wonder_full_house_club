@@ -67,6 +67,12 @@ st.markdown("""
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
+        /* 7. ОРАНЖЕВАЯ ЦИФРА НАД СЛАЙДЕРОМ */
+    section[data-testid="stSidebar"] div[data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 700 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
