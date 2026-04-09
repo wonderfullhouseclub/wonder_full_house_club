@@ -1,40 +1,37 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-# Настройка страницы
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-# --- ФИРМЕННЫЙ CSS (как было вчера) ---
+# --- CSS только для основной области (фон и цвет текста) ---
 st.markdown("""
 <style>
-    .stApp { background-color: #ECF0ED; }
-    section[data-testid="stSidebar"] {
-        background-color: #1A1C23;
-        border-right: 2px solid #FF4C24;
+    /* Основная область: светлый фон, чёрный текст */
+    div[data-testid="stAppViewContainer"] {
+        background-color: #ECF0ED !important;
     }
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 500;
+    div[data-testid="stAppViewContainer"] section.main div.block-container {
+        color: #000000 !important;
     }
-    .stButton > button {
-        background-color: #FF4C24;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
+    div[data-testid="stAppViewContainer"] section.main p,
+    div[data-testid="stAppViewContainer"] section.main span,
+    div[data-testid="stAppViewContainer"] section.main div:not([class*="plotly"]):not([class*="metric"]) {
+        color: #000000 !important;
     }
+    /* Метрики остаются белыми карточками */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
         border-radius: 10px;
         padding: 10px;
     }
-    .stImage + div { margin-top: 10px !important; }
-    section[data-testid="stSidebar"] .stCaption {
-        color: #FFFFFF !important;
-        font-weight: 400;
+    div[data-testid="metric-container"] label,
+    div[data-testid="metric-container"] div {
+        color: #000000 !important;
     }
-    section[data-testid="stSidebar"] strong {
-        color: #FFFFFF !important;
+    /* Отступ после логотипа */
+    .stImage + div {
+        margin-top: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -50,7 +47,7 @@ st.markdown("""
 
 st.markdown("---")
 
-# ================== БОКОВАЯ ПАНЕЛЬ ==================
+# ================== БОКОВАЯ ПАНЕЛЬ (стандартные виджеты) ==================
 st.sidebar.header("📍 Параметры расчёта")
 
 st.sidebar.subheader("🎲 Формат клуба")
