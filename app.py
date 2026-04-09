@@ -77,7 +77,9 @@ else:
     min_v, max_v, def_v = 4000, 8000, 6000
 
 # Слайдер с кастомной подписью
-vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
+vkhody_label = st.sidebar.empty()
+vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50, key="vkhody", label_visibility="collapsed")
+vkhody_label.markdown(f"<span style='color: #FF4C24; font-weight: 600;'>🚪 Количество входов в месяц: {vkhody}</span>", unsafe_allow_html=True)
 
 vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
 
