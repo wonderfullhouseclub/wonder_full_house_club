@@ -13,34 +13,41 @@ st.markdown("""
         border-right: 3px solid #FF4C24 !important;
     }
 
-    /* 2. ВОТ ОНО: ОРАНЖЕВОЕ ЗНАЧЕНИЕ (ТОТ САМЫЙ ХАК) */
-    /* Мы бьем по классу .st-ae и контейнеру значения одновременно */
+    /* 2. ОРАНЖЕВОЕ ЗНАЧЕНИЕ (Уже работает, закрепляем) */
     div[data-testid="stThumbValue"] > div, 
-    .st-ae div[data-testid="stThumbValue"],
-    div[role="slider"] + div {
+    .st-ae div[data-testid="stThumbValue"] {
         color: #FF4C24 !important;
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 900 !important;
         font-size: 1.35rem !important;
     }
 
-    /* 3. БЕЛЫЕ МИН / МАКС (ВОЗВРАЩАЕМ ИЗ СЕРОГО) */
+    /* 3. МИН / МАКС (ДЕЛАЕМ БЕЛЫМИ ЧЕРЕЗ СИСТЕМНЫЕ КЛАССЫ) */
+    /* Добавляем .st-ag и .st-ah — это внутренние контейнеры для подписей шкалы */
     [data-testid="stTickBarMin"], 
-    [data-testid="stTickBarMax"] {
+    [data-testid="stTickBarMax"],
+    .st-ag div, .st-ah div {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
-        opacity: 0.8 !important;
+        opacity: 0.9 !important;
+        font-size: 0.8rem !important;
     }
 
-    /* 4. БЕЛЫЕ ПОДПИСИ */
-    section[data-testid="stSidebar"] .stWidgetLabel label p {
+    /* 4. БЕЛЫЕ ПОДПИСИ И ПОДЗАГОЛОВКИ */
+    /* Красим принудительно все текстовые элементы в сайдбаре, кроме оранжевых */
+    section[data-testid="stSidebar"] .stWidgetLabel label p,
+    section[data-testid="stSidebar"] .stMarkdown p,
+    section[data-testid="stSidebar"] span {
         color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
     }
 
-    /* 5. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ */
+    /* 5. ОРАНЖЕВЫЕ ПОДЗАГОЛОВКИ (H2, H3) */
+    /* Ставим их НИЖЕ белых правил, чтобы они перекрывали их */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
     }
 
     /* 6. ИСПРАВЛЕНИЕ ИНПУТОВ (ЧЕРНЫЙ ТЕКСТ) */
@@ -54,10 +61,11 @@ st.markdown("""
         background-color: #FFFFFF !important;
     }
 
-    /* 7. ОСНОВНОЙ ТЕКСТ */
+    /* 7. ОСНОВНОЙ ТЕКСТ (Центр) */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
+    .main h1 { color: #FF4C24 !important; }
 </style>
 """, unsafe_allow_html=True)
 
