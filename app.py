@@ -6,48 +6,47 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- МИНИМАЛЬНЫЙ CSS (только фон, рамка, метрики) ---
 st.markdown("""
 <style>
-    /* 1. Общий фон */
+    /* 1. ФОН */
     .stApp { background-color: #ECF0ED; }
-    section[data-testid="stSidebar"] {
-        background-color: #1A1C23 !important;
+    section[data-testid="stSidebar"] { background-color: #1A1C23 !important; }
+
+    /* 2. ТЕКУЩЕЕ ЗНАЧЕНИЕ (Жирный оранжевый) */
+    /* Мы бьем по самому глубокому элементу, который держит цифру */
+    [data-testid="stThumbValue"] {
+        color: #FF4C24 !important;
+        font-weight: 900 !important;
+        font-size: 1.3rem !important;
+        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 2. ТЕКСТ И ПОДПИСИ (Белые) */
+    /* 3. МИН / МАКС (Приглушенные, мелкие) */
+    [data-testid="stTickBarMin"], 
+    [data-testid="stTickBarMax"] {
+        color: rgba(255, 255, 255, 0.4) !important; /* Белый на 40% прозрачности */
+        font-size: 0.7rem !important;
+        font-weight: 400 !important;
+    }
+
+    /* 4. ЗАГОЛОВКИ СЛАЙДЕРОВ И ТЕКСТ (Чисто белый) */
     section[data-testid="stSidebar"] .stWidgetLabel label p,
     section[data-testid="stSidebar"] p {
         color: #FFFFFF !important;
     }
 
-    /* 3. ТЕКУЩЕЕ ЗНАЧЕНИЕ НАД СЛАЙДЕРОМ (Оранжевое и жирное) */
-    /* Используем двойной селектор для максимального приоритета */
-    div[data-testid="stThumbValue"] {
-        color: #FF4C24 !important;
-        font-weight: 900 !important;
-        font-size: 1.2rem !important;
-    }
-
-    /* 4. МИН / МАКС (Приглушенные) */
-    div[data-testid="stTickBarMin"], 
-    div[data-testid="stTickBarMax"] {
-        color: #FFFFFF !important;
-        font-size: 0.75rem !important;
-        opacity: 0.5 !important; /* Делает их полупрозрачными/серыми */
-    }
-
-    /* 5. ЗАГОЛОВКИ РАЗДЕЛОВ */
+    /* 5. ЗАГОЛОВКИ ГРУПП (Оранжевый) */
     section[data-testid="stSidebar"] h2, 
     section[data-testid="stSidebar"] h3 {
         color: #FF4C24 !important;
     }
 
-    /* 6. ПОЛЯ ВВОДА (Чиним текст) */
+    /* 6. ПОЛЯ ВВОДА (Черный на белом) */
     section[data-testid="stSidebar"] input {
         color: #1A1C23 !important;
         background-color: #FFFFFF !important;
         -webkit-text-fill-color: #1A1C23 !important;
     }
 
-    /* 7. МОБИЛЬНАЯ ПРАВКА (Центр) */
+    /* 7. ЦЕНТРАЛЬНАЯ ЧАСТЬ (Для мобилок) */
     .main p, .main span, .main label, .main h2 {
         color: #1A1C23 !important;
     }
