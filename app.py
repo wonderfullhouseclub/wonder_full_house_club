@@ -15,7 +15,7 @@ st.markdown("""
     /* 1. Делаем подписи Min и Max белыми */
     section[data-testid="stSidebar"] [data-testid="stTickBarMin"], 
     section[data-testid="stSidebar"] [data-testid="stTickBarMax"] {
-        color: #FFFFFF;
+        color: #FFFFFF !important;
         opacity: 1 !important; /* Убираем прозрачность, если она есть */
     }
 
@@ -78,23 +78,21 @@ support_level = st.sidebar.selectbox(
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🍷 Доп. услуги</h3>", unsafe_allow_html=True)
 bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
-st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{int(bar_conv * 100)}%</span>", unsafe_allow_html=True)
 
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
 
 hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
-st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{int(hookah_conv * 100)}%</span>", unsafe_allow_html=True)
 
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🏠 Постоянные расходы</h3>", unsafe_allow_html=True)
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
 
-other_opex = st.sidebar.slider("💡 Операционные расходы (уборка, охрана, материалы), руб.",
+other_opex = st.sidebar.slider("💡 Операционные расходы, руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
 st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{other_opex:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-marketing_budget = st.sidebar.slider("📢 Маркетинговый бюджет, руб.",
+marketing_budget = st.sidebar.slider("📢 Маркетинг, руб.",
                                      min_value=50000, max_value=1000000, value=200000, step=10000)
 st.sidebar.markdown(f"<span style='color: #FFFFFF;'>{marketing_budget:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
@@ -171,7 +169,7 @@ col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace
             delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
 col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
-col4.metric("⭐ Роялти (франчайзеру)", f"{royalty_sum:,.0f} ₽".replace(",", " "))
+col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
