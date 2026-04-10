@@ -1,11 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-st.set_page_config(
-    page_title="Ваш Клуб",
-    initial_sidebar_state="expanded",
-    menu_items=None # Это официально отключает часть пунктов меню
-)
+st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
 # 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
@@ -77,32 +73,6 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
-/* 1. ДЕЛАЕМ ВЕРХНЮЮ ПАНЕЛЬ ПРОЗРАЧНОЙ И КЛИК-НЕВИДИМОЙ */
-    header[data-testid="stHeader"] {
-        background-color: rgba(0,0,0,0) !important;
-        pointer-events: none !important; /* Кнопки перестают реагировать на нажатия */
-    }
-
-    /* 2. ПРЯЧЕМ ВСЕ ЭЛЕМЕНТЫ ВНУТРИ ХЕДЕРА */
-    header[data-testid="stHeader"] * {
-        display: none !important;
-        visibility: hidden !important;
-    }
-
-    /* 3. ЕСЛИ КОТИК ВЫЛЕЗАЕТ В ПАНЕЛИ ИНСТРУМЕНТОВ */
-    section[data-testid="stAppViewBlockContainer"] > div:first-child {
-        display: none !important;
-    }
-
-    /* 4. УБИРАЕМ КНОПКУ DEPLOY (она часто вне хедера) */
-    .stDeployButton {
-        display: none !important;
-    }
-
-    /* 5. УБИРАЕМ ИКОНКУ ЗАГРУЗКИ (running man / cat) */
-    [data-testid="stStatusWidget"] {
-        display: none !important;
-    }
     
 </style>
 """, unsafe_allow_html=True)
