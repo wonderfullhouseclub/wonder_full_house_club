@@ -9,12 +9,12 @@ st.markdown("""
     /* Общий фон */
     .stApp { background-color: #ECF0ED !important; }
 
-    /* === САЙДБАР (тёмный, оранжевые акценты) === */
+    /* === САЙДБАР === */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* === ПЕРЕНОС САЙДБАРА НАПРАВО ТОЛЬКО ДЛЯ ДЕСКТОПА === */
+    /* === ПЕРЕНОС САЙДБАРА НАПРАВО (только десктоп) === */
     @media (min-width: 768px) {
         section[data-testid="stSidebar"] {
             left: auto !important;
@@ -32,7 +32,7 @@ st.markdown("""
         }
     }
 
-    /* На мобильных кнопка открытия остаётся слева, но становится заметной */
+    /* === МОБИЛЬНЫЕ: КНОПКА САЙДБАРА ОРАНЖЕВАЯ И ВИДИМАЯ === */
     @media (max-width: 767px) {
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
@@ -44,13 +44,15 @@ st.markdown("""
             right: auto !important;
             transform: none !important;
             color: #FF4C24 !important;
-            background-color: #1A1C23 !important;
-            border-radius: 4px;
-            padding: 4px;
+            background-color: transparent !important;
+        }
+        [data-testid="stSidebarCollapsedControl"] svg {
+            fill: #FF4C24 !important;
+            stroke: #FF4C24 !important;
         }
     }
 
-    /* === ОСНОВНАЯ ОБЛАСТЬ: чёрный текст, оранжевые заголовки === */
+    /* === ОСНОВНАЯ ОБЛАСТЬ === */
     [data-testid="stMain"] *:not(span), .main *:not(span) {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
@@ -61,7 +63,7 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* === ТЕКСТ В САЙДБАРЕ (белый) === */
+    /* === ТЕКСТ В САЙДБАРЕ === */
     section[data-testid="stSidebar"] label p,
     section[data-testid="stSidebar"] span,
     section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
@@ -83,14 +85,9 @@ st.markdown("""
     footer {visibility: hidden;}
     .stStatusWidget {visibility: hidden;}
     .stDeployButton {visibility: hidden;}
-    /* Прячем Manage App и прочие кнопки тулбара */
-    [data-testid="stToolbar"] button[kind="secondary"] {
-        display: none !important;
-    }
-
-    /* Пустой тулбар закрашиваем под фон */
+    /* Пустой тулбар — полностью прозрачный, но кнопки скрыты через config.toml */
     [data-testid="stToolbar"] {
-        background-color: #ECF0ED !important;
+        background-color: transparent !important;
         visibility: visible !important;
     }
 </style>
