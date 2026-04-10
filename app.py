@@ -3,25 +3,6 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
 
-st.markdown("""
-<style>
-    /* Зеркально отражаем весь контейнер приложения */
-    .stApp {
-        flex-direction: row-reverse !important;
-    }
-    
-    /* Восстанавливаем порядок элементов в основном контенте */
-    .stMain {
-        flex-direction: row-reverse !important;
-    }
-    
-    /* Фиксим позиционирование кнопки сворачивания (может не работать) */
-    button[kind="header"] {
-        transform: scaleX(-1) !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 # 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
 <style>
