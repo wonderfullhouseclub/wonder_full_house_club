@@ -72,16 +72,17 @@ club_format = st.sidebar.selectbox(
     ["STRAIGHT (5–10 столов)", "FULL HOUSE (11–24 стола)", "ROYAL FLASH (25+ столов)"]
 )
 if club_format.startswith("STRAIGHT"):
-    min_v, max_v, def_v = 800, 2000, 1400
+    min_v, max_v, def_v = 800, 4000, 2000      # изменено: def_v = 2000
 elif club_format.startswith("FULL HOUSE"):
-    min_v, max_v, def_v = 2000, 4500, 3200
+    min_v, max_v, def_v = 2000, 6000, 4000     # изменено: def_v = 4000
 else:
-    min_v, max_v, def_v = 4000, 8000, 6000
+    min_v, max_v, def_v = 4000, 8000, 6000     # def_v = 6000
 
 # Слайдер с кастомной подписью
 vkhody = st.sidebar.slider("🚪 Количество входов в месяц", min_v, max_v, def_v, step=50)
 
-vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=1000, step=100)
+# Изменено значение по умолчанию на 850
+vkhody_price = st.sidebar.number_input("🎫 Средний чек (вход), руб.", value=850, step=50)
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🤝 Уровень поддержки</h3>", unsafe_allow_html=True)
 support_level = st.sidebar.selectbox(
@@ -90,13 +91,18 @@ support_level = st.sidebar.selectbox(
 )
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🍷 Доп. услуги</h3>", unsafe_allow_html=True)
-bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 35) / 100
 
-bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=900, step=100)
+# --- КУХНЯ (новый блок) ---
+kitchen_conv = st.sidebar.slider("Конверсия в кухню, %", 0, 100, 3) / 100
+kitchen_check = st.sidebar.number_input("Средний чек кухни, руб.", value=600, step=50)
 
-hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 15) / 100
+# --- БАР (изменены дефолты) ---
+bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 17) / 100
+bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=500, step=50)
 
-hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1200, step=100)
+# --- КАЛЬЯН (изменены дефолты) ---
+hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 100, 7) / 100
+hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1700, step=100)
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>🏠 Постоянные расходы</h3>", unsafe_allow_html=True)
 rent = st.sidebar.number_input("Аренда + коммунальные платежи, руб.", value=200000, step=10000)
@@ -104,8 +110,9 @@ rent = st.sidebar.number_input("Аренда + коммунальные плат
 other_opex = st.sidebar.slider("💡 Операционные расходы, руб.",
                                min_value=100000, max_value=1500000, value=500000, step=50000)
 
+# Изменено значение маркетинга по умолчанию на 300 000
 marketing_budget = st.sidebar.slider("📢 Маркетинг, руб.",
-                                     min_value=50000, max_value=1000000, value=200000, step=10000)
+                                     min_value=50000, max_value=1000000, value=300000, step=10000)
 
 tax_mode = st.sidebar.selectbox(
     "🧾 Налоговый режим",
@@ -139,11 +146,12 @@ inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюд�
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"<span id='total-investments-sidebar'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-# ================== РАСЧЁТ ==================
+# ================== РАСЧЁТ (ДОБАВЛЕНА КУХНЯ) ==================
 rev_vkhody = vkhody * vkhody_price
+rev_kitchen = (vkhody * kitchen_conv) * kitchen_check    # НОВОЕ
 rev_bar = (vkhody * bar_conv) * bar_check
 rev_hookah = (vkhody * hookah_conv) * hookah_check
-total_revenue = rev_vkhody + rev_bar + rev_hookah
+total_revenue = rev_vkhody + rev_kitchen + rev_bar + rev_hookah   # ОБНОВЛЕНО
 
 opex_before = rent + other_opex + marketing_budget + staff_total
 
@@ -181,7 +189,6 @@ col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
 col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
-col_left, col_right = st.columns([1.6, 1])
 # ================== ГРАФИК ОКУПАЕМОСТИ С ПОЯСНЕНИЕМ ==================
 st.markdown("<h3 style='color: #FF4C24;'>📈 Прогноз окупаемости инвестиций</h3>", unsafe_allow_html=True)
 
@@ -248,7 +255,7 @@ if net_profit > 0:
 else:
     st.warning("Текущие параметры показывают убыток. Попробуйте увеличить количество входов или снизить расходы.")
 
-# --- ДЕТАЛИЗАЦИЯ ---
+# --- ДЕТАЛИЗАЦИЯ (ДОБАВЛЕНА КУХНЯ) ---
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
     with col_d1:
