@@ -74,45 +74,6 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
- /* === АДАПТАЦИЯ ГРАФИКА ДЛЯ МОБИЛЬНЫХ === */
-    @media (max-width: 768px) {
-        .js-plotly-plot {
-            height: auto !important;
-            min-height: 300px;
-        }
-        .plotly .main-svg {
-            width: 100% !important;
-            height: auto !important;
-        }
-        /* Уменьшаем шрифт подписей внутри графика */
-        .plotly .g-gtitle, .plotly .xtitle, .plotly .ytitle, .plotly .legendtext {
-            font-size: 12px !important;
-        }
-        
-/* ПОЛНОСТЬЮ УДАЛЯЕМ ВЕРХНЮЮ ПАНЕЛЬ (Header) */
-    [data-testid="stHeader"] {
-        display: none !important;
-    }
-
-    /* УБИРАЕМ МЕНЮ И ВСЕ КНОПКИ УПРАВЛЕНИЯ */
-    #MainMenu {
-        display: none !important;
-    }
-
-    /* СКРЫВАЕМ ПАНЕЛЬ СО СТАТУСОМ И КОТИКОМ */
-    [data-testid="stStatusWidget"], .stDeployButton {
-        display: none !important;
-    }
-
-    /* ПОДНИМАЕМ КОНТЕНТ ВЫШЕ, ЧТОБЫ НЕ БЫЛО ПУСТОТЫ СВЕРХУ */
-    .main .block-container {
-        padding-top: 2rem !important;
-    }
-
-    /* УДАЛЯЕМ ФУТЕР (надпись "Made with Streamlit" внизу) */
-    footer {
-        display: none !important;
-    }
     
 </style>
 """, unsafe_allow_html=True)
