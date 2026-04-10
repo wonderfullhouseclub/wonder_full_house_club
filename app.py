@@ -182,66 +182,72 @@ col3.metric("⏳ Окупаемость",
 col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 col_left, col_right = st.columns([1.6, 1])
-import plotly.graph_objects as go
+# ================== ГРАФИК ОКУПАЕМОСТИ С ПОЯСНЕНИЕМ ==================
+st.markdown("<h3 style='color: #FF4C24;'>📈 Прогноз окупаемости инвестиций</h3>", unsafe_allow_html=True)
 
-# --- 1. РАСЧЕТ ДАННЫХ (используем твои переменные) ---
-# Предположим, твои переменные называются total_invest и monthly_net_profit
-# Если они называются иначе, просто подставь свои имена вместо них:
-инвестиции = total_invest  # Сумма вложений (например, 2 000 000)
-прибыль_в_месяц = monthly_net_profit  # Чистая прибыль (например, 300 000)
-срок_прогноза = 12 
+months = list(range(0, 13))
+cash_flow = [-total_investments + (net_profit * m) for m in months]
 
-месяцы = list(range(0, срок_прогноза + 1))
-баланс = [-инвестиции] # Стартуем с минуса
-
-for i in range(1, срок_прогноза + 1):
-    баланс.append(баланс[-1] + прибыль_в_месяц)
-
-# --- 2. НАСТРОЙКА ВИЗУАЛА ---
 fig = go.Figure()
-
-# Основная линия
 fig.add_trace(go.Scatter(
-    x=месяцы, 
-    y=баланс,
-    mode='lines+markers+text',
-    name='Баланс проекта',
-    text=[f"{round(val/1000)}к" if i > 0 else "" for i, val in enumerate(баланс)],
-    textposition="top center",
-    line=dict(color='#FF4C24', width=4), # Наш оранжевый
-    marker=dict(size=10, color='#1A1C23', line=dict(width=2, color='#FF4C24')),
-    fill='tozeroy', 
-    fillcolor='rgba(255, 76, 36, 0.05)'
+    x=months,
+    y=cash_flow,
+    mode='lines+markers',
+    name='Накопленная прибыль',
+    line=dict(color='#FF4C24', width=4),
+    marker=dict(color='#FFFFFF', size=8, line=dict(color='#FF4C24', width=2)),
+    fill='tozeroy',
+    fillcolor='rgba(255, 76, 36, 0.1)'
 ))
 
-# Горизонтальная линия нуля
-fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2)
+fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2,
+              annotation_text="Точка окупаемости",
+              annotation_position="bottom right",
+              annotation_font_size=12,
+              annotation_font_color="#1A1C23")
 
-# Оранжевая плашка про безубыточность с 1-го месяца
-fig.add_annotation(
-    x=1, y=0,
-    text="БЕЗУБЫТОЧНОСТЬ С 1-ГО МЕСЯЦА",
-    showarrow=True,
-    arrowhead=2,
-    ax=0, ay=-40,
-    bgcolor="#FF4C24",
-    font=dict(color="white", size=11, family="Arial Black"),
-    borderpad=4
-)
+if payback_months != float('inf') and payback_months <= 12:
+    fig.add_vline(x=payback_months, line_width=1, line_dash="dot", line_color="gray")
+    fig.add_annotation(
+        x=payback_months, y=cash_flow[int(payback_months)],
+        text=f"{payback_months:.1f} мес.",
+        showarrow=True,
+        arrowhead=1,
+        ax=20,
+        ay=-30,
+        font=dict(color="#1A1C23", size=12),
+        bgcolor="#FFFFFF",
+        bordercolor="#FF4C24"
+    )
 
-# Оформление осей и фона
 fig.update_layout(
-    title="<b>ГРАФИК ОКУПАЕМОСТИ И ИНВЕСТИЦИОННЫЙ ПОТОК</b>",
-    xaxis=dict(title="Месяцы работы", showgrid=False, dtick=1),
-    yaxis=dict(title="Сумма (₽)", showgrid=True, gridcolor='#EEE'),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-    margin=dict(l=20, r=20, t=60, b=20),
+    xaxis_title="Месяц",
+    yaxis_title="Накопленная прибыль, ₽",
+    paper_bgcolor='#ECF0ED',
+    plot_bgcolor='#ECF0ED',
+    font=dict(color='#1A1C23'),
+    hovermode='x unified',
+    xaxis=dict(tickmode='linear', dtick=1, gridcolor='#D0D4D8'),
+    yaxis=dict(gridcolor='#D0D4D8', zerolinecolor='#1A1C23'),
+    margin=dict(t=30, b=40, l=60, r=20),
     height=450
 )
 
-# --- 3. САМА КОМАНДА ВЫВОДА (ТО ЧЕГО НЕ ХВАТАЛО) ---
 st.plotly_chart(fig, use_container_width=True)
+
+# Пояснение о положительной чистой прибыли с первого месяца
+if net_profit > 0:
+    st.markdown(f"""
+    <div style='background-color: #FFFFFF; border-left: 4px solid #FF4C24; padding: 15px; border-radius: 6px; margin-top: 20px;'>
+        <span style='color: #1A1C23; font-size: 1.1rem;'>
+            ✅ <strong>Чистая прибыль уже с первого месяца:</strong> {net_profit:,.0f} ₽<br>
+            📉 Инвестиции начнут окупаться с первого месяца, а полный возврат произойдёт через <strong>{payback_months:.1f} мес.</strong>
+        </span>
+    </div>
+    """, unsafe_allow_html=True)
+else:
+    st.warning("Текущие параметры показывают убыток. Попробуйте увеличить количество входов или снизить расходы.")
+
 # --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
