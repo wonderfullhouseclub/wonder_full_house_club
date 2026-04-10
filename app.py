@@ -74,17 +74,17 @@ club_format = st.sidebar.selectbox(
 
 # Настройки в зависимости от формата
 if club_format.startswith("STRAIGHT"):
-    min_v, max_v, def_v = 800, 4000, 2000
+    min_v, max_v, def_v = 800, 5000, 2500
     default_dilers = 6
     default_tour_managers = 2
     default_equipment = 1_000_000
 elif club_format.startswith("FULL HOUSE"):
-    min_v, max_v, def_v = 2000, 8800, 4000
+    min_v, max_v, def_v = 2000, 9800, 4000
     default_dilers = 12
     default_tour_managers = 4
     default_equipment = 2_000_000
 else:  # ROYAL FLASH
-    min_v, max_v, def_v = 4000, 12000, 6000
+    min_v, max_v, def_v = 4000, 13000, 6000
     default_dilers = 25
     default_tour_managers = 6
     default_equipment = 3_000_000
