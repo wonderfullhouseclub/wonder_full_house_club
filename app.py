@@ -74,6 +74,21 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
+ /* === АДАПТАЦИЯ ГРАФИКА ДЛЯ МОБИЛЬНЫХ === */
+    @media (max-width: 768px) {
+        .js-plotly-plot {
+            height: auto !important;
+            min-height: 300px;
+        }
+        .plotly .main-svg {
+            width: 100% !important;
+            height: auto !important;
+        }
+        /* Уменьшаем шрифт подписей внутри графика */
+        .plotly .g-gtitle, .plotly .xtitle, .plotly .ytitle, .plotly .legendtext {
+            font-size: 12px !important;
+        }
+        
 /* ПОЛНОСТЬЮ УДАЛЯЕМ ВЕРХНЮЮ ПАНЕЛЬ (Header) */
     [data-testid="stHeader"] {
         display: none !important;
