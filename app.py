@@ -6,67 +6,87 @@ st.set_page_config(page_title="Финансовая модель клуба", la
 # --- ЕДИНЫЙ CSS (перенос панели направо, скрытие тулбара, мобильная адаптация) ---
 st.markdown("""
 <style>
-    /* 1. БАЗОВОЕ ОФОРМЛЕНИЕ */
+    /* Общий фон */
     .stApp { background-color: #ECF0ED !important; }
-    section[data-testid="stSidebar"] { background-color: #1A1C23 !important; }
 
-    /* 2. ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ ХЕДЕРА И МЕНЮ (чтобы не мешали) */
-    header, [data-testid="stHeader"], .stDeployButton, footer {
-        display: none !important;
-        visibility: hidden !important;
-    }
-
-    /* 3. ВОСКРЕШЕНИЕ КНОПКИ САЙДБАРА (ДЛЯ ВСЕХ УСТРОЙСТВ) */
-    /* Мы создаем её заново поверх пустого места */
-    [data-testid="stSidebarCollapsedControl"] {
-        display: flex !important;
-        visibility: visible !important;
-        position: fixed !important;
-        top: 15px !important;
+    /* === САЙДБАР === */
+    section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
-        border: 2px solid #FF4C24 !important;
-        border-radius: 8px !important;
-        z-index: 9999999 !important;
-        width: 45px !important;
-        height: 45px !important;
     }
 
-    /* На мобилке - слева, на десктопе - справа (т.к. сайдбар справа) */
-    @media (max-width: 767px) {
-        [data-testid="stSidebarCollapsedControl"] { left: 15px !important; }
-    }
+    /* === ПЕРЕНОС САЙДБАРА НАПРАВО (десктоп) === */
     @media (min-width: 768px) {
-        [data-testid="stSidebarCollapsedControl"] { 
+        section[data-testid="stSidebar"] {
             left: auto !important;
-            right: 15px !important;
-            transform: scaleX(-1);
-        }
-        [data-testid="stAppViewContainer"] { flex-direction: row-reverse !important; }
-        section[data-testid="stSidebar"] { 
-            left: auto !important; 
-            right: 0 !important; 
+            right: 0 !important;
+            border-right: none !important;
             border-left: 3px solid #FF4C24 !important;
         }
+        [data-testid="stAppViewContainer"] {
+            flex-direction: row-reverse !important;
+        }
+        [data-testid="stSidebarCollapsedControl"] {
+            left: auto !important;
+            right: 10px !important;
+            transform: scaleX(-1);
+        }
     }
 
-    /* 4. ЦВЕТ СТРЕЛКИ (Чтобы точно не была белой) */
-    [data-testid="stSidebarCollapsedControl"] svg {
-        fill: #FF4C24 !important;
-        stroke: #FF4C24 !important;
-        display: block !important;
+    /* === МОБИЛЬНЫЕ: КНОПКА САЙДБАРА ОРАНЖЕВАЯ === */
+    @media (max-width: 767px) {
+        [data-testid="stSidebarCollapsedControl"] {
+            background-color: #FF4C24 !important;
+            border-radius: 6px !important;
+            padding: 4px !important;
+            margin: 8px !important;
+        }
+        [data-testid="stSidebarCollapsedControl"] svg {
+            fill: white !important;
+            stroke: white !important;
+        }
+        section[data-testid="stSidebar"] {
+            border-right: 3px solid #FF4C24 !important;
+        }
     }
 
-    /* 5. УДАЛЕНИЕ MANAGE APP И ЛИШНЕГО МУСОРА */
-    [data-testid="manage-app-button"], 
-    [data-testid="stSidebarFooter"],
-    .stStatusWidget {
-        display: none !important;
+    /* === ОСНОВНАЯ ОБЛАСТЬ === */
+    [data-testid="stMain"] *:not(span), .main *:not(span) {
+        color: #1A1C23 !important;
+        -webkit-text-fill-color: #1A1C23 !important;
+    }
+    [data-testid="stMain"] h1, [data-testid="stMain"] h2, [data-testid="stMain"] h3,
+    .main h1, .main h2, .main h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* 6. ТЕКСТ */
-    [data-testid="stMain"] *:not(span) { color: #1A1C23 !important; }
-    [data-testid="stMain"] h1, [data-testid="stMain"] h2, [data-testid="stMain"] h3 { color: #FF4C24 !important; }
-    section[data-testid="stSidebar"] label p, section[data-testid="stSidebar"] span { color: #FFFFFF !important; }
+    /* === ТЕКСТ В САЙДБАРЕ === */
+    section[data-testid="stSidebar"] label p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+    }
+    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3,
+    div[data-testid="stThumbValue"] > div {
+        color: #FF4C24 !important;
+        font-weight: 900 !important;
+    }
+    #total-investments-sidebar {
+        color: #FF4C24 !important;
+        -webkit-text-fill-color: #FF4C24 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Скрываем футер и статус-виджет */
+    footer {visibility: hidden;}
+    .stStatusWidget {visibility: hidden;}
+    .stDeployButton {visibility: hidden;}
+
+    /* Тулбар: закрашиваем под фон, чтобы не выделялся */
+    [data-testid="stToolbar"] {
+        background-color: #ECF0ED !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
