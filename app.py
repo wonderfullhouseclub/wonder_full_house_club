@@ -182,74 +182,66 @@ col3.metric("⏳ Окупаемость",
 col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 col_left, col_right = st.columns([1.6, 1])
-
 import plotly.graph_objects as go
 
-def draw_investor_chart(investments, monthly_profit, duration=12):
-    # Генерируем данные: накопленный итог, начиная с минуса (инвестиций)
-    # 0 месяц - только вложения, 1 месяц - вложения + прибыль 1-го месяца
-    months = list(range(0, duration + 1))
-    cumulative_cash = [-(investments)] # Стартуем с минуса
-    
-    for i in range(1, duration + 1):
-        cumulative_cash.append(cumulative_cash[-1] + monthly_profit)
+# --- 1. РАСЧЕТ ДАННЫХ (используем твои переменные) ---
+# Предположим, твои переменные называются total_invest и monthly_net_profit
+# Если они называются иначе, просто подставь свои имена вместо них:
+инвестиции = total_invest  # Сумма вложений (например, 2 000 000)
+прибыль_в_месяц = monthly_net_profit  # Чистая прибыль (например, 300 000)
+срок_прогноза = 12 
 
-    fig = go.Figure()
+месяцы = list(range(0, срок_прогноза + 1))
+баланс = [-инвестиции] # Стартуем с минуса
 
-    # Заливка зоны прибыли (выше нуля)
-    fig.add_trace(go.Scatter(
-        x=months, y=[0]*(duration+1),
-        fill=None, mode='lines', line_color='rgba(0,0,0,0)', showlegend=False
-    ))
-    
-    # Основная линия накопленного дохода
-    fig.add_trace(go.Scatter(
-        x=months, 
-        y=cumulative_cash,
-        mode='lines+markers+text',
-        name='Денежный поток',
-        text=[f"{round(val/1000)}к" if val != cumulative_cash[0] else "" for val in cumulative_cash],
-        textposition="top center",
-        line=dict(color='#FF4C24', width=4),
-        marker=dict(size=10, color='#1A1C23', line=dict(width=2, color='#FF4C24')),
-        fill='tonexty', 
-        fillcolor='rgba(255, 76, 36, 0.1)'
-    ))
+for i in range(1, срок_прогноза + 1):
+    баланс.append(баланс[-1] + прибыль_в_месяц)
 
-    # Линия нуля
-    fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2)
+# --- 2. НАСТРОЙКА ВИЗУАЛА ---
+fig = go.Figure()
 
-    # Аннотация для 1-го месяца (Безубыточность)
-    fig.add_annotation(
-        x=1, y=0,
-        text="Операционный плюс с 1-го месяца",
-        showarrow=True,
-        arrowhead=2,
-        ax=0, ay=-40,
-        bgcolor="#FF4C24",
-        font=dict(color="white", size=12),
-        bordercolor="#FF4C24",
-        borderwidth=2,
-        borderpad=4,
-        opacity=0.9
-    )
+# Основная линия
+fig.add_trace(go.Scatter(
+    x=месяцы, 
+    y=баланс,
+    mode='lines+markers+text',
+    name='Баланс проекта',
+    text=[f"{round(val/1000)}к" if i > 0 else "" for i, val in enumerate(баланс)],
+    textposition="top center",
+    line=dict(color='#FF4C24', width=4), # Наш оранжевый
+    marker=dict(size=10, color='#1A1C23', line=dict(width=2, color='#FF4C24')),
+    fill='tozeroy', 
+    fillcolor='rgba(255, 76, 36, 0.05)'
+))
 
-    fig.update_layout(
-        title="<b>ПРОГНОЗ ВОЗВРАТА ИНВЕСТИЦИЙ</b>",
-        xaxis_title="Месяцы работы",
-        yaxis_title="Баланс проекта (₽)",
-        template="plotly_white",
-        margin=dict(l=40, r=40, t=80, b=40),
-        font=dict(family="Arial", color="#1A1C23"),
-        hovermode="x unified"
-    )
-    
-    # Убираем сетку для чистоты
-    fig.update_xaxes(showgrid=False, zeroline=False)
-    fig.update_yaxes(showgrid=True, gridcolor='#EEE')
+# Горизонтальная линия нуля
+fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2)
 
-    return fig
+# Оранжевая плашка про безубыточность с 1-го месяца
+fig.add_annotation(
+    x=1, y=0,
+    text="БЕЗУБЫТОЧНОСТЬ С 1-ГО МЕСЯЦА",
+    showarrow=True,
+    arrowhead=2,
+    ax=0, ay=-40,
+    bgcolor="#FF4C24",
+    font=dict(color="white", size=11, family="Arial Black"),
+    borderpad=4
+)
 
+# Оформление осей и фона
+fig.update_layout(
+    title="<b>ГРАФИК ОКУПАЕМОСТИ И ИНВЕСТИЦИОННЫЙ ПОТОК</b>",
+    xaxis=dict(title="Месяцы работы", showgrid=False, dtick=1),
+    yaxis=dict(title="Сумма (₽)", showgrid=True, gridcolor='#EEE'),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    margin=dict(l=20, r=20, t=60, b=20),
+    height=450
+)
+
+# --- 3. САМА КОМАНДА ВЫВОДА (ТО ЧЕГО НЕ ХВАТАЛО) ---
+st.plotly_chart(fig, use_container_width=True)
 # --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
     col_d1, col_d2 = st.columns(2)
