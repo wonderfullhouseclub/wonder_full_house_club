@@ -343,14 +343,16 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Пояснение о положительной чистой прибыли с первого месяца
 if net_profit > 0:
-    st.markdown("""
+    st.markdown(f"""
     <div style='background-color: #FFFFFF; border-left: 4px solid #FF4C24; padding: 15px; border-radius: 6px; margin-top: 20px;'>
         <span style='color: #1A1C23; font-size: 1.1rem;'>
-            ✅ <strong>Чистая прибыль уже с первого месяца:</strong> {net_profit:,.0f} ₽<br>
-            📉 Инвестиции начнут окупаться с первого месяца, а полный возврат произойдёт через <strong>{payback_months:.1f} мес.</strong>
+            <span style="font-size:1.3rem;">✅</span> <strong>Чистая прибыль уже с первого месяца:</strong> {net_profit:,.0f} ₽<br>
+            <span style="font-size:1.3rem;">📉</span> Инвестиции начнут окупаться с первого месяца, а полный возврат произойдёт через <strong>{payback_months:.1f} мес.</strong>
         </span>
     </div>
     """, unsafe_allow_html=True)
+else:
+    st.warning("Текущие параметры показывают убыток. Попробуйте увеличить количество входов или снизить расходы.")
 else:
     st.warning("Текущие параметры показывают убыток. Попробуйте увеличить количество входов или снизить расходы.")
 
