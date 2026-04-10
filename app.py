@@ -36,26 +36,8 @@ st.markdown("""
         }
     }
 
-      /* === МОБИЛЬНЫЕ: КНОПКА ГАРАНТИРОВАННО ВИДИМАЯ === */
+    /* === МОБИЛЬНЫЕ: только рамка, кнопку НЕ трогаем === */
     @media (max-width: 767px) {
-        /* Усиленный селектор — теперь с тегом button */
-        button[data-testid="stSidebarCollapsedControl"] {
-            background-color: #FF4C24 !important;
-            border-radius: 8px !important;
-            padding: 6px !important;
-            margin: 8px !important;
-            border: 2px solid #1A1C23 !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
-            /* На всякий случай переопределяем возможные inline-стили */
-            color: #1A1C23 !important;
-            -webkit-text-fill-color: #1A1C23 !important;
-        }
-        button[data-testid="stSidebarCollapsedControl"] svg {
-            fill: #1A1C23 !important;
-            stroke: #1A1C23 !important;
-            width: 24px !important;
-            height: 24px !important;
-        }
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
         }
@@ -378,3 +360,41 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Маркетинг на запуск: {inv_marketing:,.0f} ₽".replace(",", " "))
         st.write("---")
         st.write(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
+
+# Кастомная кнопка «МЕНЮ» для мобильных устройств
+st.components.v1.html("""
+<div id="custom-mobile-menu-btn" style="display:none; position:fixed; top:12px; left:12px; z-index:9999; background:#FF4C24; color:#1A1C23; padding:8px 16px; border-radius:8px; font-weight:bold; font-size:18px; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,0.2); border:2px solid #1A1C23;">☰ МЕНЮ</div>
+<script>
+(function() {
+    function toggleSidebar() {
+        const btn = document.querySelector('button[data-testid="stSidebarCollapsedControl"]');
+        if (btn) {
+            btn.click();
+        } else {
+            // Запасной вариант — попытка через API Streamlit
+            if (window.streamlitApi && window.streamlitApi.toggleSidebar) {
+                window.streamlitApi.toggleSidebar();
+            }
+        }
+    }
+
+    const btnDiv = document.getElementById('custom-mobile-menu-btn');
+    btnDiv.addEventListener('click', toggleSidebar);
+
+    function updateVisibility() {
+        if (window.innerWidth <= 767) {
+            btnDiv.style.display = 'block';
+        } else {
+            btnDiv.style.display = 'none';
+        }
+    }
+    updateVisibility();
+    window.addEventListener('resize', updateVisibility);
+
+    // На всякий случай скрываем стандартную кнопку (она не видна, но пусть не мешает)
+    const style = document.createElement('style');
+    style.innerHTML = '@media (max-width: 767px) { button[data-testid="stSidebarCollapsedControl"] { opacity: 0; pointer-events: none; } }';
+    document.head.appendChild(style);
+})();
+</script>
+""", height=0, width=0)
