@@ -74,19 +74,28 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
-/* СКРЫВАЕМ КНОПКУ С КОТИКОМ (GITHUB) И КНОПКУ DEPLOY */
-    #MainMenu, .stDeployButton, header {
-        visibility: hidden;
-        height: 0%;
+/* ПОЛНОСТЬЮ УДАЛЯЕМ ВЕРХНЮЮ ПАНЕЛЬ (Header) */
+    [data-testid="stHeader"] {
+        display: none !important;
     }
 
-    /* УДАЛЯЕМ ЛИШНИЕ ОТСТУПЫ СВЕРХУ, КОТОРЫЕ ОСТАЛИСЬ ОТ ХЕДЕРА */
-    .block-container {
+    /* УБИРАЕМ МЕНЮ И ВСЕ КНОПКИ УПРАВЛЕНИЯ */
+    #MainMenu {
+        display: none !important;
+    }
+
+    /* СКРЫВАЕМ ПАНЕЛЬ СО СТАТУСОМ И КОТИКОМ */
+    [data-testid="stStatusWidget"], .stDeployButton {
+        display: none !important;
+    }
+
+    /* ПОДНИМАЕМ КОНТЕНТ ВЫШЕ, ЧТОБЫ НЕ БЫЛО ПУСТОТЫ СВЕРХУ */
+    .main .block-container {
         padding-top: 2rem !important;
     }
 
-    /* СКРЫВАЕМ ИКОНКУ С КОТИКОМ В ПРАВОМ ВЕРХНЕМ УГЛУ */
-    [data-testid="stStatusWidget"] {
+    /* УДАЛЯЕМ ФУТЕР (надпись "Made with Streamlit" внизу) */
+    footer {
         display: none !important;
     }
     
