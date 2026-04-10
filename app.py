@@ -175,7 +175,7 @@ inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюд�
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"<span id='total-investments-sidebar'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
-# ================== РАСЧЁТ (ДОБАВЛЕНА КУХНЯ) ==================
+# ================== РАСЧЁТ (исправлен Partner) ==================
 rev_vkhody = vkhody * vkhody_price
 rev_kitchen = (vkhody * kitchen_conv) * kitchen_check
 rev_bar = (vkhody * bar_conv) * bar_check
@@ -184,26 +184,43 @@ total_revenue = rev_vkhody + rev_kitchen + rev_bar + rev_hookah
 
 opex_before = rent + other_opex + marketing_budget + staff_total
 
+# --- ИСПРАВЛЕННЫЙ БЛОК РАСЧЁТА РОЯЛТИ И НАЛОГА ---
 if "Partner" in support_level:
-    profit_before = total_revenue - opex_before
-    royalty_sum = max(0, profit_before * 0.5)
-elif "Pro" in support_level:
-    royalty_sum = total_revenue * 0.10
+    # Сначала считаем налог так, как будто роялти нет
+    if tax_mode == "УСН 6% (Доходы)":
+        tax_temp = total_revenue * 0.06
+    elif tax_mode == "УСН 15% (Доходы - Расходы)":
+        tax_temp = max(0, (total_revenue - opex_before) * 0.15)
+    else:  # ОСНО
+        tax_temp = max(0, (total_revenue - opex_before) * 0.25)
+    
+    # Чистая прибыль до партнёрского дележа
+    net_before_split = total_revenue - opex_before - tax_temp
+    royalty_sum = max(0, net_before_split * 0.5)   # 50% от чистой прибыли
+    net_profit = net_before_split - royalty_sum     # оставшиеся 50% франчайзи
+    tax_amount = tax_temp
 else:
-    royalty_sum = total_revenue * 0.15
+    # Pro / VIP
+    if "Pro" in support_level:
+        royalty_sum = total_revenue * 0.10
+    else:  # VIP
+        royalty_sum = total_revenue * 0.15
 
-if tax_mode == "УСН 6% (Доходы)":
-    tax_amount = total_revenue * 0.06
-elif tax_mode == "УСН 15% (Доходы - Расходы)":
-    tax_base = total_revenue - (opex_before + royalty_sum)
-    tax_amount = max(0, tax_base * 0.15)
-else:
-    profit_before_tax = total_revenue - opex_before - royalty_sum
-    tax_amount = max(0, profit_before_tax * 0.25)
+    if tax_mode == "УСН 6% (Доходы)":
+        tax_amount = total_revenue * 0.06
+    elif tax_mode == "УСН 15% (Доходы - Расходы)":
+        tax_base = total_revenue - (opex_before + royalty_sum)
+        tax_amount = max(0, tax_base * 0.15)
+    else:  # ОСНО
+        profit_before_tax = total_revenue - opex_before - royalty_sum
+        tax_amount = max(0, profit_before_tax * 0.25)
 
+    net_profit = total_revenue - opex_before - royalty_sum - tax_amount
+
+# Общие расходы для детализации (включая роялти)
 total_opex = opex_before + royalty_sum + tax_amount
-net_profit = total_revenue - total_opex
 
+# Окупаемость
 if net_profit > 0:
     payback_months = total_investments / net_profit
 else:
