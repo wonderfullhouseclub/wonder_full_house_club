@@ -25,6 +25,7 @@ st.markdown("""
         [data-testid="stAppViewContainer"] {
             flex-direction: row-reverse !important;
         }
+        /* Кнопка открытия сайдбара (когда он свёрнут) */
         [data-testid="stSidebarCollapsedControl"] {
             left: auto !important;
             right: 10px !important;
@@ -32,11 +33,17 @@ st.markdown("""
         }
     }
 
-    /* На мобильных устройствах оставляем стандартное расположение */
+    /* На мобильных кнопка открытия остаётся слева и видима */
     @media (max-width: 767px) {
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
+        }
+        [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            left: 10px !important;
+            right: auto !important;
+            transform: none !important;
         }
     }
 
@@ -69,12 +76,16 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* === СКРЫТИЕ ЭЛЕМЕНТОВ STREAMLIT (меню, футер, тулбар) === */
-    #MainMenu {visibility: hidden;}
-    .stDeployButton {visibility: hidden;}
+    /* === СКРЫТИЕ НЕНУЖНЫХ ЭЛЕМЕНТОВ === */
     footer {visibility: hidden;}
     .stStatusWidget {visibility: hidden;}
-    [data-testid="stToolbar"] {visibility: hidden;}
+    .stDeployButton {visibility: hidden;}
+
+    /* Пустой тулбар закрашиваем под фон */
+    [data-testid="stToolbar"] {
+        background-color: #ECF0ED !important;
+        visibility: visible !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
