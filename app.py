@@ -73,20 +73,6 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
-        
-# CSS-стили для скрытия элементов интерфейса
-hide_streamlit_style = """
-    <style>
-    /* Скрываем основное меню (гамбургер) */
-    #MainMenu {visibility: hidden;}
-    /* Скрываем кнопку "Deploy" */
-    .stDeployButton {visibility: hidden;}
-    /* Скрываем футер "Made with Streamlit" */
-    footer {visibility: hidden;}
-    /* Скрываем иконку индикатора выполнения (бегущий человечек) */
-    .stStatusWidget {visibility: hidden;}
-    /* Скрываем всю верхнюю панель инструментов */
-    [data-testid="stToolbar"] {visibility: hidden;}
     </style>
 """, unsafe_allow_html=True)
 
