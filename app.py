@@ -88,8 +88,6 @@ hide_streamlit_style = """
     /* Скрываем всю верхнюю панель инструментов */
     [data-testid="stToolbar"] {visibility: hidden;}
     </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.image("logo.png", width=250)
 
