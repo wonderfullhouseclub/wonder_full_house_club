@@ -74,6 +74,29 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
+/* 1. ПОЛНАЯ ОЧИСТКА ВЕРХНЕЙ ЗОНЫ */
+    header, [data-testid="stHeader"], [data-testid="stAppViewBlockContainer"] header {
+        display: none !important;
+        height: 0 !important;
+        opacity: 0 !important;
+    }
+
+    /* 2. СКРЫВАЕМ ПАНЕЛЬ ИНСТРУМЕНТОВ GITHUB (Котика) */
+    .stAppToolbar, [data-testid="stToolbar"] {
+        display: none !important;
+        width: 0 !important;
+    }
+
+    /* 3. УБИРАЕМ КНОПКУ РАЗВЕРТЫВАНИЯ */
+    .stDeployButton {
+        display: none !important;
+    }
+
+    /* 4. ПРИНУДИТЕЛЬНО ПРИЖИМАЕМ КОНТЕНТ К ВЕРХУ (чтобы не было дырки) */
+    .main .block-container {
+        padding-top: 0rem !important;
+        margin-top: -30px !important;
+    }
     
 </style>
 """, unsafe_allow_html=True)
