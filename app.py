@@ -36,17 +36,25 @@ st.markdown("""
         }
     }
 
-    /* === МОБИЛЬНЫЕ: КНОПКА ОРАНЖЕВАЯ (на случай закрытия) === */
+      /* === МОБИЛЬНЫЕ: КНОПКА ГАРАНТИРОВАННО ВИДИМАЯ === */
     @media (max-width: 767px) {
-        [data-testid="stSidebarCollapsedControl"] {
+        /* Усиленный селектор — теперь с тегом button */
+        button[data-testid="stSidebarCollapsedControl"] {
             background-color: #FF4C24 !important;
-            border-radius: 6px !important;
-            padding: 4px !important;
+            border-radius: 8px !important;
+            padding: 6px !important;
             margin: 8px !important;
+            border: 2px solid #1A1C23 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+            /* На всякий случай переопределяем возможные inline-стили */
+            color: #1A1C23 !important;
+            -webkit-text-fill-color: #1A1C23 !important;
         }
-        [data-testid="stSidebarCollapsedControl"] svg {
-            fill: white !important;
-            stroke: white !important;
+        button[data-testid="stSidebarCollapsedControl"] svg {
+            fill: #1A1C23 !important;
+            stroke: #1A1C23 !important;
+            width: 24px !important;
+            height: 24px !important;
         }
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
