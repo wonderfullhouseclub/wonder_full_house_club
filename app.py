@@ -32,30 +32,38 @@ st.markdown("""
         }
     }
 
-    /* === МОБИЛЬНЫЕ === */
-    @media (max-width: 767px) {
-        section[data-testid="stSidebar"] {
-            border-right: 3px solid #FF4C24 !important;
-            border-left: none !important;
-        }
-        [data-testid="stSidebarCollapsedControl"] {
-            visibility: visible !important;
-            left: 10px !important;
-            right: auto !important;
-            transform: none !important;
-            color: #FF4C24 !important;
-            background-color: transparent !important;
-        }
-        [data-testid="stSidebarCollapsedControl"] svg {
-            fill: #FF4C24 !important;
-            stroke: #FF4C24 !important;
-        }
-        /* Убираем возможные чёрные полосы */
-        [data-testid="stHeader"] {
-            background-color: #ECF0ED !important;
-            box-shadow: none !important;
-        }
-    }
+   /* === МОБИЛЬНЫЕ === */
+    @media (max-width: 767px) {
+        section[data-testid="stSidebar"] {
+            border-right: 3px solid #FF4C24 !important;
+            border-left: none !important;
+        }
+        
+        /* Делаем кнопку вызова сайдбара заметной кнопкой */
+        [data-testid="stSidebarCollapsedControl"] {
+            visibility: visible !important;
+            display: flex !important;
+            left: 0px !important;
+            right: auto !important;
+            background-color: #1A1C23 !important; /* Темный фон как у сайдбара */
+            border-radius: 0 10px 10px 0 !important; /* Скругление только справа */
+            border: 1px solid #FF4C24 !important;
+            width: 50px !important;
+            height: 50px !important;
+            z-index: 999999 !important;
+        }
+
+        /* Красим саму иконку (стрелочку) внутри кнопки */
+        [data-testid="stSidebarCollapsedControl"] svg {
+            fill: #FF4C24 !important;
+            width: 30px !important;
+            height: 30px !important;
+        }
+
+        [data-testid="stHeader"] {
+            background-color: #ECF0ED !important;
+        }
+    }
 
     /* === ОСНОВНАЯ ОБЛАСТЬ === */
     [data-testid="stMain"] *:not(span), .main *:not(span) {
