@@ -235,6 +235,20 @@ fig.add_trace(go.Scatter(
     fill='tozeroy',
     fillcolor='rgba(255, 76, 36, 0.1)'
 ))
+# Подчёркиваем, что чистая прибыль положительна уже с первого месяца
+if net_profit > 0:
+    fig.add_trace(go.Scatter(
+        x=[1],
+        y=[cash_flow[1]],
+        mode='markers+text',
+        marker=dict(color='#FF4C24', size=14, symbol='star', line=dict(color='white', width=1)),
+        text=[" +₽ "],
+        textposition="top center",
+        textfont=dict(color="#1A1C23", size=12, family="Arial"),
+        name="Прибыль с 1-го месяца",
+        showlegend=False,
+        hovertemplate='<b>Месяц 1</b><br>Чистая прибыль уже положительна!<extra></extra>'
+    ))
 
 fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2,
               annotation_text="Точка окупаемости",
