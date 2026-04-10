@@ -4,10 +4,10 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title="Финансовая модель клуба",
     layout="wide",
-    initial_sidebar_state="expanded"   # <-- добавляем
+    initial_sidebar_state="expanded"   # На мобильных панель открыта по умолчанию
 )
 
-# --- ЕДИНЫЙ CSS (перенос панели направо, скрытие тулбара, мобильная адаптация) ---
+# --- CSS: только проверенные стили (перенос панели направо, цвета, скрытие лишнего) ---
 st.markdown("""
 <style>
     /* Общий фон */
@@ -18,7 +18,7 @@ st.markdown("""
         background-color: #1A1C23 !important;
     }
 
-    /* === ПЕРЕНОС САЙДБАРА НАПРАВО (десктоп) === */
+    /* === ПЕРЕНОС САЙДБАРА НАПРАВО ТОЛЬКО НА ДЕСКТОПЕ === */
     @media (min-width: 768px) {
         section[data-testid="stSidebar"] {
             left: auto !important;
@@ -36,14 +36,14 @@ st.markdown("""
         }
     }
 
-    /* === МОБИЛЬНЫЕ: только рамка, кнопку НЕ трогаем === */
+    /* На мобильных оставляем стандартное расположение, только оранжевую рамку */
     @media (max-width: 767px) {
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
         }
     }
 
-    /* === ОСНОВНАЯ ОБЛАСТЬ === */
+    /* === ОСНОВНАЯ ОБЛАСТЬ: чёрный текст, оранжевые заголовки === */
     [data-testid="stMain"] *:not(span), .main *:not(span) {
         color: #1A1C23 !important;
         -webkit-text-fill-color: #1A1C23 !important;
@@ -54,7 +54,7 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* === ТЕКСТ В САЙДБАРЕ === */
+    /* === ТЕКСТ В САЙДБАРЕ (белый) === */
     section[data-testid="stSidebar"] label p,
     section[data-testid="stSidebar"] span,
     section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
@@ -360,41 +360,3 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Маркетинг на запуск: {inv_marketing:,.0f} ₽".replace(",", " "))
         st.write("---")
         st.write(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
-
-# Кастомная кнопка «МЕНЮ» для мобильных устройств
-st.components.v1.html("""
-<div id="custom-mobile-menu-btn" style="display:none; position:fixed; top:12px; left:12px; z-index:9999; background:#FF4C24; color:#1A1C23; padding:8px 16px; border-radius:8px; font-weight:bold; font-size:18px; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,0.2); border:2px solid #1A1C23;">☰ МЕНЮ</div>
-<script>
-(function() {
-    function toggleSidebar() {
-        const btn = document.querySelector('button[data-testid="stSidebarCollapsedControl"]');
-        if (btn) {
-            btn.click();
-        } else {
-            // Запасной вариант — попытка через API Streamlit
-            if (window.streamlitApi && window.streamlitApi.toggleSidebar) {
-                window.streamlitApi.toggleSidebar();
-            }
-        }
-    }
-
-    const btnDiv = document.getElementById('custom-mobile-menu-btn');
-    btnDiv.addEventListener('click', toggleSidebar);
-
-    function updateVisibility() {
-        if (window.innerWidth <= 767) {
-            btnDiv.style.display = 'block';
-        } else {
-            btnDiv.style.display = 'none';
-        }
-    }
-    updateVisibility();
-    window.addEventListener('resize', updateVisibility);
-
-    // На всякий случай скрываем стандартную кнопку (она не видна, но пусть не мешает)
-    const style = document.createElement('style');
-    style.innerHTML = '@media (max-width: 767px) { button[data-testid="stSidebarCollapsedControl"] { opacity: 0; pointer-events: none; } }';
-    document.head.appendChild(style);
-})();
-</script>
-""", height=0, width=0)
