@@ -25,7 +25,6 @@ st.markdown("""
         [data-testid="stAppViewContainer"] {
             flex-direction: row-reverse !important;
         }
-        /* Кнопка открытия сайдбара (когда он свёрнут) */
         [data-testid="stSidebarCollapsedControl"] {
             left: auto !important;
             right: 10px !important;
@@ -33,7 +32,7 @@ st.markdown("""
         }
     }
 
-    /* На мобильных кнопка открытия остаётся слева и видима */
+    /* На мобильных кнопка открытия остаётся слева, но становится заметной */
     @media (max-width: 767px) {
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
@@ -44,6 +43,10 @@ st.markdown("""
             left: 10px !important;
             right: auto !important;
             transform: none !important;
+            color: #FF4C24 !important;
+            background-color: #1A1C23 !important;
+            border-radius: 4px;
+            padding: 4px;
         }
     }
 
@@ -80,6 +83,10 @@ st.markdown("""
     footer {visibility: hidden;}
     .stStatusWidget {visibility: hidden;}
     .stDeployButton {visibility: hidden;}
+    /* Прячем Manage App и прочие кнопки тулбара */
+    [data-testid="stToolbar"] button[kind="secondary"] {
+        display: none !important;
+    }
 
     /* Пустой тулбар закрашиваем под фон */
     [data-testid="stToolbar"] {
