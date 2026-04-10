@@ -343,7 +343,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Пояснение о положительной чистой прибыли с первого месяца
 if net_profit > 0:
-    st.markdown(f"""
+    st.markdown("""
     <div style='background-color: #FFFFFF; border-left: 4px solid #FF4C24; padding: 15px; border-radius: 6px; margin-top: 20px;'>
         <span style='color: #1A1C23; font-size: 1.1rem;'>
             ✅ <strong>Чистая прибыль уже с первого месяца:</strong> {net_profit:,.0f} ₽<br>
