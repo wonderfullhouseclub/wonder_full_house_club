@@ -181,11 +181,6 @@ col3.metric("⏳ Окупаемость",
             f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
 col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
-st.markdown(
-    "<h3 style='color: #FF4C24;'>📊 Инвестиционная аналитика</h3>",
-    unsafe_allow_html=True
-)
-
 col_left, col_right = st.columns([1.6, 1])
 
 st.markdown("---")
