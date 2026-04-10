@@ -183,31 +183,124 @@ col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 st.markdown("---")
 
-# ================== ГРАФИК ==================
-st.markdown("<h3 style='color: #FF4C24;'>🧩 Структура выручки</h3>", unsafe_allow_html=True)
-labels = ['Вход в игру', 'Кальян', 'Бар']
-values = [rev_vkhody, rev_hookah, rev_bar]
-colors = ['#FF4C24', '#FF7A5C', '#CC3A1A']
+# ================== МЕТРИКИ ==================
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("💰 Выручка", f"{total_revenue:,.0f} ₽".replace(",", " "))
+col2.metric("📈 Чистая прибыль", f"{net_profit:,.0f} ₽".replace(",", " "),
+            delta=f"{(net_profit/total_revenue)*100:.1f}% маржа" if total_revenue > 0 else "0%")
+col3.metric("⏳ Окупаемость",
+            f"{payback_months:.1f} мес." if payback_months != float('inf') else "> 5 лет")
+col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
-fig_pie = go.Figure(data=[go.Pie(
-    labels=labels,
-    values=values,
-    hole=0.4,
-    marker=dict(colors=colors, line=dict(color='#1A1C23', width=2)),
-    textinfo='percent+label',
-    textfont=dict(color='white', size=15),
-    hoverinfo='label+value+percent',
-    hovertemplate='%{label}: %{value:,.0f} ₽ (%{percent})<extra></extra>'
-)])
-fig_pie.update_layout(
-    paper_bgcolor='#5F6367',
-    plot_bgcolor='#5F6367',
-    font=dict(color='white'),
-    showlegend=False,
-    margin=dict(t=30, b=10, l=10, r=10),
+st.markdown("---")
+
+# ================== ГРАФИК 1: ЗАВИСИМОСТЬ ПРИБЫЛИ ОТ КОЛИЧЕСТВА ВХОДОВ ==================
+st.markdown("<h3 style='color: #FF4C24;'>📊 Как прибыль зависит от количества входов</h3>", unsafe_allow_html=True)
+
+# Диапазон входов: от 50% до 150% от текущего значения
+v_min = int(vkhody * 0.5)
+v_max = int(vkhody * 1.5)
+step = max(10, (v_max - v_min) // 20)
+
+v_range = list(range(v_min, v_max + 1, step))
+profits = []
+for v in v_range:
+    rev_v = v * vkhody_price
+    rev_b = (v * bar_conv) * bar_check
+    rev_h = (v * hookah_conv) * hookah_check
+    total_rev = rev_v + rev_b + rev_h
+    opex_b = rent + other_opex + marketing_budget + staff_total
+    if "Partner" in support_level:
+        roy = max(0, (total_rev - opex_b) * 0.5)
+    elif "Pro" in support_level:
+        roy = total_rev * 0.10
+    else:
+        roy = total_rev * 0.15
+    if tax_mode == "УСН 6% (Доходы)":
+        tax = total_rev * 0.06
+    elif tax_mode == "УСН 15% (Доходы - Расходы)":
+        tax = max(0, (total_rev - (opex_b + roy)) * 0.15)
+    else:
+        tax = max(0, (total_rev - opex_b - roy) * 0.25)
+    net = total_rev - (opex_b + roy + tax)
+    profits.append(net)
+
+fig_sens = go.Figure()
+fig_sens.add_trace(go.Scatter(
+    x=v_range,
+    y=profits,
+    mode='lines+markers',
+    line=dict(color='#FF4C24', width=3),
+    marker=dict(color='#1A1C23', size=6),
+    name='Чистая прибыль'
+))
+fig_sens.add_vline(x=vkhody, line_dash="dash", line_color="gray",
+                   annotation_text=f"Текущее: {vkhody} входов",
+                   annotation_position="top left",
+                   annotation_font_size=12)
+fig_sens.update_layout(
+    xaxis_title="Количество входов в месяц",
+    yaxis_title="Чистая прибыль, ₽",
+    paper_bgcolor='#ECF0ED',
+    plot_bgcolor='#ECF0ED',
+    font=dict(color='#1A1C23'),
+    hovermode='x unified',
+    margin=dict(t=30, b=40, l=60, r=20),
+    height=350
+)
+st.plotly_chart(fig_sens, use_container_width=True)
+
+# ================== ГРАФИК 2: ПРОГНОЗ ОКУПАЕМОСТИ ИНВЕСТИЦИЙ ==================
+st.markdown("<h3 style='color: #FF4C24; margin-top: 30px;'>📈 Прогноз окупаемости инвестиций</h3>", unsafe_allow_html=True)
+
+months = list(range(0, 13))  # от 0 до 12 месяцев
+cash_flow = [-total_investments + (net_profit * m) for m in months]
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=months,
+    y=cash_flow,
+    mode='lines+markers',
+    name='Накопленная прибыль',
+    line=dict(color='#FF4C24', width=4),
+    marker=dict(color='#FFFFFF', size=8, line=dict(color='#FF4C24', width=2)),
+    fill='tozeroy',
+    fillcolor='rgba(255, 76, 36, 0.1)'
+))
+
+fig.add_hline(y=0, line_dash="dash", line_color="#1A1C23", line_width=2,
+              annotation_text="Точка окупаемости",
+              annotation_position="bottom right",
+              annotation_font_size=12,
+              annotation_font_color="#1A1C23")
+
+if payback_months != float('inf') and payback_months <= 12:
+    fig.add_vline(x=payback_months, line_width=1, line_dash="dot", line_color="gray")
+    fig.add_annotation(
+        x=payback_months, y=cash_flow[int(payback_months)],
+        text=f"{payback_months:.1f} мес.",
+        showarrow=True,
+        arrowhead=1,
+        ax=20,
+        ay=-30,
+        font=dict(color="#1A1C23", size=12),
+        bgcolor="#FFFFFF",
+        bordercolor="#FF4C24"
+    )
+
+fig.update_layout(
+    xaxis_title="Месяц",
+    yaxis_title="Накопленная прибыль, ₽",
+    paper_bgcolor='#ECF0ED',
+    plot_bgcolor='#ECF0ED',
+    font=dict(color='#1A1C23'),
+    hovermode='x unified',
+    xaxis=dict(tickmode='linear', dtick=1, gridcolor='#D0D4D8'),
+    yaxis=dict(gridcolor='#D0D4D8', zerolinecolor='#1A1C23'),
+    margin=dict(t=30, b=40, l=60, r=20),
     height=450
 )
-st.plotly_chart(fig_pie, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)
 
 # --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
