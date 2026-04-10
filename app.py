@@ -32,38 +32,41 @@ st.markdown("""
         }
     }
 
-   /* === МОБИЛЬНЫЕ === */
-    @media (max-width: 767px) {
-        section[data-testid="stSidebar"] {
-            border-right: 3px solid #FF4C24 !important;
-            border-left: none !important;
-        }
-        
-        /* Делаем кнопку вызова сайдбара заметной кнопкой */
-        [data-testid="stSidebarCollapsedControl"] {
-            visibility: visible !important;
+  /* === МОБИЛЬНЫЕ (ФИКС СТРЕЛКИ) === */
+    @media (max-width: 767px) {
+        /* Принудительно показываем контейнер кнопки */
+        [data-testid="stSidebarCollapsedControl"] {
             display: flex !important;
-            left: 0px !important;
-            right: auto !important;
-            background-color: #1A1C23 !important; /* Темный фон как у сайдбара */
-            border-radius: 0 10px 10px 0 !important; /* Скругление только справа */
-            border: 1px solid #FF4C24 !important;
-            width: 50px !important;
-            height: 50px !important;
-            z-index: 999999 !important;
-        }
+            visibility: visible !important;
+            position: fixed !important; /* Фиксируем на экране */
+            top: 10px !important;       /* Опускаем чуть ниже верхнего края */
+            left: 10px !important;      /* Сдвигаем от края */
+            background-color: #1A1C23 !important; /* Темный фон */
+            border: 2px solid #FF4C24 !important; /* Оранжевая рамка */
+            border-radius: 8px !important;
+            width: 45px !important;
+            height: 45px !important;
+            z-index: 9999999 !important; /* Выше всех слоев и хедеров */
+        }
 
-        /* Красим саму иконку (стрелочку) внутри кнопки */
-        [data-testid="stSidebarCollapsedControl"] svg {
-            fill: #FF4C24 !important;
-            width: 30px !important;
-            height: 30px !important;
-        }
+        /* Красим саму иконку внутри */
+        [data-testid="stSidebarCollapsedControl"] svg {
+            fill: #FF4C24 !important;
+            color: #FF4C24 !important;
+            width: 28px !important;
+            height: 28px !important;
+        }
 
-        [data-testid="stHeader"] {
-            background-color: #ECF0ED !important;
-        }
-    }
+        /* Чтобы хедер не перекрывал кнопку и не мешал кликам */
+        header[data-testid="stHeader"] {
+            background-color: transparent !important;
+            pointer-events: none !important;
+        }
+
+        section[data-testid="stSidebar"] {
+            border-right: 3px solid #FF4C24 !important;
+        }
+    }
 
     /* === ОСНОВНАЯ ОБЛАСТЬ === */
     [data-testid="stMain"] *:not(span), .main *:not(span) {
