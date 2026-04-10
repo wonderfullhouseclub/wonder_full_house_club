@@ -48,25 +48,32 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 600 !important;
     }
-/* ПЕРЕНОС САЙДБАРА НАПРАВО */
-    [data-testid="stSidebar"] {
-        left: auto !important;
-        right: 0 !important;
-        border-right: none !important;
-        border-left: 3px solid #FF4C24 !important; /* Линия теперь слева */
+/* ПЕРЕНОС НАПРАВО ТОЛЬКО ДЛЯ ДЕСКТОПА */
+    @media (min-width: 768px) {
+        [data-testid="stSidebar"] {
+            left: auto !important;
+            right: 0 !important;
+            border-right: none !important;
+            border-left: 3px solid #FF4C24 !important;
+        }
+
+        [data-testid="stAppViewContainer"] {
+            flex-direction: row-reverse !important;
+        }
+
+        [data-testid="stSidebarCollapsedControl"] {
+            left: auto !important;
+            right: 10px !important;
+            transform: scaleX(-1);
+        }
     }
 
-    /* КОРРЕКТИРОВКА ОТСТУПОВ ОСНОВНОГО КОНТЕНТА */
-    [data-testid="stAppViewContainer"] {
-        flex-direction: row-reverse !important;
-    }
-
-    /* КНОПКА ОТКРЫТИЯ САЙДБАРА (стрелочка) */
-    [data-testid="stSidebarCollapsedControl"] {
-        left: auto !important;
-        right: 10px !important;
-        transform: scaleX(-1); /* Разворачиваем стрелочку */
-    }
+    /* ФИКС ДЛЯ МОБИЛОК (чтобы ничего не накладывалось) */
+    @media (max-width: 767px) {
+        [data-testid="stSidebar"] {
+            border-right: 3px solid #FF4C24 !important;
+            border-left: none !important;
+        }
     
 </style>
 """, unsafe_allow_html=True)
