@@ -1,7 +1,11 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
+st.set_page_config(
+    page_title="Ваш Клуб",
+    initial_sidebar_state="expanded",
+    menu_items=None # Это официально отключает часть пунктов меню
+)
 
 # 1. ЕДИНЫЙ БЛОК СТИЛЕЙ (Настройка внешнего вида)
 st.markdown("""
