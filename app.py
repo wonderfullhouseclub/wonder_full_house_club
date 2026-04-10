@@ -183,68 +183,10 @@ col4.metric("🤝 Роялти", f"{royalty_sum:,.0f} ₽".replace(",", " "))
 
 col_left, col_right = st.columns([1.6, 1])
 
-st.markdown("---")
+# ================== ГРАФИК ОКУПАЕМОСТИ С ПОЯСНЕНИЕМ ==================
+st.markdown("<h3 style='color: #FF4C24;'>📈 Прогноз окупаемости инвестиций</h3>", unsafe_allow_html=True)
 
-# ================== ГРАФИК 1: ЗАВИСИМОСТЬ ПРИБЫЛИ ОТ КОЛИЧЕСТВА ВХОДОВ ==================
-st.markdown("<h3 style='color: #FF4C24;'>📊 Как прибыль зависит от количества входов</h3>", unsafe_allow_html=True)
-
-# Диапазон входов: от 50% до 150% от текущего значения
-v_min = int(vkhody * 0.5)
-v_max = int(vkhody * 1.5)
-step = max(10, (v_max - v_min) // 20)
-
-v_range = list(range(v_min, v_max + 1, step))
-profits = []
-for v in v_range:
-    rev_v = v * vkhody_price
-    rev_b = (v * bar_conv) * bar_check
-    rev_h = (v * hookah_conv) * hookah_check
-    total_rev = rev_v + rev_b + rev_h
-    opex_b = rent + other_opex + marketing_budget + staff_total
-    if "Partner" in support_level:
-        roy = max(0, (total_rev - opex_b) * 0.5)
-    elif "Pro" in support_level:
-        roy = total_rev * 0.10
-    else:
-        roy = total_rev * 0.15
-    if tax_mode == "УСН 6% (Доходы)":
-        tax = total_rev * 0.06
-    elif tax_mode == "УСН 15% (Доходы - Расходы)":
-        tax = max(0, (total_rev - (opex_b + roy)) * 0.15)
-    else:
-        tax = max(0, (total_rev - opex_b - roy) * 0.25)
-    net = total_rev - (opex_b + roy + tax)
-    profits.append(net)
-
-fig_sens = go.Figure()
-fig_sens.add_trace(go.Scatter(
-    x=v_range,
-    y=profits,
-    mode='lines+markers',
-    line=dict(color='#FF4C24', width=3),
-    marker=dict(color='#1A1C23', size=6),
-    name='Чистая прибыль'
-))
-fig_sens.add_vline(x=vkhody, line_dash="dash", line_color="gray",
-                   annotation_text=f"Текущее: {vkhody} входов",
-                   annotation_position="top left",
-                   annotation_font_size=12)
-fig_sens.update_layout(
-    xaxis_title="Количество входов в месяц",
-    yaxis_title="Чистая прибыль, ₽",
-    paper_bgcolor='#ECF0ED',
-    plot_bgcolor='#ECF0ED',
-    font=dict(color='#1A1C23'),
-    hovermode='x unified',
-    margin=dict(t=30, b=40, l=60, r=20),
-    height=350
-)
-st.plotly_chart(fig_sens, use_container_width=True)
-
-# ================== ГРАФИК 2: ПРОГНОЗ ОКУПАЕМОСТИ ИНВЕСТИЦИЙ ==================
-st.markdown("<h3 style='color: #FF4C24; margin-top: 30px;'>📈 Прогноз окупаемости инвестиций</h3>", unsafe_allow_html=True)
-
-months = list(range(0, 13))  # от 0 до 12 месяцев
+months = list(range(0, 13))
 cash_flow = [-total_investments + (net_profit * m) for m in months]
 
 fig = go.Figure()
@@ -291,7 +233,21 @@ fig.update_layout(
     margin=dict(t=30, b=40, l=60, r=20),
     height=450
 )
+
 st.plotly_chart(fig, use_container_width=True)
+
+# Пояснение о положительной чистой прибыли с первого месяца
+if net_profit > 0:
+    st.markdown(f"""
+    <div style='background-color: #FFFFFF; border-left: 4px solid #FF4C24; padding: 15px; border-radius: 6px; margin-top: 20px;'>
+        <span style='color: #1A1C23; font-size: 1.1rem;'>
+            ✅ <strong>Чистая прибыль уже с первого месяца:</strong> {net_profit:,.0f} ₽<br>
+            📉 Инвестиции начнут окупаться с первого месяца, а полный возврат произойдёт через <strong>{payback_months:.1f} мес.</strong>
+        </span>
+    </div>
+    """, unsafe_allow_html=True)
+else:
+    st.warning("Текущие параметры показывают убыток. Попробуйте увеличить количество входов или снизить расходы.")
 
 # --- ДЕТАЛИЗАЦИЯ ---
 with st.expander("📋 Детализация расходов и инвестиций"):
