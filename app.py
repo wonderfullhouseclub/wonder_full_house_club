@@ -378,3 +378,76 @@ with st.expander("📋 Детализация расходов и инвести
         st.write(f"Маркетинг на запуск: {inv_marketing:,.0f} ₽".replace(",", " "))
         st.write("---")
         st.write(f"**Общие инвестиции: {total_investments:,.0f} ₽**".replace(",", " "))
+
+# Кастомная кнопка сайдбара для мобильных
+st.components.v1.html("""
+<script>
+(function() {
+    if (window.innerWidth > 767) return; // Только мобильные
+
+    // Функция для переключения сайдбара
+    function toggleSidebar() {
+        const btn = document.querySelector('button[data-testid="stSidebarCollapsedControl"]');
+        if (btn) {
+            btn.click();
+        } else {
+            // Запасной вариант через Streamlit API
+            window.streamlitApi?.toggleSidebar?.();
+        }
+    }
+
+    // Создаём кастомную кнопку
+    const btn = document.createElement('button');
+    btn.innerHTML = '☰';
+    btn.style.position = 'fixed';
+    btn.style.top = '10px';
+    btn.style.left = '10px';
+    btn.style.zIndex = '99999';
+    btn.style.width = '48px';
+    btn.style.height = '48px';
+    btn.style.borderRadius = '8px';
+    btn.style.backgroundColor = '#FF4C24';
+    btn.style.color = '#1A1C23';
+    btn.style.fontSize = '28px';
+    btn.style.fontWeight = 'bold';
+    btn.style.border = '2px solid #1A1C23';
+    btn.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+    btn.style.cursor = 'pointer';
+    btn.style.display = 'flex';
+    btn.style.alignItems = 'center';
+    btn.style.justifyContent = 'center';
+    btn.style.padding = '0';
+    btn.style.lineHeight = '1';
+    btn.setAttribute('aria-label', 'Открыть меню');
+
+    btn.addEventListener('click', toggleSidebar);
+
+    // Скрываем стандартную кнопку
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @media (max-width: 767px) {
+            button[data-testid="stSidebarCollapsedControl"] {
+                display: none !important;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Добавляем кнопку в DOM после загрузки
+    const appendBtn = () => {
+        if (!document.body) return setTimeout(appendBtn, 100);
+        document.body.appendChild(btn);
+    };
+    appendBtn();
+
+    // При изменении размера окна обновляем видимость
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 767) {
+            btn.style.display = 'flex';
+        } else {
+            btn.style.display = 'none';
+        }
+    });
+})();
+</script>
+""", height=0, width=0)
