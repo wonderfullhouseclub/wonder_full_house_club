@@ -74,6 +74,21 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
+/* СКРЫВАЕМ КНОПКУ С КОТИКОМ (GITHUB) И КНОПКУ DEPLOY */
+    #MainMenu, .stDeployButton, header {
+        visibility: hidden;
+        height: 0%;
+    }
+
+    /* УДАЛЯЕМ ЛИШНИЕ ОТСТУПЫ СВЕРХУ, КОТОРЫЕ ОСТАЛИСЬ ОТ ХЕДЕРА */
+    .block-container {
+        padding-top: 2rem !important;
+    }
+
+    /* СКРЫВАЕМ ИКОНКУ С КОТИКОМ В ПРАВОМ ВЕРХНЕМ УГЛУ */
+    [data-testid="stStatusWidget"] {
+        display: none !important;
+    }
     
 </style>
 """, unsafe_allow_html=True)
