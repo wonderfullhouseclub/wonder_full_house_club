@@ -1,7 +1,11 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Финансовая модель клуба", layout="wide")
+st.set_page_config(
+    page_title="Финансовая модель клуба",
+    layout="wide",
+    initial_sidebar_state="expanded"   # <-- добавляем
+)
 
 # --- ЕДИНЫЙ CSS (перенос панели направо, скрытие тулбара, мобильная адаптация) ---
 st.markdown("""
@@ -32,7 +36,7 @@ st.markdown("""
         }
     }
 
-    /* === МОБИЛЬНЫЕ: КНОПКА САЙДБАРА ОРАНЖЕВАЯ === */
+    /* === МОБИЛЬНЫЕ: КНОПКА ОРАНЖЕВАЯ (на случай закрытия) === */
     @media (max-width: 767px) {
         [data-testid="stSidebarCollapsedControl"] {
             background-color: #FF4C24 !important;
@@ -83,7 +87,7 @@ st.markdown("""
     .stStatusWidget {visibility: hidden;}
     .stDeployButton {visibility: hidden;}
 
-    /* Тулбар: закрашиваем под фон, чтобы не выделялся */
+    /* Тулбар: закрашиваем под фон */
     [data-testid="stToolbar"] {
         background-color: #ECF0ED !important;
     }
