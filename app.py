@@ -66,7 +66,6 @@ st.markdown("""
             right: 10px !important;
             transform: scaleX(-1);
         }
-    }
 
     /* ФИКС ДЛЯ МОБИЛОК (чтобы ничего не накладывалось) */
     @media (max-width: 767px) {
@@ -74,28 +73,31 @@ st.markdown("""
             border-right: 3px solid #FF4C24 !important;
             border-left: none !important;
         }
-/* 1. ПОЛНАЯ ОЧИСТКА ВЕРХНЕЙ ЗОНЫ */
-    header, [data-testid="stHeader"], [data-testid="stAppViewBlockContainer"] header {
-        display: none !important;
-        height: 0 !important;
-        opacity: 0 !important;
+/* 1. ДЕЛАЕМ ВЕРХНЮЮ ПАНЕЛЬ ПРОЗРАЧНОЙ И КЛИК-НЕВИДИМОЙ */
+    header[data-testid="stHeader"] {
+        background-color: rgba(0,0,0,0) !important;
+        pointer-events: none !important; /* Кнопки перестают реагировать на нажатия */
     }
 
-    /* 2. СКРЫВАЕМ ПАНЕЛЬ ИНСТРУМЕНТОВ GITHUB (Котика) */
-    .stAppToolbar, [data-testid="stToolbar"] {
+    /* 2. ПРЯЧЕМ ВСЕ ЭЛЕМЕНТЫ ВНУТРИ ХЕДЕРА */
+    header[data-testid="stHeader"] * {
         display: none !important;
-        width: 0 !important;
+        visibility: hidden !important;
     }
 
-    /* 3. УБИРАЕМ КНОПКУ РАЗВЕРТЫВАНИЯ */
+    /* 3. ЕСЛИ КОТИК ВЫЛЕЗАЕТ В ПАНЕЛИ ИНСТРУМЕНТОВ */
+    section[data-testid="stAppViewBlockContainer"] > div:first-child {
+        display: none !important;
+    }
+
+    /* 4. УБИРАЕМ КНОПКУ DEPLOY (она часто вне хедера) */
     .stDeployButton {
         display: none !important;
     }
 
-    /* 4. ПРИНУДИТЕЛЬНО ПРИЖИМАЕМ КОНТЕНТ К ВЕРХУ (чтобы не было дырки) */
-    .main .block-container {
-        padding-top: 0rem !important;
-        margin-top: -30px !important;
+    /* 5. УБИРАЕМ ИКОНКУ ЗАГРУЗКИ (running man / cat) */
+    [data-testid="stStatusWidget"] {
+        display: none !important;
     }
     
 </style>
