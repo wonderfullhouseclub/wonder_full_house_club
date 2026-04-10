@@ -9,17 +9,55 @@ st.markdown("""
     /* Общий фон */
     .stApp { background-color: #ECF0ED !important; }
 
-    /* === САЙДБАР === */
+    /* === 1. ПОЛНАЯ БЛОКИРОВКА ТУЛБАРА И КНОПОК === */
+    /* Прячем верхнюю панель, котика, кнопки Deploy и Manage App */
+    header, [data-testid="stHeader"], .stDeployButton, [data-testid="stSidebarFooter"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Скрываем само меню управления внизу справа (Manage app) */
+    [data-testid="stStatusWidget"], #MainMenu {
+        display: none !important;
+    }
+
+    /* Блокируем любые взаимодействия с верхней зоной на случай, если что-то осталось */
+    [data-testid="stToolbar"] {
+        display: none !important;
+    }
+
+    /* === 2. ФИКС СТРЕЛКИ САЙДБАРА (Особенно для мобилок) === */
+    /* Делаем стрелочку открытия ярко-оранжевой и заметной */
+    [data-testid="stSidebarCollapsedControl"] {
+        background-color: #1A1C23 !important; /* Тёмный фон кнопки */
+        color: #FF4C24 !important;           /* Оранжевая стрелка */
+        border: 1px solid #FF4C24 !important;
+        border-radius: 0 8px 8px 0 !important;
+        width: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 1000001 !important;
+    }
+    
+    /* Цвет самой иконки внутри кнопки */
+    [data-testid="stSidebarCollapsedControl"] svg {
+        fill: #FF4C24 !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* === САЙДБАР (тёмный) === */
     section[data-testid="stSidebar"] {
         background-color: #1A1C23 !important;
     }
 
-    /* === ПЕРЕНОС САЙДБАРА НАПРАВО (только десктоп) === */
+    /* === ПЕРЕНОС САЙДБАРА НАПРАВО (ДЕСКТОП) === */
     @media (min-width: 768px) {
         section[data-testid="stSidebar"] {
             left: auto !important;
             right: 0 !important;
-            border-right: none !important;
             border-left: 3px solid #FF4C24 !important;
         }
         [data-testid="stAppViewContainer"] {
@@ -27,68 +65,29 @@ st.markdown("""
         }
         [data-testid="stSidebarCollapsedControl"] {
             left: auto !important;
-            right: 10px !important;
-            transform: scaleX(-1);
+            right: 0 !important;
+            border-radius: 8px 0 0 8px !important; /* Скругление с другой стороны */
+            transform: scaleX(-1); /* Разворот стрелки */
         }
     }
 
-    /* === МОБИЛЬНЫЕ: КНОПКА САЙДБАРА ОРАНЖЕВАЯ И ВИДИМАЯ === */
-    @media (max-width: 767px) {
-        section[data-testid="stSidebar"] {
-            border-right: 3px solid #FF4C24 !important;
-            border-left: none !important;
-        }
-        [data-testid="stSidebarCollapsedControl"] {
-            visibility: visible !important;
-            left: 10px !important;
-            right: auto !important;
-            transform: none !important;
-            color: #FF4C24 !important;
-            background-color: transparent !important;
-        }
-        [data-testid="stSidebarCollapsedControl"] svg {
-            fill: #FF4C24 !important;
-            stroke: #FF4C24 !important;
-        }
-    }
-
-    /* === ОСНОВНАЯ ОБЛАСТЬ === */
+    /* === КОРРЕКЦИЯ ТЕКСТА И ЗАГОЛОВКОВ === */
     [data-testid="stMain"] *:not(span), .main *:not(span) {
         color: #1A1C23 !important;
-        -webkit-text-fill-color: #1A1C23 !important;
     }
-    [data-testid="stMain"] h1, [data-testid="stMain"] h2, [data-testid="stMain"] h3,
-    .main h1, .main h2, .main h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    [data-testid="stMain"] h1, [data-testid="stMain"] h2, [data-testid="stMain"] h3 {
         color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
     }
 
-    /* === ТЕКСТ В САЙДБАРЕ === */
+    /* Белый текст в сайдбаре */
     section[data-testid="stSidebar"] label p,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] [data-testid^="stTickBar"] {
+    section[data-testid="stSidebar"] span {
         color: #FFFFFF !important;
-        opacity: 1 !important;
     }
-    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] h3,
-    div[data-testid="stThumbValue"] > div {
-        color: #FF4C24 !important;
-        font-weight: 900 !important;
-    }
-    #total-investments-sidebar {
-        color: #FF4C24 !important;
-        -webkit-text-fill-color: #FF4C24 !important;
-        font-weight: 600 !important;
-    }
-
-    /* === СКРЫТИЕ НЕНУЖНЫХ ЭЛЕМЕНТОВ === */
-    footer {visibility: hidden;}
-    .stStatusWidget {visibility: hidden;}
-    .stDeployButton {visibility: hidden;}
-    /* Пустой тулбар — полностью прозрачный, но кнопки скрыты через config.toml */
-    [data-testid="stToolbar"] {
-        background-color: transparent !important;
-        visibility: visible !important;
+    
+    /* Отступ сверху, так как хедер скрыт */
+    .main .block-container {
+        padding-top: 1rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
