@@ -32,37 +32,17 @@ st.markdown("""
         }
     }
 
-  /* === МОБИЛЬНЫЕ (ФИКС СТРЕЛКИ) === */
+    /* === МОБИЛЬНЫЕ: КНОПКА САЙДБАРА ОРАНЖЕВАЯ === */
     @media (max-width: 767px) {
-        /* Принудительно показываем контейнер кнопки */
         [data-testid="stSidebarCollapsedControl"] {
-            display: flex !important;
-            visibility: visible !important;
-            position: fixed !important; /* Фиксируем на экране */
-            top: 10px !important;       /* Опускаем чуть ниже верхнего края */
-            left: 10px !important;      /* Сдвигаем от края */
-            background-color: #1A1C23 !important; /* Темный фон */
-            border: 2px solid #FF4C24 !important; /* Оранжевая рамка */
-            border-radius: 8px !important;
-            width: 45px !important;
-            height: 45px !important;
-            z-index: 9999999 !important; /* Выше всех слоев и хедеров */
+            background-color: #FF4C24 !important;
+            border-radius: 6px !important;
+            padding: 4px !important;
         }
-
-        /* Красим саму иконку внутри */
         [data-testid="stSidebarCollapsedControl"] svg {
-            fill: #FF4C24 !important;
-            color: #FF4C24 !important;
-            width: 28px !important;
-            height: 28px !important;
+            fill: white !important;
+            stroke: white !important;
         }
-
-        /* Чтобы хедер не перекрывал кнопку и не мешал кликам */
-        header[data-testid="stHeader"] {
-            background-color: transparent !important;
-            pointer-events: none !important;
-        }
-
         section[data-testid="stSidebar"] {
             border-right: 3px solid #FF4C24 !important;
         }
@@ -97,17 +77,15 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* === СКРЫТИЕ ЭЛЕМЕНТОВ === */
+    /* Скрываем футер и статус-виджет */
     footer {visibility: hidden;}
     .stStatusWidget {visibility: hidden;}
     .stDeployButton {visibility: hidden;}
-    /* Тулбар — сливаем с фоном */
+
+    /* Пустой тулбар — полностью прозрачный */
     [data-testid="stToolbar"] {
-        background-color: #ECF0ED !important;
-        visibility: visible !important;
+        background-color: transparent !important;
     }
-    /* Manage App скрываем (опционально) */
-    [data-testid="manage-app-button"] { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
