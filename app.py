@@ -48,6 +48,26 @@ st.markdown("""
         -webkit-text-fill-color: #FF4C24 !important;
         font-weight: 600 !important;
     }
+/* ПЕРЕНОС САЙДБАРА НАПРАВО */
+    [data-testid="stSidebar"] {
+        left: auto !important;
+        right: 0 !important;
+        border-right: none !important;
+        border-left: 3px solid #FF4C24 !important; /* Линия теперь слева */
+    }
+
+    /* КОРРЕКТИРОВКА ОТСТУПОВ ОСНОВНОГО КОНТЕНТА */
+    [data-testid="stAppViewContainer"] {
+        flex-direction: row-reverse !important;
+    }
+
+    /* КНОПКА ОТКРЫТИЯ САЙДБАРА (стрелочка) */
+    [data-testid="stSidebarCollapsedControl"] {
+        left: auto !important;
+        right: 10px !important;
+        transform: scaleX(-1); /* Разворачиваем стрелочку */
+    }
+    
 </style>
 """, unsafe_allow_html=True)
 
