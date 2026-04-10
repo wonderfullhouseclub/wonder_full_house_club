@@ -127,7 +127,7 @@ with c1:
     num_senior = st.number_input("Старших менеджеров", min_value=0, value=1, key="num_senior")
 with c2:
     rate_diler = st.number_input("Ставка/час", value=350, key="rate_diler")
-    rate_tour = st.number_input("Ставка/час", value=250, key="rate_tour")
+    rate_tour = st.number_input("Ставка/час", value=350, key="rate_tour")
     rate_senior = st.number_input("Ставка/час", value=400, key="rate_senior")
 hours = 165
 staff_total = (num_dilers * rate_diler * hours +
@@ -137,12 +137,12 @@ st.sidebar.markdown(f"<span style='color: #FFFFFF; font-weight: 600;'>Итого
 
 st.sidebar.markdown("<h3 style='color: #FF4C24;'>💰 Первичные инвестиции</h3>", unsafe_allow_html=True)
 inv_repair = st.sidebar.number_input("🔨 Ремонт и оснащение помещения, руб.", value=1_500_000, step=100_000)
-inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=2_000_000, step=100_000)
+inv_equip = st.sidebar.number_input("🎲 Закупка оборудования и комплектующих, руб.", value=1_000_000, step=100_000)
 
 inv_deposit = st.sidebar.slider("🔐 Обеспечительный платёж, руб.",
                                min_value=500_000, max_value=1_000_000, value=1_000_000, step=50_000)
 
-inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=300_000, step=50_000)
+inv_marketing = st.sidebar.number_input("📣 Маркетинговый бюджет на запуск, руб.", value=500_000, step=50_000)
 total_investments = inv_repair + inv_equip + inv_deposit + inv_marketing
 st.sidebar.markdown(f"<span id='total-investments-sidebar'>Общие инвестиции: {total_investments:,.0f} ₽</span>".replace(",", " "), unsafe_allow_html=True)
 
