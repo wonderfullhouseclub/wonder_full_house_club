@@ -138,7 +138,7 @@ hookah_conv = st.sidebar.slider("Конверсия в кальяны, %", 0, 10
 hookah_check = st.sidebar.number_input("Средний чек кальяна, руб.", value=1700, step=100)
 
 # Бар
-bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 17) / 100
+bar_conv = st.sidebar.slider("Конверсия в бар, %", 0, 100, 15) / 100
 bar_check = st.sidebar.number_input("Средний чек бара, руб.", value=500, step=50)
 
 # Кухня
